@@ -1,4 +1,4 @@
-package com.example.askmenowapp;
+package com.example.amn_map;
 
 import org.junit.Test;
 

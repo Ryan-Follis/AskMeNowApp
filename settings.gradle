@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AskMeNowApp"
+rootProject.name = "AMN_Map"
 include ':app'
