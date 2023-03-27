@@ -1,0 +1,66 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DSStore
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Extra Things to Ignore:
+# built application files
+*.apk
+*.ap
+
+# files for the dex VM
+*.dex
+
+# Java class files
+.class
+
+# generated files
+bin/
+gen/
+
+# local configuration files (sdk path, etc.)
+build.gradle
+gradle.properties
+gradlew
+gradlew.bat
+local.properties
+settings.gradle
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea/
+.gradle
+//local.properties
+//out
+///build
+//*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+
+# res folder
+/app/src/main/res/drawable
+/app/src/main/res/drawable-v24
+/app/src/main/res/mipmap-anydpi-v26
+/app/src/main/res/mipmap-anydpi-v33
+/app/src/main/res/mipmap-hdpi
+/app/src/main/res/mipmap-mdpi
+/app/src/main/res/mipmap-xhdpi
+/app/src/main/res/mipmap-xxhdpi
+/app/src/main/res/mipmap-xxxhdpi
