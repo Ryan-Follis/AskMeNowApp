@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AMN_Map"
         tools:targetApi="31">
-
+        <activity
+            android:name=".userProfileActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -26,6 +28,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".MapsActivity"
             android:exported="true"
