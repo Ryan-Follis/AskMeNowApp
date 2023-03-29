@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.askmenow;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PictureViewerAdapter extends RecyclerView.Adapter<PictureViewerAdapter.ViewHolder> {
     private static final int MAX_PIC = 10;
+
+    private InfoBarUtils info;
+
+    public PictureViewerAdapter(InfoBarUtils info) {
+        this.info = info;
+    }
 
     @NonNull
     @Override
