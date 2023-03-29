@@ -1,4 +1,4 @@
-package com.example.askmenow.ui.home;
+package com.example.askmenow.ui.dms;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.askmenow.databinding.FragmentHomeBinding;
+import com.example.askmenow.databinding.FragmentDmsBinding;
 
-public class HomeFragment extends Fragment {
+public class DMsFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentDmsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        DMsViewModel homeViewModel =
+                new ViewModelProvider(this).get(DMsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentDmsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        final TextView textView = binding.textDms;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
