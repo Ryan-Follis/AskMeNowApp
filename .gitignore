@@ -1,3 +1,5 @@
+*.iml
+.gradle
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -5,39 +7,60 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+.DSStore
 /build
 /captures
 .externalNativeBuild
 .cxx
+local.properties
 
+# Extra Things to Ignore:
 # built application files
 *.apk
-*.ap_
-*.aab
+*.ap
 
 # files for the dex VM
 *.dex
 
 # Java class files
-*.class
+.class
 
 # generated files
 bin/
 gen/
 
-# Local configuration files (sdk path, etc.)
+# local configuration files (sdk path, etc.)
+# build.gradle
+gradle.properties
+gradlew
+gradlew.bat
 local.properties
+# settings.gradle
 
-# OSX files
-.DS_Store
+# Eclipse project files
+.classpath
+.project
 
 # Android Studio
-*.iml
-.idea
+.idea/
 .gradle
-captures/
-output.json
+//local.properties
+//out
+///build
+//*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
 
-# NDK
-obj/
-.externalNativeBuild
+# res folder
+/app/src/main/res/drawable
+/app/src/main/res/drawable-v24
+/app/src/main/res/mipmap-anydpi-v26
+/app/src/main/res/mipmap-anydpi-v33
+/app/src/main/res/mipmap-hdpi
+/app/src/main/res/mipmap-mdpi
+/app/src/main/res/mipmap-xhdpi
+/app/src/main/res/mipmap-xxhdpi
+/app/src/main/res/mipmap-xxxhdpi
