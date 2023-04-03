@@ -52,7 +52,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/interests" />
-    
+
     <Button
         android:id="@+id/signout"
         android:layout_width="match_parent"
