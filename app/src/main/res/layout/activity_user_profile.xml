@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User Name: "
         android:textSize="24sp"
@@ -25,9 +25,20 @@
         android:layout_below="@id/pictures"
         android:textColor="@color/black"/>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/username"
+        android:layout_below="@id/pictures"
+        android:layout_toRightOf="@id/username"
+        android:textAlignment="right" />
+
     <TextView
         android:id="@+id/age"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Age: "
         android:textSize="24sp"
