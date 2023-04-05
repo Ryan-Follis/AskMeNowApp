@@ -1,4 +1,19 @@
 <resources>
-    <string name="app_name">AMN_Map</string>
+    <string name="app_name">AskMeNow</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_direct_messages">DirectMessagesActivity</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="sign_in">Sign In</string>
+    <string name="add_image">Add Image</string>
+    <string name="name">Name</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
