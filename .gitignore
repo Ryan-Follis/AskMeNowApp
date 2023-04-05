@@ -7,7 +7,7 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
+.DSStore
 /build
 /captures
 .externalNativeBuild
@@ -17,13 +17,13 @@ local.properties
 # Extra Things to Ignore:
 # built application files
 *.apk
-*.ap_
+*.ap
 
 # files for the dex VM
 *.dex
 
 # Java class files
-*.class
+.class
 
 # generated files
 bin/
@@ -44,10 +44,10 @@ settings.gradle
 # Android Studio
 .idea/
 .gradle
-/*/local.properties
-/*/out
-/*/*/build
-/*/*/production
+//local.properties
+//out
+///build
+//*/production
 *.iml
 *.iws
 *.ipr
