@@ -4,23 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.askmenow.MainActivity"
+    tools:context=".MainActivity"
     android:background="#FFFFFF">
 
     <include layout="@layout/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
-    <include layout="@layout/pic_container"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/profile_container"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
-
-    <include layout="@layout/basic_info"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"/>
-
-    <include layout="@layout/list_container"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

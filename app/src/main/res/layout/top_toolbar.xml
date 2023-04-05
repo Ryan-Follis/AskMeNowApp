@@ -34,14 +34,14 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/select_photo"
+            android:layout_toLeftOf="@id/send_dm"
             android:background="@color/white"
             android:contentDescription="remember user"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/love" />
 
         <ImageButton
-            android:id="@+id/select_photo"
+            android:id="@+id/send_dm"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
@@ -49,7 +49,7 @@
             android:background="@color/white"
             android:contentDescription="select photo"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/photo" />
+            app:srcCompat="@drawable/comment" />
 
     </RelativeLayout>
 

@@ -10,8 +10,6 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import com.example.askmeknow.R;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -26,36 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // set up viewPager2
-        ViewPager2 picContainer = findViewById(R.id.pic_container);
-        InfoBarUtils info = new InfoBarUtils(this);
-        PictureViewerAdapter picAdapter = new PictureViewerAdapter();
-        picContainer.setAdapter(picAdapter);
-        ViewPager2 listContainer = findViewById(R.id.list_container);
-        ListViewerAdapter listAdapter = new ListViewerAdapter();
-        listContainer.setAdapter(listAdapter);
+        ViewPager2 profileContainer = findViewById(R.id.profile_container);
+        ProfileAdapter profileAdapter = new ProfileAdapter();
+        profileContainer.setAdapter(profileAdapter);
 
-        picContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                // update info bar
-                info.updateName("test name " + position);
-                info.updateAge(String.valueOf(position * 5));
-                boolean nearby = position % 3 == 0;
-                info.isNearBy(nearby);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-        });
-        listContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -73,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // connect tab layout to the picContainer
-        TabLayout dotIndicator = findViewById(R.id.dot_indicator);
-        new TabLayoutMediator(dotIndicator, picContainer, (tab, position) -> {}).attach();
+        // TabLayout dotIndicator = findViewById(R.id.dot_indicator);
+        // new TabLayoutMediator(dotIndicator, picContainer, (tab, position) -> {}).attach();
 
         // register click events for top menu buttons
         ImageButton search = findViewById(R.id.search_user);
         ImageButton friendRequest = findViewById(R.id.friend_request);
         ImageButton rememberUser = findViewById(R.id.remember_user);
-        ImageButton selectPhoto = findViewById(R.id.select_photo);
+        ImageButton sendDM = findViewById(R.id.send_dm);
         search.setOnClickListener((View v)->{
 
         });
@@ -90,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         rememberUser.setOnClickListener((View v)->{
 
         });
-        selectPhoto.setOnClickListener((View v)-> {
-            uploadPhoto(selectPhoto);
+        sendDM.setOnClickListener((View v)-> {
+            // uploadPhoto(selectPhoto);
         });
     }
 

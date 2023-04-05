@@ -5,9 +5,15 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
+    <androidx.viewpager2.integration.testapp.NestedScrollableHost
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/qa_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 
 </LinearLayout>
