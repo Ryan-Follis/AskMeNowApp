@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".userProfileActivity"
-    android:orientation="vertical">
+    android:layout_gravity="top">
 
     <View
         android:id="@+id/pictures"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="300dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/username"
@@ -20,8 +22,8 @@
         android:text="User Name: "
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/pictures"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_below="@id/pictures"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/age"
@@ -30,8 +32,9 @@
         android:text="Age: "
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/username"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_below="@id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/interests"
@@ -40,17 +43,19 @@
         android:text="My interests: "
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/age" />
+        android:layout_below="@id/age"
+        android:textColor="@color/black"/>
+
 
     <TextView
         android:id="@+id/visibleTo"
-        android:layout_width="wrap_content"
+        android:layout_width="120sp"
         android:layout_height="wrap_content"
         android:text="Visible to: "
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_alignBottom="@+id/drop"
+        android:layout_below="@id/interests"
+        android:textColor="@color/black"
          />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,8 +63,10 @@
         android:layout_height="24sp"
         android:layout_toRightOf="@+id/visibleTo"
         android:id="@+id/drop"
-        android:ems="10">
+        android:layout_alignBottom="@+id/visibleTo"
+        android:layout_below="@id/interests">
         <AutoCompleteTextView
+            android:id="@+/autodrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none">
@@ -73,7 +80,9 @@
         android:text="Log Out"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/visibleTo"/>
 
     <Button
         android:id="@+id/changepassword"
@@ -82,8 +91,9 @@
         android:text="Change Password"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signout"/>
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/signout"/>
 
     <Button
         android:id="@+id/forgot"
@@ -92,8 +102,9 @@
         android:text="Forgot My Password"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/changepassword"/>
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/changepassword"/>
 
     <Button
         android:id="@+id/delete"
@@ -102,6 +113,7 @@
         android:text="Delete Account"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forgot"/>
-</LinearLayout>
+        android:backgroundTint="@color/white"
+        android:textColor="@color/red"
+        android:layout_below="@id/forgot"/>
+</RelativeLayout>
