@@ -35,19 +35,7 @@ public class userProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inf = getMenuInflater();
-        inf.inflate(R.menu.visibility_dropdown, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        return true;
-    }
-
+    
     public int push(String field){
         return 0;
     }
