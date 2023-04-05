@@ -47,11 +47,24 @@
         android:id="@+id/visibleTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make my profile visile to: "
+        android:text="Visible to: "
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/interests" />
+        android:layout_alignBottom="@+id/drop"
+         />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="24sp"
+        android:layout_toRightOf="@+id/visibleTo"
+        android:id="@+id/drop"
+        android:ems="10">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none">
+        </AutoCompleteTextView>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signout"
@@ -60,8 +73,7 @@
         android:text="Log Out"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/visibleTo"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/changepassword"
