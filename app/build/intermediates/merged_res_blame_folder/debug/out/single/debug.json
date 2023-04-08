@@ -1,0 +1,102 @@
+[
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\layout_activity_direct_messages.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_direct_messages.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\layout_activity_sign_up.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\drawable_background_image.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\drawable\\background_image.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\layout_activity_maps.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_maps.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.askmenow.app-merged_res-38:/layout_activity_sign_in.xml.flat",
+        "source": "com.example.askmenow.app-main-40:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\drawable_background_input.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\drawable\\background_input.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-anydpi-v33\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\layout_activity_sign_in.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.askmenow.app-merged_res-38:/layout_activity_sign_up.xml.flat",
+        "source": "com.example.askmenow.app-main-40:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-merged_res-38:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    }
+]

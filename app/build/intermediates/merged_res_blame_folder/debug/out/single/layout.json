@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-37:\\layout\\activity_sign_up.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-37:/layout/activity_sign_up.xml",
+        "source": "com.example.askmenow.app-main-40:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-37:\\layout\\activity_sign_in.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_sign_in.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-37:/layout/activity_sign_in.xml",
+        "source": "com.example.askmenow.app-main-40:/layout/activity_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-37:\\layout\\activity_direct_messages.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_direct_messages.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-37:\\layout\\activity_maps.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-40:\\layout\\activity_maps.xml"
+    }
+]

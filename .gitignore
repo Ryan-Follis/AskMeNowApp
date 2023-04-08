@@ -30,12 +30,12 @@ bin/
 gen/
 
 # local configuration files (sdk path, etc.)
-build.gradle
+# build.gradle
 gradle.properties
 gradlew
 gradlew.bat
 local.properties
-settings.gradle
+# settings.gradle
 
 # Eclipse project files
 .classpath
