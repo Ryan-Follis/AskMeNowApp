@@ -5,6 +5,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 /*
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -14,5 +15,6 @@ dependencyResolutionManagement {
     }
 }
  */
+
 rootProject.name = "AMN_Map"
 include ':app'
