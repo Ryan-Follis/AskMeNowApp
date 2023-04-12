@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -21,6 +22,9 @@ public class userProfileActivity extends AppCompatActivity {
     AutoCompleteTextView auto;
     ArrayAdapter<String> adapter;
     private AlertDialog.Builder dBuilder;
+    private AlertDialog changePass;
+    private EditText newcontactpopup_old, newcontactpopup_new;
+    private Button newcontactpopup_cancel, newcontactpopup_submit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,7 @@ public class userProfileActivity extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            
+
             }
         });
 
@@ -86,5 +90,10 @@ public class userProfileActivity extends AppCompatActivity {
         }
         visibility = -1;
         return 0;
+    }
+
+    public void createNewContactDialog(){
+        dBuilder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup,null);
     }
 }
