@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/dot_container"
         app:tabGravity="center"
-        app:tabIndicatorHeight="0dp" />
+        app:tabIndicatorHeight="0dp"
+        android:contentDescription="dot indicator"/>
 
     </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 

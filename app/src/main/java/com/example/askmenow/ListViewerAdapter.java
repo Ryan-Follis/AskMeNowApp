@@ -13,6 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.ViewHolder> {
     private static final int MAX_Q = 10;
 
+    private final int uid;
+
+    public ListViewerAdapter(int uid) {
+        this.uid = uid;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,7 +28,7 @@ public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-         holder.list.setAdapter(new QAListAdapter());
+         holder.list.setAdapter(new QAListAdapter(0));
          holder.list.setLayoutManager(new LinearLayoutManager(holder.list.getContext()));
     }
 

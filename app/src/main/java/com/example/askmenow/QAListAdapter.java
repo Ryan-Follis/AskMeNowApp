@@ -15,6 +15,11 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
     // maximum number of answers.
     // Total number of items is MAX_A + 1 since there is also one question
     private static final int MAX_A = 10;
+    private final int qid; // question id
+
+    public QAListAdapter(int qid) {
+        this.qid = qid;
+    }
 
     @NonNull
     @Override

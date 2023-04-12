@@ -15,11 +15,8 @@
 
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
-
              To get one, follow the directions here:
-
                 https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
              Once you have your API key (it starts with "AIza"), define a new property in your
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
@@ -33,11 +30,23 @@
             android:label="MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.askmenow.UploadPhotoActivity"/>
+        <activity android:name="com.example.askmenow.SearchUserActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+        <activity android:name="com.example.askmenow.SearchResultActivity"/>
+
+        <!--allow the main activity to call the search dialog-->
+        <meta-data android:name="android.app.default_searchable"
+            android:value="com.example.askmenow.SearchUserActivity" />
     </application>
 
 </manifest>

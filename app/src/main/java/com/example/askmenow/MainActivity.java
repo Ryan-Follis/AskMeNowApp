@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton rememberUser = findViewById(R.id.remember_user);
         ImageButton sendDM = findViewById(R.id.send_dm);
         search.setOnClickListener((View v)->{
-
+            onSearchRequested();
         });
         friendRequest.setOnClickListener((View v)->{
 

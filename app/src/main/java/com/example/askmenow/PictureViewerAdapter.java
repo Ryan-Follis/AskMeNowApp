@@ -13,6 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class PictureViewerAdapter extends RecyclerView.Adapter<PictureViewerAdapter.ViewHolder> {
     private static final int MAX_PIC = 10;
 
+    private final int uid;
+
+    public PictureViewerAdapter(int uid) {
+        this.uid = uid;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

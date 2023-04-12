@@ -25,9 +25,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // configure sub-pageviewers
-        PictureViewerAdapter picAdapter = new PictureViewerAdapter();
+        PictureViewerAdapter picAdapter = new PictureViewerAdapter(0);
         holder.picContainer.setAdapter(picAdapter);
-        ListViewerAdapter listAdapter = new ListViewerAdapter();
+        ListViewerAdapter listAdapter = new ListViewerAdapter(0);
         holder.listContainer.setAdapter(listAdapter);
 
         holder.picContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
