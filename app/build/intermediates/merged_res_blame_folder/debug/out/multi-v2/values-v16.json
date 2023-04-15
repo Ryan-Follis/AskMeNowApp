@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.askmenow.app-mergeDebugResources-44:/values-v16/values-v16.xml",
+            "outputFile": "com.example.askmenow.app-mergeDebugResources-50:/values-v16/values-v16.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ryanf\\.gradle\\caches\\transforms-3\\9783f95f2450fdffe90c893056a80c0f\\transformed\\core-1.9.0\\res\\values-v16\\values-v16.xml",

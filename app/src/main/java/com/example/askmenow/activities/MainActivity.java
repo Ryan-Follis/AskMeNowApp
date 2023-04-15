@@ -1,7 +1,8 @@
-package com.example.askmenow;
+package com.example.askmenow.activities;
 
 import android.os.Bundle;
 
+import com.example.askmenow.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

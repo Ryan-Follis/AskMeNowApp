@@ -1,4 +1,4 @@
-package com.example.askmenow;
+package com.example.askmenow.utilities;
 
 import java.util.ArrayList;
 import java.util.List;

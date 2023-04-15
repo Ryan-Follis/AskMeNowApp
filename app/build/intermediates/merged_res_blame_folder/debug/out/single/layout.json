@@ -1,30 +1,42 @@
 [
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/fragment_map.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/fragment_map.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_notifications.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/fragment_notifications.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/fragment_profile.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/fragment_profile.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_map.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/fragment_map.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/fragment_dms.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/fragment_dms.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_maps.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/activity_maps.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/activity_maps.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/activity_maps.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_profile.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/fragment_notifications.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/fragment_notifications.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_main.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/activity_main.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/activity_main.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_sign_in.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/activity_sign_in.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-45:/layout/fragment_questions.xml",
-        "source": "com.example.askmenow.app-main-48:/layout/fragment_questions.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_direct_messages.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/activity_direct_messages.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_dms.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/fragment_dms.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_questions.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/fragment_questions.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_sign_up.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/activity_sign_up.xml"
     }
 ]

@@ -30,12 +30,10 @@ bin/
 gen/
 
 # local configuration files (sdk path, etc.)
-# build.gradle
 gradle.properties
 gradlew
 gradlew.bat
 local.properties
-# settings.gradle
 
 # Eclipse project files
 .classpath
@@ -55,7 +53,6 @@ local.properties
 *.swp
 
 # res folder
-/app/src/main/res/drawable
 /app/src/main/res/drawable-v24
 /app/src/main/res/mipmap-anydpi-v26
 /app/src/main/res/mipmap-anydpi-v33
