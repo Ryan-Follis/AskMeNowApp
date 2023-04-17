@@ -1,9 +1,16 @@
 package com.example.askmenow;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import com.example.askmenow.ui.dms.DMsFragment;
+import com.example.askmenow.ui.notifications.NotificationsFragment;
+import com.example.askmenow.ui.profile.ProfileFragment;
+import com.example.askmenow.ui.questions.QuestionsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,15 +31,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_dms, R.id.navigation_map, R.id.navigation_notifications,
-                R.id.navigation_questions, R.id.navigation_profile)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        navView.setSelectedItemId(R.id.navigation_dms);
+        navView.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_dms:
+                        startActivity(new Intent(getApplicationContext(), DMsFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_notifications:
+                        startActivity(new Intent(getApplicationContext(), NotificationsFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_map:
+                        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_questions:
+                        startActivity(new Intent(getApplicationContext(), QuestionsFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navigation_profile:
+                        startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
-
 }
