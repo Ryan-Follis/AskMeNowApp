@@ -20,6 +20,7 @@ dimen activity_horizontal_margin
 dimen activity_vertical_margin
 drawable background_image
 drawable background_input
+drawable baseline_arrow_drop_down_24
 drawable ic_baseline_message_24
 drawable ic_baseline_people_24
 drawable ic_baseline_person_24
