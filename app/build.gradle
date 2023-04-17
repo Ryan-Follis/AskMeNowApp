@@ -4,6 +4,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+// Kotlin support
+apply plugin: 'kotlin-android'
+
 android {
     namespace 'com.example.askmenow'
     compileSdk 33
@@ -66,4 +69,7 @@ dependencies {
 
     // MultiDex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // Kotlin support
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21"
 }
