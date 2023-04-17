@@ -33,6 +33,7 @@
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="project_id" translatable="false">askmenow-7e093</string>
+    <string name="search_hint">search user</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="title_activity_direct_messages">DirectMessagesActivity</string>

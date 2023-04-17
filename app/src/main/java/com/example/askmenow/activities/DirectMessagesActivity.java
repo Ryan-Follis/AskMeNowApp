@@ -1,10 +1,10 @@
 package com.example.askmenow.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.example.askmenow.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DirectMessagesActivity extends AppCompatActivity {
 

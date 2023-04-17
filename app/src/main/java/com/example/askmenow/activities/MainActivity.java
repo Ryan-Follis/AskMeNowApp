@@ -3,6 +3,7 @@ package com.example.askmenow.activities;
 import android.os.Bundle;
 
 import com.example.askmenow.R;
+import com.example.askmenow.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.example.askmenow.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 

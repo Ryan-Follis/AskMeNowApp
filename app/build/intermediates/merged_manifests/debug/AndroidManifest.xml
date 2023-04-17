@@ -95,6 +95,25 @@
             android:name="com.example.askmenow.activities.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
+        <activity android:name="com.example.askmenow.activities.ProfilehubActivity" />
+        <activity android:name="com.example.askmenow.activities.UploadPhotoActivity" />
+        <activity
+            android:name="com.example.askmenow.activities.SearchUserActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name="com.example.askmenow.activities.SearchResultActivity" />
+
+        <!-- allow the main activity to call the search dialog -->
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="com.example.askmenow.SearchUserActivity" />
 
         <service
             android:name="com.example.askmenow.firebase.DirectMessagesService"
