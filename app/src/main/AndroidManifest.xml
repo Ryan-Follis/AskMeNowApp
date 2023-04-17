@@ -66,12 +66,17 @@
             android:exported="true"
             android:label="@string/title_activity_maps"/>
 
-        <activity android:name=".activities.ProfilehubActivity"/>
+        <activity android:name=".activities.ProfilehubActivity"
+            android:exported="true"
+            android:label="ProfileHubActivity"/>
 
-        <activity android:name=".activities.UploadPhotoActivity"/>
+        <activity android:name=".activities.UploadPhotoActivity"
+            android:exported="true"
+            android:label="UploadPhotoActivity"/>
 
         <activity android:name=".activities.SearchUserActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="SearchUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
@@ -79,11 +84,13 @@
                 android:resource="@xml/searchable"/>
         </activity>
 
-        <activity android:name=".activities.SearchResultActivity"/>
+        <activity android:name=".activities.SearchResultActivity"
+            android:exported="true"
+            android:label="SearchResultActivity"/>
 
         <!--allow the main activity to call the search dialog-->
         <meta-data android:name="android.app.default_searchable"
-            android:value="com.example.askmenow.SearchUserActivity" />
+            android:value=".activities.SearchUserActivity" />
 
     <service
             android:name=".firebase.DirectMessagesService"
