@@ -23,7 +23,6 @@ public class DMsFragment extends Fragment {
 
         binding = FragmentDmsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         final TextView textView = binding.textDms;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
