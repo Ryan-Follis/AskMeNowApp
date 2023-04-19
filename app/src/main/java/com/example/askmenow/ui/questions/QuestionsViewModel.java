@@ -1,4 +1,18 @@
 package com.example.askmenow.ui.questions;
 
-public class QuestionsViewModel {
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+public class QuestionsViewModel extends ViewModel {
+    private final MutableLiveData<String> mText;
+
+    public QuestionsViewModel() {
+        mText = new MutableLiveData<>();
+        mText.setValue("This is dashboard fragment");
+    }
+
+    public LiveData<String> getText() {
+        return mText;
+    }
 }
