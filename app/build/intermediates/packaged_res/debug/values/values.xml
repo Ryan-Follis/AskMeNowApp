@@ -18,21 +18,28 @@
     <color name="white">#FFFFFFFF</color>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
     <string name="add_image">Add Image</string>
     <string name="app_name">AskMeNow</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="create_new_account">Create New Account</string>
     <string name="default_web_client_id" translatable="false">556892231204-kiiioud6ujfav8mkhgdt7sh8omsjojgv.apps.googleusercontent.com</string>
     <string name="email">Email</string>
+    <string name="first_fragment_label">First Fragment</string>
     <string name="gcm_defaultSenderId" translatable="false">556892231204</string>
     <string name="google_api_key" translatable="false">AIzaSyAeEPA4uhxJAmaqh4srntmTGXsLTXQeobc</string>
     <string name="google_app_id" translatable="false">1:556892231204:android:e81b8b5416194b92d62ab1</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAeEPA4uhxJAmaqh4srntmTGXsLTXQeobc</string>
     <string name="google_storage_bucket" translatable="false">askmenow-7e093.appspot.com</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="login">Login</string>
     <string name="name">Name</string>
+    <string name="next">Next</string>
     <string name="password">Password</string>
+    <string name="previous">Previous</string>
     <string name="project_id" translatable="false">askmenow-7e093</string>
+    <string name="second_fragment_label">Second Fragment</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="title_activity_direct_messages">DirectMessagesActivity</string>
@@ -40,6 +47,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_user_profile">UserProfileActivity</string>
     <string name="username">Username</string>
     <string name="welcome_back">Welcome Back!</string>
     <style name="Theme.AskMeNow" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -48,4 +56,10 @@
 
         
     </style>
+    <style name="Theme.AskMeNow.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.AskMeNow.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.AskMeNow.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>
