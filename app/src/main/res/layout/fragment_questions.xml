@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.ProfilehubActivity">
+    tools:context=".activities.ProfilehubActivity"
+    android:background="@color/white">
 
     <include layout="@layout/top_toolbar"
         android:layout_width="match_parent"
