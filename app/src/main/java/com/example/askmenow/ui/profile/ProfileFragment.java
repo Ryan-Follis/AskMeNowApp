@@ -1,6 +1,7 @@
 package com.example.askmenow.ui.profile;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.MainActivity;
+import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentProfileBinding;
+import com.example.askmenow.utilities.Constants;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
@@ -33,6 +39,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        pullProfile();
         ProfileViewModel homeViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         binding = FragmentProfileBinding.inflate(inflater, container, false);
@@ -80,20 +87,15 @@ public class ProfileFragment extends Fragment {
         return 0;
     }
 
-    public int pullProfile(String[] profileInfo){
-        boolean check = true;
-        for (int i = 0; i<data.length; i++){
-            data[i] = profileInfo[i];
-            if(data[i] == null){
-                check = false;
-            }
-        }
-        if(check){
-            return 0;
-        }
-        else{
-            return 1;
-        }
+    public int pullProfile(){
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        String user_username = intent.getStringExtra("username");
+        String age = intent.getStringExtra("age");
+        TextView fullName = getView().findViewById(R.id.usernameField);
+        fullName.setText(user_username);
+        TextView ageView = getView().findViewById(R.id.ageField);
+        ageView.setText(age);
+        return 0;
     }
 
     public int logout(){
