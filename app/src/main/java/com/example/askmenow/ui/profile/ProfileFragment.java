@@ -160,11 +160,11 @@ public class ProfileFragment extends Fragment {
                             if(result.getData() != null){
                                 Uri imageUri = result.getData().getData();
                                 try{
-                                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                                    InputStream inputStream = getActivity().getContentResolver().openInputStream(imageUri);
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     binding.pictures.setImageBitmap(bitmap);
-                                    binding.textAddImage.setVisibility(View.GONE);
-                                    encodedImage = encodeImage(bitmap);
+                                    //binding.textAddImage.setVisibility(View.GONE);
+                                    //encodedImage = encodeImage(bitmap);
                                 } catch(FileNotFoundException e){
                                     e.printStackTrace();
                                 }
