@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -38,8 +41,20 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -93,6 +108,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        // Call the method to prompt the user for their preferences
+        showLocationTypeDialog();
+
     }
 
     /**
@@ -175,6 +193,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+
     }
 
     /**
@@ -389,4 +409,122 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("Exception: %s", e.getMessage());
         }
     }
+
+    private void addMarkers2Map(String locationType, String radius) {
+         String type = locationType.replaceAll(",\\s*|,", "+").toLowerCase();
+       if(type.charAt(type.length()-1)=='+'){ type = type.substring(0,type.length()-1);	      }
+        String finalType = type;
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                String url_inter = "https://maps.googleapis.com/maps/api/place/textsearch/json?" +
+                        "Lat=" + defaultLocation.latitude +
+                        "&Lng=" +  defaultLocation.longitude +
+                        "&radius=" + radius.substring(0, radius.length() - 1) +
+                        "&query=" + finalType +
+                        "&key=AIzaSyC1Mk78TRBBocMcwVshCri_Z2q9VlJ5eGI";
+System.out.println(url_inter);
+                try {
+                    URL url = new URL(url_inter);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("GET");
+
+                    int status = con.getResponseCode();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String inputLine;
+                    StringBuffer content = new StringBuffer();
+                    while ((inputLine = in.readLine()) != null) {
+                        content.append(inputLine);
+                    }
+                    in.close();
+                    con.disconnect();
+
+                    return content.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String jsonResponse) {
+                try {
+                    JSONObject response = new JSONObject(jsonResponse);
+                    JSONArray results = response.getJSONArray("results");
+
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject location = results.getJSONObject(i).getJSONObject("geometry").getJSONObject("location");
+                        LatLng latLng = new LatLng(location.getDouble("lat"), location.getDouble("lng"));
+                        String name = results.getJSONObject(i).getString("name");
+                        String address = results.getJSONObject(i).getString("formatted_address");
+
+                        MarkerOptions markerOptions = new MarkerOptions()
+                                .position(latLng)
+                                .title(name)
+                                .snippet(address);
+                        map.addMarker(markerOptions);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.execute();
+    }
+
+
+
+    private String locationType;
+    private String radius;
+    private void showLocationTypeDialog() {
+        // Create an array of location types for the user to choose from
+        final String[] locationTypes = {"Museum", "Restaurant", "Zoo", "Park"};
+
+        // Create an array of checked items for the location types
+        final boolean[] checkedItems = {false, false, false, false};
+
+        // Create an array of radius options for the user to choose from
+        final String[] radiusOptions = {"5m", "10m", "25m", "50m"};
+
+        // Create a new AlertDialog to display the location type options
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose location types:");
+        builder.setMultiChoiceItems(locationTypes, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                checkedItems[which] = isChecked;
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Create a new AlertDialog to display the radius options
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MapsActivity.this);
+                builder2.setTitle("Choose a radius:");
+                builder2.setItems(radiusOptions, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        radius = radiusOptions[which];
+
+                        // Build the location type string based on the user's selections
+                        StringBuilder locationTypeBuilder = new StringBuilder();
+                        for (int i = 0; i < checkedItems.length; i++) {
+                            if (checkedItems[i]) {
+                                locationTypeBuilder.append(locationTypes[i]).append(", ");
+                            }
+                        }
+                        locationType = locationTypeBuilder.toString().trim();
+
+                        // Display a Toast message indicating the user's selections
+                        Toast.makeText(MapsActivity.this, "You chose " + locationType + " within " + radius, Toast.LENGTH_SHORT).show();
+                        addMarkers2Map ( locationType,  radius);
+                    }
+                });
+                builder2.show();
+            }
+        });
+        builder.show();
+    }
+
+
+
 }
