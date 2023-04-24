@@ -1,7 +1,12 @@
 package com.example.askmenow.ui.profile;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +33,11 @@ import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentProfileBinding;
 import com.example.askmenow.utilities.Constants;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Base64;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
@@ -83,7 +95,7 @@ public class ProfileFragment extends Fragment {
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                
+
                 return false;
             }
         });
@@ -125,5 +137,41 @@ public class ProfileFragment extends Fragment {
     public void createNewContactDialog(){
         dBuilder = new AlertDialog.Builder(getActivity().getApplicationContext());
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup,null);
+    }
+
+    private String encodeImage(Bitmap bitmap){
+        int previewWidth = 150;
+        int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+        byte[] bytes = outputStream.toByteArray();
+        // not sure if I need .encodeToString(bytes, Base64.DEFAULT) in line below or not
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    private void storePictures(){
+        int total = 0;
+        while(total<=10){
+             final ActivityResultLauncher<Intent> selectImage = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if(result.getResultCode() == RESULT_OK){
+                            if(result.getData() != null){
+                                Uri imageUri = result.getData().getData();
+                                try{
+                                    InputStream inputStream = getContentResolver().openInputStream(imageUri);
+                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                    binding.pictures.setImageBitmap(bitmap);
+                                    binding.textAddImage.setVisibility(View.GONE);
+                                    encodedImage = encodeImage(bitmap);
+                                } catch(FileNotFoundException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+            );
+        }
     }
 }
