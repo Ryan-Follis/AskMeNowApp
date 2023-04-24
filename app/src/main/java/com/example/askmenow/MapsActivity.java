@@ -418,8 +418,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             protected String doInBackground(Void... voids) {
                 String url_inter = "https://maps.googleapis.com/maps/api/place/textsearch/json?" +
-                        "Lat=" + defaultLocation.latitude +
-                        "&Lng=" +  defaultLocation.longitude +
+                        "Location=" + defaultLocation.latitude + "," + defaultLocation.longitude +
                         "&radius=" + radius.substring(0, radius.length() - 1) +
                         "&query=" + finalType +
                         "&key=AIzaSyC1Mk78TRBBocMcwVshCri_Z2q9VlJ5eGI";
