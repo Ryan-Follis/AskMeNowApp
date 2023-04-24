@@ -1,4 +1,4 @@
-package com.example.amn_map;
+package com.example.askmenow;
 
 import android.content.Context;
 
