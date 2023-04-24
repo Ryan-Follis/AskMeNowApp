@@ -7,13 +7,15 @@
     android:layout_height="match_parent"
     tools:context="ui.profile.ProfileFragment">
 
-    <View
+    <ImageView
         android:id="@+id/pictures"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:backgroundTint="@color/white"/>
+        android:backgroundTint="@color/white"
+        android:src="@mipmap/ic_launcher">
+    </ImageView>
 
     <TextView
         android:id="@+id/username"

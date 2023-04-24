@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ public class ProfileFragment extends Fragment {
     private AlertDialog changePass;
     private EditText newcontactpopup_old, newcontactpopup_new;
     private Button newcontactpopup_cancel, newcontactpopup_submit;
+    private ImageView img;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +77,17 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //listener for pictures
+        img = root.findViewById(R.id.pictures);
+
+        img.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                
+                return false;
+            }
+        });
+
         return root;
     }
 
@@ -95,6 +109,8 @@ public class ProfileFragment extends Fragment {
         fullName.setText(user_username);
         TextView ageView = getView().findViewById(R.id.ageField);
         ageView.setText(age);
+        visibility = intent.getIntExtra("visibility",1);
+
         return 0;
     }
 
