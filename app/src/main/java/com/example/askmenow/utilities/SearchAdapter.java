@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SearchResultActivity;
 
 import androidx.annotation.NonNull;
@@ -34,8 +35,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.rowText.setText(names[position]);
         holder.rowText.setOnClickListener((View view)->{
-            Intent intent = new Intent(context, SearchResultActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra("id", String.valueOf(position));
+            intent.putExtra("dest", "search result");
             context.startActivity(intent);
         });
     }

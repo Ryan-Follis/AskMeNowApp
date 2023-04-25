@@ -1,12 +1,17 @@
 package com.example.askmenow.activities;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.ui.questions.SearchResultFragment;
+import com.example.askmenow.ui.questions.SearchUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,6 +38,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        // change fragment
+        Intent intent = getIntent();
+        String destination = intent.getStringExtra("dest");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            // get query and pass to SearchUserFragment
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            SearchUserFragment searchUser = new SearchUserFragment(query);
+            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchUser).commit();
+        } else if (destination != null && destination.equals("search result")) {
+            // show search result
+            int id = Integer.parseInt(intent.getStringExtra("id"));
+            SearchResultFragment searchResult = new SearchResultFragment(id);
+            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchResult).commit();
+        }
     }
 
 }

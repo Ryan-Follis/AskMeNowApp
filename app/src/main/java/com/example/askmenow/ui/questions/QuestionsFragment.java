@@ -76,8 +76,6 @@ public class QuestionsFragment extends Fragment {
             // uploadPhoto(sendDM);
         });
 
-        //final TextView textView = binding.textMap;
-        //mapViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

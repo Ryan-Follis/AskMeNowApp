@@ -47,13 +47,14 @@
             android:name=".activities.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main">
-            <!--
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+                <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
-            -->
+
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
 
         <activity
@@ -90,7 +91,7 @@
 
         <!--allow the main activity to call the search dialog-->
         <meta-data android:name="android.app.default_searchable"
-            android:value=".activities.SearchUserActivity" />
+            android:value=".activities.MainActivity" />
 
     <service
             android:name=".firebase.DirectMessagesService"

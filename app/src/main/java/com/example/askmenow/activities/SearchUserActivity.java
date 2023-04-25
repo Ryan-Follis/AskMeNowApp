@@ -44,6 +44,4 @@ public class SearchUserActivity extends AppCompatActivity {
 
         return new SearchAdapter(this, test);
     }
-
-
 }

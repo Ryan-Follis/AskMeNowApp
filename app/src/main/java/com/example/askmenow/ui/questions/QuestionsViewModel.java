@@ -9,7 +9,6 @@ public class QuestionsViewModel extends ViewModel {
 
     public QuestionsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {
