@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
+import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentProfileBinding;
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
@@ -148,9 +149,33 @@ public class ProfileFragment extends Fragment {
         dBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        /*
+                        * find out how to delete record of thing in firebase
+                        * */
 
+                        Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(switchActivityIntent);
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        dBuilder.show();
+        return 0;
+    }
+
+    public int logout(){
+        dBuilder.setTitle("Logout?")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(switchActivityIntent);
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
@@ -159,15 +184,21 @@ public class ProfileFragment extends Fragment {
         return 0;
     }
 
-    public int logout(){
-        for(int i=0;i<data.length;i++){
-            data[i] = null;
-        }
-        visibility = -1;
-        return 0;
-    }
-
     public int deleteProfile(){
+        dBuilder.setTitle("Delete Profile?")
+                .setMessage("Are you sure you want to delete your profile?\nYour data can not be recovered.")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        dBuilder.show();
         return 0;
     }
 
