@@ -27,13 +27,11 @@ public class SignInActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         // below line takes user straight to the DirectMessagesActivity if they are already
         // signed in when they open the app
-        /*
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
-            Intent intent = new Intent(getApplicationContext(), DirectMessagesActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
-        */
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setListeners();

@@ -1,4 +1,4 @@
-package com.example.askmenow.ui.dms;
+package com.example.askmenow.unused;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.example.askmenow.databinding.FragmentDmsBinding;
 
 public class OriginalDMsFragment extends Fragment {
 
-    private FragmentDmsBinding binding;
+    /* private FragmentDmsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,5 +33,5 @@ public class OriginalDMsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
+    } */
 }

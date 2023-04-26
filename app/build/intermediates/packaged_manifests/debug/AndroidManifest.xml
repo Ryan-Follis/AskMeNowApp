@@ -77,20 +77,20 @@
         <activity
             android:name="com.example.askmenow.activities.MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_main" >
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
+            android:label="@string/title_activity_main" />
         <activity
-            android:name="com.example.askmenow.activities.DirectMessagesActivity"
+            android:name="com.example.askmenow.unused.DirectMessagesActivity"
             android:exported="true"
             android:label="@string/title_activity_direct_messages" />
+        <activity
+            android:name="com.example.askmenow.activities.UsersActivity"
+            android:exported="true"
+            android:label="@string/title_activity_users" />
+        <activity
+            android:name="com.example.askmenow.activities.ChatActivity"
+            android:exported="true"
+            android:label="@string/title_activity_chat"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.example.askmenow.activities.MapsActivity"
             android:exported="true"
@@ -103,7 +103,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <!-- Needs to be explicitly declared on P+ -->
         <uses-library
             android:name="org.apache.http.legacy"

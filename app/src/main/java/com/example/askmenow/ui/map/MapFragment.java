@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.askmenow.databinding.FragmentMapBinding;
+import com.example.askmenow.unused.MapViewModel;
 
 public class MapFragment extends androidx.fragment.app.Fragment {
 

@@ -1,16 +1,16 @@
-package com.example.askmenow.ui.dms;
+package com.example.askmenow.unused;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DMsViewModel extends ViewModel {
+public class MapViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public DMsViewModel() {
+    public MapViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {

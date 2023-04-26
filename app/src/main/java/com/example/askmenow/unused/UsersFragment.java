@@ -1,4 +1,4 @@
-package com.example.askmenow.activities;
+package com.example.askmenow.unused;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UsersFragment extends Fragment {
 
-    private ActivityUsersBinding binding;
+    /* private ActivityUsersBinding binding;
     private PreferenceManager preferenceManager;
 
     @Override
@@ -85,5 +85,5 @@ public class UsersFragment extends Fragment {
         else{
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
-    }
+    }*/
 }

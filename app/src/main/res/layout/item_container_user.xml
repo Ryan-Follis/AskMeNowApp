@@ -32,19 +32,21 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/primary_text"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintBottom_toTopOf="@id/viewSupporter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/profileImage"/>
 
     <!-- Might wanna change this ID to name/username instead of email -->
     <TextView
-        android:id="@+id/textEmail"
+        android:id="@+id/textUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/secondary_text"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/profileImage"

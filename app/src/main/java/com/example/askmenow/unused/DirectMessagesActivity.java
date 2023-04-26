@@ -1,4 +1,4 @@
-package com.example.askmenow.activities;
+package com.example.askmenow.unused;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import com.example.askmenow.activities.SignInActivity;
+import com.example.askmenow.activities.UsersActivity;
 import com.example.askmenow.databinding.ActivityDirectMessagesBinding;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;

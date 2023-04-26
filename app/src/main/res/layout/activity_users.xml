@@ -18,7 +18,7 @@
         android:background="@drawable/background_icon"
         android:padding="@dimen/_6sdp"
         android:src="@drawable/ic_back"
-        app:layout_constrainStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/black"/>
 
