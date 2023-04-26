@@ -63,6 +63,16 @@ id navigation_map
 id navigation_notifications
 id navigation_profile
 id navigation_questions
+id pic1
+id pic10
+id pic2
+id pic3
+id pic4
+id pic5
+id pic6
+id pic7
+id pic8
+id pic9
 id pictures
 id profileImage
 id progressBar

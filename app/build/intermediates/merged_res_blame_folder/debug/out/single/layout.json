@@ -4,6 +4,10 @@
         "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\fragment_profile.xml"
     },
     {
+        "merged": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\popup.xml",
+        "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\popup.xml"
+    },
+    {
         "merged": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\fragment_notifications.xml",
         "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\fragment_notifications.xml"
     },
@@ -24,20 +28,16 @@
         "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\activity_sign_in.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/list.xml",
-        "source": "com.example.askmenow.app-main-54:/layout/list.xml"
-    },
-    {
-        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/popup.xml",
-        "source": "com.example.askmenow.app-main-54:/layout/popup.xml"
-    },
-    {
         "merged": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\activity_sign_up.xml",
         "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\activity_sign_up.xml"
     },
     {
         "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/fragment_profile.xml",
         "source": "com.example.askmenow.app-main-54:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\list.xml",
+        "source": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\list.xml"
     },
     {
         "merged": "C:\\Users\\dylan\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\fragment_dms.xml",
