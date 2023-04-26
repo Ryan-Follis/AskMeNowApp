@@ -134,6 +134,9 @@ public class ProfileFragment extends Fragment {
         return 0;
     }
 
+    private void uploadPictures(){
+
+    }
     public void createNewContactDialog(){
         dBuilder = new AlertDialog.Builder(getActivity().getApplicationContext());
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup,null);
@@ -150,28 +153,6 @@ public class ProfileFragment extends Fragment {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    private void storePictures(){
-        int total = 0;
-        while(total<=10){
-             final ActivityResultLauncher<Intent> selectImage = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if(result.getResultCode() == RESULT_OK){
-                            if(result.getData() != null){
-                                Uri imageUri = result.getData().getData();
-                                try{
-                                    InputStream inputStream = getActivity().getContentResolver().openInputStream(imageUri);
-                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    binding.pictures.setImageBitmap(bitmap);
-                                    //binding.textAddImage.setVisibility(View.GONE);
-                                    //encodedImage = encodeImage(bitmap);
-                                } catch(FileNotFoundException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-            );
-        }
-    }
+
+
 }
