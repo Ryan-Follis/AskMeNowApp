@@ -1,11 +1,9 @@
 package com.example.askmenow.ui.profile;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,23 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
-import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentProfileBinding;
-import com.example.askmenow.utilities.Constants;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Base64;
 
 public class ProfileFragment extends Fragment {
@@ -69,7 +57,6 @@ public class ProfileFragment extends Fragment {
                 visibility = i;
             }
         });
-        //preference manager
 
         //Listener for log out feature
         Button logout = root.findViewById(R.id.signout);
@@ -85,21 +72,27 @@ public class ProfileFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                changePassword();
             }
         });
 
-        //listener for pictures
-        img = root.findViewById(R.id.pictures);
-
-        img.setOnTouchListener(new View.OnTouchListener() {
+        //Listener for forgot password button
+        Button forgotPassword = root.findViewById(R.id.forgot);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                return false;
+            public void onClick(View view) {
+                forgotPassword();
             }
         });
 
+        //listener for delete profile button
+        Button deleteProfile = root.findViewById(R.id.delete);
+        deleteProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteProfile();
+            }
+        });
         return root;
     }
 
@@ -122,7 +115,47 @@ public class ProfileFragment extends Fragment {
         TextView ageView = getView().findViewById(R.id.ageField);
         ageView.setText(age);
         visibility = intent.getIntExtra("visibility",1);
+        return 0;
+    }
 
+    public int forgotPassword(){
+        dBuilder.setTitle("Forgot Your Password?").setMessage("Do you want to go to the password recovery page?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("https://www.youtube.com/watch?v=o-YBDTqX_ZU"));
+                        startActivity(browserIntent);
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        dBuilder.show();
+        return 0;
+    }
+
+    public int changePassword(){
+        dBuilder.setTitle("Change Password").setMessage("Change your password?");
+        final EditText old = new EditText(getActivity().getApplicationContext());
+        old.setHint("Old Password");
+        final EditText newPassword = new EditText(getActivity().getApplicationContext());
+        newPassword.setHint("New Password");
+        dBuilder.setView(old);
+        dBuilder.setView(newPassword);
+        dBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
         return 0;
     }
 
@@ -134,9 +167,10 @@ public class ProfileFragment extends Fragment {
         return 0;
     }
 
-    private void uploadPictures(){
-
+    public int deleteProfile(){
+        return 0;
     }
+
     public void createNewContactDialog(){
         dBuilder = new AlertDialog.Builder(getActivity().getApplicationContext());
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup,null);
