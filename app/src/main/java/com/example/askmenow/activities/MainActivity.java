@@ -40,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         // change fragment
-        Intent intent = getIntent();
+        callFragment(getIntent());
+    }
+
+    // call a fragment
+    // the intent needs to have a dest string extra
+    private void callFragment(Intent intent) {
         String destination = intent.getStringExtra("dest");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
