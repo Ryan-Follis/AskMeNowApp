@@ -79,10 +79,6 @@
             android:exported="true"
             android:label="@string/title_activity_main" />
         <activity
-            android:name="com.example.askmenow.unused.DirectMessagesActivity"
-            android:exported="true"
-            android:label="@string/title_activity_direct_messages" />
-        <activity
             android:name="com.example.askmenow.activities.UsersActivity"
             android:exported="true"
             android:label="@string/title_activity_users" />

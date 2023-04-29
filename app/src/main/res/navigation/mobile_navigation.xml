@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_questions"
-        android:name="com.example.askmenow.ui.questions.QuestionsFragment"
+        android:name="com.example.askmenow.ui.profile_hub.ProfileHubFragment"
         android:label="Profile Hub"
-        tools:layout="@layout/fragment_questions" />
+        tools:layout="@layout/fragment_profile_hub" />
 
     <fragment
         android:id="@+id/navigation_map"
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.askmenow.ui.profile.ProfileFragment"
+        android:name="com.example.askmenow.ui.personal_profile.PersonalProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_personal_profile" />
 </navigation>
