@@ -38,7 +38,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class DMsFragment extends Fragment implements ConversionListener {
+public class DMsFragment extends OnlineStatusFragment implements ConversionListener {
 
     private FragmentDmsBinding binding;
     private PreferenceManager preferenceManager;
