@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.askmenow.databinding.ActivitySignInBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -66,6 +68,11 @@ public class SignInActivity extends AppCompatActivity {
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME, documentSnapshot.getString(Constants.KEY_NAME));
                         preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+                        User user = new User();
+                        user.id = documentSnapshot.getId();
+                        user.name = documentSnapshot.getString(Constants.KEY_NAME);
+                        user.image = documentSnapshot.getString(Constants.KEY_IMAGE);
+                        DataAccess.setSelf(user);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

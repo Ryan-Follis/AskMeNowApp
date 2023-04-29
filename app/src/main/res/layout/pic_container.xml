@@ -15,14 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/dot_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabBackground="@drawable/dot_container"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="0dp"
-        android:contentDescription="dot indicator"/>
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:id="@+id/dot_indicator"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:tabBackground="@drawable/dot_container"-->
+<!--        app:tabGravity="center"-->
+<!--        app:tabIndicatorHeight="0dp"-->
+<!--        android:contentDescription="dot indicator"/>-->
 
     </androidx.viewpager2.integration.testapp.NestedScrollableHost>
 

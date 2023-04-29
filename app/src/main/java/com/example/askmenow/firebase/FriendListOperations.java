@@ -3,6 +3,7 @@ package com.example.askmenow.firebase;
 import com.example.askmenow.model.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendListOperations {
@@ -27,6 +28,6 @@ public class FriendListOperations {
     }
 
     public List<User> getFriendList() {
-        return null;
+        return new ArrayList<>();
     }
 }

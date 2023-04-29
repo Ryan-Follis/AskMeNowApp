@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.ProfilehubActivity"
+    tools:context=".activities.MainActivity"
     android:background="@color/white">
 
     <include layout="@layout/top_toolbar"
@@ -16,5 +16,13 @@
         android:id="@+id/profile_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <ProgressBar
+        android:id="@+id/load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        />
+
 
 </LinearLayout>

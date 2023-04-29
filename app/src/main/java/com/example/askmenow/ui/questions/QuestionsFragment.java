@@ -1,30 +1,22 @@
 package com.example.askmenow.ui.questions;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
-import com.example.askmenow.activities.UploadPhotoActivity;
 import com.example.askmenow.databinding.FragmentQuestionsBinding;
 import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.ProfileAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,7 +25,7 @@ import androidx.viewpager2.widget.ViewPager2;
 public class QuestionsFragment extends Fragment {
     private FragmentQuestionsBinding binding;
     private final DataAccess da = new DataAccess();
-    private User self = null;
+    private User self = DataAccess.getSelf();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,13 +36,18 @@ public class QuestionsFragment extends Fragment {
         View root = binding.getRoot();
 
         // set up viewPager2
+        View load = root.findViewById(R.id.load);
         ViewPager2 profileContainer = root.findViewById(R.id.profile_container);
-        List<User> users = da.getAllUser();
-        if (users.size() == 0) {
-            Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
-        }
-        ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
-        profileContainer.setAdapter(profileAdapter);
+        load.setVisibility(View.VISIBLE);
+        da.getAllUser(params -> {
+            List<User> users = (List<User>) params[0];
+            if (users.size() == 0) {
+                Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
+            }
+            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
+            profileContainer.setAdapter(profileAdapter);
+            load.setVisibility(View.GONE);
+        });
 
         profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -81,7 +78,7 @@ public class QuestionsFragment extends Fragment {
         search.setOnClickListener((View v)-> getActivity().onSearchRequested());
         friendRequest.setOnClickListener((View v)->{
             Intent friendIntent = new Intent(getActivity(), MainActivity.class);
-            friendIntent.putExtra("dest", "friend request");
+            friendIntent.putExtra("dest", "friend list");
             friendIntent.putExtra("user id", self.id);
             startActivity(friendIntent);
         });
