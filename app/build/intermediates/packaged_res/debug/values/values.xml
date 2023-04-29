@@ -17,6 +17,7 @@
     <color name="secondary_text">#757575</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="user_online">#02BF02</color>
     <color name="white">#FFFFFFFF</color>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -33,6 +34,7 @@
     <string name="google_storage_bucket" translatable="false">askmenow-7e093.appspot.com</string>
     <string name="login">Login</string>
     <string name="name">Name</string>
+    <string name="online">Online</string>
     <string name="password">Password</string>
     <string name="project_id" translatable="false">askmenow-7e093</string>
     <string name="select_user">Select User</string>

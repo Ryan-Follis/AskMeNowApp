@@ -17,6 +17,7 @@ color received_message_background
 color secondary_text
 color teal_200
 color teal_700
+color user_online
 color white
 dimen activity_horizontal_margin
 dimen activity_vertical_margin
@@ -94,6 +95,7 @@ id profileImage
 id progressBar
 id signout
 id textAddImage
+id textAvailability
 id textCreateNewAccount
 id textDateTime
 id textErrorMessage
@@ -144,6 +146,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string login
 string name
+string online
 string password
 string project_id
 string select_user
