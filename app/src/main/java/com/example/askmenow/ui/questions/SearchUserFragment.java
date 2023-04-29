@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.askmenow.R;
+import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.utilities.SearchAdapter;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class SearchUserFragment extends Fragment {
 
     private final String query;
+    private final DataAccess da = new DataAccess();
 
     public SearchUserFragment(String query) {
         this.query = query;
@@ -39,14 +41,6 @@ public class SearchUserFragment extends Fragment {
     }
 
     private SearchAdapter search(String query) {
-        // do search
-
-        // return the result
-        String[] test = new String[20];
-        for (int i = 0; i < 20; i++) {
-            test[i] = "test name " + query + " " + i;
-        }
-
-        return new SearchAdapter(this.getActivity(), test);
+        return new SearchAdapter(this.getActivity(), da.searchUser(query));
     }
 }

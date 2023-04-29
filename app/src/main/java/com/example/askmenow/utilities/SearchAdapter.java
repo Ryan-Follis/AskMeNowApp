@@ -9,19 +9,21 @@ import android.widget.TextView;
 
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
-import com.example.askmenow.activities.SearchResultActivity;
+import com.example.askmenow.model.User;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private final String[] names;
+    private final List<User> users;
     private final Activity context;
 
-    public SearchAdapter(Activity context, String[] names) {
+    public SearchAdapter(Activity context, List<User> users) {
         this.context = context;
-        this.names = names;
+        this.users = users;
     }
 
     @NonNull
@@ -33,10 +35,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rowText.setText(names[position]);
+        User user = users.get(position);
+        holder.rowText.setText(user.name);
         holder.rowText.setOnClickListener((View view)->{
             Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("id", String.valueOf(position));
+            intent.putExtra("id", user.id);
             intent.putExtra("dest", "search result");
             context.startActivity(intent);
         });
@@ -44,7 +47,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return names.length;
+        return users.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

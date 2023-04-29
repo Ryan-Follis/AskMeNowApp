@@ -1,22 +1,27 @@
 package com.example.askmenow.utilities;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.askmenow.R;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.model.User;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PictureViewerAdapter extends RecyclerView.Adapter<PictureViewerAdapter.ViewHolder> {
+
     private static final int MAX_PIC = 10;
+    private final List<Bitmap> pics;
 
-    private final int uid;
-
-    public PictureViewerAdapter(int uid) {
-        this.uid = uid;
+    public PictureViewerAdapter(List<Bitmap> pics) {
+        this.pics = pics;
     }
 
     @NonNull
@@ -28,12 +33,12 @@ public class PictureViewerAdapter extends RecyclerView.Adapter<PictureViewerAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.image.setImageResource(R.drawable.test_pic);
+        holder.image.setImageBitmap(pics.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return MAX_PIC;
+        return Math.min(MAX_PIC, pics.size());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

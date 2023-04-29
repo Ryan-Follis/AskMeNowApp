@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/profile_hub"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:contentDescription="return to the profile hub"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ret" />
+    <LinearLayout
+        android:id="@+id/new_friend_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You have a new friend request from "
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/view_friend_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:contentDescription="view friend profile"
+            android:text=""
+            android:textColor="#03A9F4"
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/decline_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="decline"
+                android:textColor="@color/error"
+                android:backgroundTint="@color/white"
+                android:textSize="20sp"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/accept_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="accept"
+                android:textColor="#8BC34A"
+                android:backgroundTint="@color/white"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_result_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

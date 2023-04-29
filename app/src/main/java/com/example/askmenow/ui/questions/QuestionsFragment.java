@@ -10,11 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.UploadPhotoActivity;
 import com.example.askmenow.databinding.FragmentQuestionsBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.ProfileAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -25,6 +32,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class QuestionsFragment extends Fragment {
     private FragmentQuestionsBinding binding;
+    private final DataAccess da = new DataAccess();
+    private User self = null;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,7 +45,11 @@ public class QuestionsFragment extends Fragment {
 
         // set up viewPager2
         ViewPager2 profileContainer = root.findViewById(R.id.profile_container);
-        ProfileAdapter profileAdapter = new ProfileAdapter();
+        List<User> users = da.getAllUser();
+        if (users.size() == 0) {
+            Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
+        }
+        ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
         profileContainer.setAdapter(profileAdapter);
 
         profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -67,7 +80,10 @@ public class QuestionsFragment extends Fragment {
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         search.setOnClickListener((View v)-> getActivity().onSearchRequested());
         friendRequest.setOnClickListener((View v)->{
-
+            Intent friendIntent = new Intent(getActivity(), MainActivity.class);
+            friendIntent.putExtra("dest", "friend request");
+            friendIntent.putExtra("user id", self.id);
+            startActivity(friendIntent);
         });
         rememberUser.setOnClickListener((View v)->{
 
@@ -79,41 +95,41 @@ public class QuestionsFragment extends Fragment {
         return root;
     }
 
-    // this activity launcher gets the photo that the user chooses and pass it to uploadPhotoActivity
-    ActivityResultLauncher<Intent> selectPhotoActivity = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent photo = result.getData();
-                    if (photo != null && photo.getData() != null) {
-                        Uri photoUri = photo.getData();
-                        // pass the URI to uploadPhotoActivity
-                        Intent editText = new Intent(getActivity(), UploadPhotoActivity.class);
-                        editText.putExtra("photoURI", photoUri.toString());
-                        getActivity().startActivity(editText);
-                    }
-                }
-            });
-
-    public void chooseImage() {
-        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-        i.setType("image/*");
-        selectPhotoActivity.launch(i);
-    }
-
-    public void uploadPhoto(ImageButton selectPhoto) {
-        // set up the popup menu
-        PopupMenu photoMenu = new PopupMenu(getActivity(), selectPhoto);
-        photoMenu.getMenuInflater().inflate(R.menu.select_photo_menu, photoMenu.getMenu());
-
-        photoMenu.setOnMenuItemClickListener((MenuItem item) -> {
-            if (item.getItemId() == R.id.gallery) {
-                // select photo from the gallery
-                chooseImage();
-            }
-            return true;
-        });
-        photoMenu.show();
-    }
+//    // this activity launcher gets the photo that the user chooses and pass it to uploadPhotoActivity
+//    ActivityResultLauncher<Intent> selectPhotoActivity = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(), result -> {
+//                if (result.getResultCode() == Activity.RESULT_OK) {
+//                    Intent photo = result.getData();
+//                    if (photo != null && photo.getData() != null) {
+//                        Uri photoUri = photo.getData();
+//                        // pass the URI to uploadPhotoActivity
+//                        Intent editText = new Intent(getActivity(), UploadPhotoActivity.class);
+//                        editText.putExtra("photoURI", photoUri.toString());
+//                        getActivity().startActivity(editText);
+//                    }
+//                }
+//            });
+//
+//    public void chooseImage() {
+//        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+//        i.setType("image/*");
+//        selectPhotoActivity.launch(i);
+//    }
+//
+//    public void uploadPhoto(ImageButton selectPhoto) {
+//        // set up the popup menu
+//        PopupMenu photoMenu = new PopupMenu(getActivity(), selectPhoto);
+//        photoMenu.getMenuInflater().inflate(R.menu.select_photo_menu, photoMenu.getMenu());
+//
+//        photoMenu.setOnMenuItemClickListener((MenuItem item) -> {
+//            if (item.getItemId() == R.id.gallery) {
+//                // select photo from the gallery
+//                chooseImage();
+//            }
+//            return true;
+//        });
+//        photoMenu.show();
+//    }
 
     @Override
     public void onDestroyView() {

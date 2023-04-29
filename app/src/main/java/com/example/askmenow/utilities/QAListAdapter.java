@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.askmenow.R;
+import com.example.askmenow.model.QA;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +16,10 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
     // maximum number of answers.
     // Total number of items is MAX_A + 1 since there is also one question
     private static final int MAX_A = 10;
-    private final int qid; // question id
+    private final QA question;
 
-    public QAListAdapter(int qid) {
-        this.qid = qid;
+    public QAListAdapter(QA question) {
+        this.question = question;
     }
 
     @NonNull
@@ -31,17 +32,15 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position == 0) {
-            String q = "test question";
-            holder.rowText.setText(q);
+            holder.rowText.setText(question.getQuestion());
         }else {
-            String a = "test answer " + position;
-            holder.rowText.setText(a);
+            holder.rowText.setText(question.getAnswers().get(position));
         }
     }
 
     @Override
     public int getItemCount() {
-        return MAX_A + 1;
+        return Math.min(MAX_A + 1, question.getAnswers().size() + 1);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

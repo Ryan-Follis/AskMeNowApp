@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.askmenow.R;
+import com.example.askmenow.model.QA;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.ViewHolder> {
     private static final int MAX_Q = 10;
 
-    private final int uid;
+    private final List<QA> qaList;
 
-    public ListViewerAdapter(int uid) {
-        this.uid = uid;
+    public ListViewerAdapter(List<QA> qaList) {
+        this.qaList = qaList;
     }
 
     @NonNull
@@ -28,13 +31,13 @@ public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-         holder.list.setAdapter(new QAListAdapter(0));
+         holder.list.setAdapter(new QAListAdapter(qaList.get(position)));
          holder.list.setLayoutManager(new LinearLayoutManager(holder.list.getContext()));
     }
 
     @Override
     public int getItemCount() {
-        return MAX_Q;
+        return Math.min(MAX_Q, qaList.size());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.ui.questions.FriendListFragment;
 import com.example.askmenow.ui.questions.SearchResultFragment;
 import com.example.askmenow.ui.questions.SearchUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -53,12 +54,18 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             SearchUserFragment searchUser = new SearchUserFragment(query);
             fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchUser).commit();
-        } else if (destination != null && destination.equals("search result")) {
-            // show search result
-            int id = Integer.parseInt(intent.getStringExtra("id"));
-            SearchResultFragment searchResult = new SearchResultFragment(id);
-            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchResult).commit();
+        } else if (destination != null) {
+            if (destination.equals("search result")) {
+                // show search result
+                String id = intent.getStringExtra("id");
+                SearchResultFragment searchResult = new SearchResultFragment(this, id);
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchResult).commit();
+            } else if (destination.equals("friend list")) {
+                // show friend list
+                String id = intent.getStringExtra("id");
+                FriendListFragment friendList = new FriendListFragment(id);
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, friendList).commit();
+            }
         }
     }
-
 }
