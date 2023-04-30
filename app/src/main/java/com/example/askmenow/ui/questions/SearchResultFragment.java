@@ -1,6 +1,5 @@
 package com.example.askmenow.ui.questions;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.ListViewerAdapter;
 import com.example.askmenow.utilities.PictureViewerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;

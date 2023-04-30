@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FriendListFragment extends Fragment {
 
-    private FriendListOperations oper;
-    private String id;
+    private final FriendListOperations oper;
+    private final String id;
 
     public FriendListFragment(String id) {
         this.id = id;

@@ -3,8 +3,6 @@ package com.example.askmenow.firebase;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.askmenow.model.QA;
@@ -18,7 +16,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DataAccess {
 
@@ -39,9 +36,9 @@ public class DataAccess {
         user.image = document.getString(Constants.KEY_IMAGE);
         user.username = document.getString(Constants.KEY_USERNAME);
         user.email = document.getString(Constants.KEY_EMAIL);
-        Object tempAge = document.getLong(Constants.KEY_AGE);
+        Long tempAge = document.getLong(Constants.KEY_AGE);
         if (tempAge != null) {
-            user.age = ((Long)tempAge).intValue();
+            user.age = tempAge.intValue();
         }
         user.interests = (List<String>) document.get(Constants.KEY_INTERESTS);
         return user;
