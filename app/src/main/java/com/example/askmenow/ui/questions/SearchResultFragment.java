@@ -28,11 +28,11 @@ public class SearchResultFragment extends Fragment {
 
     private final String resultId;
     private final DataAccess da = new DataAccess();
-    private final Activity root;
 
-    public SearchResultFragment(Activity root, String id) {
-        this.root = root;
+    public SearchResultFragment(String id) {
         resultId = id;
+        da.setRoot(getActivity());
+
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,12 +43,23 @@ public class SearchResultFragment extends Fragment {
         // set up ViewPager2
         ViewPager2 picContainer = root.findViewById(R.id.pic_container);
         ViewPager2 listContainer = root.findViewById(R.id.list_container);
+        View loadImg = root.findViewById(R.id.load_image);
+        View loadQA = root.findViewById(R.id.load_qa);
+        loadImg.setVisibility(View.VISIBLE);
+        loadQA.setVisibility(View.VISIBLE);
 
-
-        PictureViewerAdapter pictureViewerAdapter = new PictureViewerAdapter(getPics());
-        ListViewerAdapter listViewerAdapter = new ListViewerAdapter(getQAList());
-        picContainer.setAdapter(pictureViewerAdapter);
-        listContainer.setAdapter(listViewerAdapter);
+        da.getUserPics(resultId, params -> {
+            List<Bitmap> pics = (List<Bitmap>) params[0];
+            PictureViewerAdapter picAdapter = new PictureViewerAdapter(pics);
+            picContainer.setAdapter(picAdapter);
+            loadImg.setVisibility(View.GONE);
+        });
+        da.getDisplayQuestions(resultId, params -> {
+            List<QA> qaList = (List<QA>) params[0];
+            ListViewerAdapter listViewerAdapter = new ListViewerAdapter(qaList);
+            listContainer.setAdapter(listViewerAdapter);
+            loadQA.setVisibility(View.GONE);
+        });
 
         picContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -102,24 +113,15 @@ public class SearchResultFragment extends Fragment {
         TextView userName = root.findViewById(R.id.user_name);
         TextView nearby = root.findViewById(R.id.nearby);
 
-        userName.post(() -> userName.setText("test id " + resultId));
+        da.getUser(resultId, params -> {
+            if (params == null || params[0] == null) {
+                Toast.makeText(getActivity(), "Some error happened. Please try again", Toast.LENGTH_SHORT).show();
+            } else {
+                User user = (User) params[0];
+                userName.post(() -> userName.setText(user.username));
+            }
+        });
 
         return root;
-    }
-
-    private List<Bitmap> getPics() {
-        List<Bitmap> pics = da.getUserPics(resultId);
-        if (pics.size() == 0) {
-            Toast.makeText(root, "this user didn't upload any picture", Toast.LENGTH_SHORT).show();
-        }
-        return pics;
-    }
-
-    private List<QA> getQAList() {
-        List<QA> qaList = da.getDisplayQuestions(resultId);
-        if (qaList.size() == 0) {
-            Toast.makeText(root, "this user do not want to display any question", Toast.LENGTH_SHORT).show();
-        }
-        return qaList;
     }
 }

@@ -25,7 +25,7 @@ import androidx.viewpager2.widget.ViewPager2;
 public class QuestionsFragment extends Fragment {
     private FragmentQuestionsBinding binding;
     private final DataAccess da = new DataAccess();
-    private User self = DataAccess.getSelf();
+    private final User self = DataAccess.getSelf();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

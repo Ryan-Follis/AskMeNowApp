@@ -22,14 +22,15 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
     private final DataAccess da = new DataAccess();
-    private final Activity root;
+    private final Activity context;
     private final List<User> users;
     private final User self;
 
     public ProfileAdapter(Activity activity, List<User> users, User self) {
-        root = activity;
+        context = activity;
         this.users = users;
         this.self = self;
+        da.setRoot(context);
     }
 
     @NonNull
@@ -43,10 +44,20 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = users.get(position);
         // configure sub-pageviewers
-        PictureViewerAdapter picAdapter = new PictureViewerAdapter(getPics(user));
-        holder.picContainer.setAdapter(picAdapter);
-        ListViewerAdapter listAdapter = new ListViewerAdapter(getQAList(user));
-        holder.listContainer.setAdapter(listAdapter);
+
+        holder.loadImage.setVisibility(View.VISIBLE);
+        da.getUserPics(user.id, params -> {
+            List<Bitmap> pics = (List<Bitmap>) params[0];
+            PictureViewerAdapter picAdapter = new PictureViewerAdapter(pics);
+            holder.picContainer.setAdapter(picAdapter);
+            holder.loadImage.setVisibility(View.GONE);
+        });
+        da.getDisplayQuestions(user.id, params -> {
+            List<QA> qaList= (List<QA>)params[0];
+            ListViewerAdapter listAdapter = new ListViewerAdapter(qaList);
+            holder.listContainer.setAdapter(listAdapter);
+            holder.loadQA.setVisibility(View.GONE);
+        });
 
         holder.picContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -99,6 +110,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         private final TextView name;
         private final TextView nearby;
         private final ViewPager2 listContainer;
+        private final View loadImage;
+        private final View loadQA;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,22 +119,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             name = itemView.findViewById(R.id.user_name);
             nearby = itemView.findViewById(R.id.nearby);
             listContainer = itemView.findViewById(R.id.list_container);
+            loadImage = itemView.findViewById(R.id.load_image);
+            loadQA = itemView.findViewById(R.id.load_qa);
         }
-    }
-
-    private List<Bitmap> getPics(User user) {
-        List<Bitmap> pics = da.getUserPics(user.id);
-        if (pics.size() == 0) {
-            Toast.makeText(root, "this user didn't upload any picture", Toast.LENGTH_SHORT).show();
-        }
-        return pics;
-    }
-
-    private List<QA> getQAList(User user) {
-        List<QA> qaList = da.getDisplayQuestions(user.id);
-        if (qaList.size() == 0) {
-            Toast.makeText(root, "this user do not want to display any question", Toast.LENGTH_SHORT).show();
-        }
-        return qaList;
     }
 }

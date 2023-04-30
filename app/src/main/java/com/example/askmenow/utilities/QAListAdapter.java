@@ -34,7 +34,7 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
         if (position == 0) {
             holder.rowText.setText(question.getQuestion());
         }else {
-            holder.rowText.setText(question.getAnswers().get(position));
+            holder.rowText.setText(question.getAnswers().get(position - 1));
         }
     }
 

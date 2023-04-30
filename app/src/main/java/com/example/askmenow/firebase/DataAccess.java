@@ -1,16 +1,20 @@
 package com.example.askmenow.firebase;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.Constants;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,30 +23,36 @@ public class DataAccess {
 
     private static User self;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    public static boolean checkResult(Task<QuerySnapshot> task) {
+    private Activity root;
+
+    public static boolean checkResult(Task task) {
         return task != null && task.isSuccessful();
     }
 
-    // result will be the number of data entries in a collection
-    // result will be -1 if cannot access the database
-    public void getCount(String collection, DataAccessListener listener) {
-        final int[] result = new int[1];
-        db.collection(collection).get().addOnCompleteListener(task -> {
-            if (checkResult(task)) {
-                result[0] = task.getResult().size();
-            } else {
-                result[0] = -1;
-            }
-            listener.executeAfterComplete(result[0]);
-        });
+    public void getUser(String id, DataAccessListener listener) {
+        db.collection(Constants.KEY_COLLECTION_USERS).document(id)
+                .get().addOnCompleteListener(task -> {
+                    User user = null;
+                    if (checkResult(task)) {
+                        DocumentSnapshot document = task.getResult();
+                        user = new User();
+                        user.id = document.getId();
+                        user.name = document.getString(Constants.KEY_NAME);
+                        user.image = document.getString(Constants.KEY_IMAGE);
+                        user.username = document.getString(Constants.KEY_USERNAME);
+                        user.email = document.getString(Constants.KEY_EMAIL);
+                    }
+                    listener.executeAfterComplete(user);
+                });
     }
 
     // result is a list of all users.
     // result is an empty list if error happens.
     public void getAllUser(DataAccessListener listener) {
-        final List<User> result = new ArrayList<User>();
         db.collection(Constants.KEY_COLLECTION_USERS).get().addOnCompleteListener(task -> {
+            List<User> result = new ArrayList<>();
             if (checkResult(task)) {
                 for (DocumentSnapshot document : task.getResult().getDocuments()) {
                     User user = new User();
@@ -58,17 +68,79 @@ public class DataAccess {
         });
     }
 
-
-    public List<User> searchUser(String query) {
-        return new ArrayList<>();
+    // search users with username that starts with query string
+    public void searchUser(String query, DataAccessListener listener) {
+        db.collection(Constants.KEY_COLLECTION_USERS)
+                .whereGreaterThanOrEqualTo(Constants.KEY_USERNAME, query)
+                .whereLessThan(Constants.KEY_USERNAME, query + '\uF8FF').get()
+                .addOnCompleteListener(task -> {
+                    List<User> result = new ArrayList<>();
+                    if (checkResult(task)) {
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            User user = new User();
+                            user.id = document.getId();
+                            user.name = document.getString(Constants.KEY_NAME);
+                            user.image = document.getString(Constants.KEY_IMAGE);
+                            user.username = document.getString(Constants.KEY_USERNAME);
+                            user.email = document.getString(Constants.KEY_EMAIL);
+                            result.add(user);
+                        }
+                    }
+                    listener.executeAfterComplete(result);
+                });
     }
 
-    public List<Bitmap> getUserPics(String id) {
-        return new ArrayList<>();
+    // result is a list of bitmaps.
+    // result is an empty list if error happens.
+    public void getUserPics(String id, DataAccessListener listener) {
+        db.collection(Constants.KEY_COLLECTION_DISPLAY_PICS).whereEqualTo(Constants.KEY_USER_ID, id).get().
+                addOnCompleteListener(task->{
+                    final List<Bitmap> result = new ArrayList<>();
+                    final int[] picsWaiting = new int[1];
+                    if(checkResult(task)) {
+                        picsWaiting[0] = task.getResult().getDocuments().size();
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            String url = document.getString(Constants.KEY_IMAGE);
+                            StorageReference ref = storage.getReferenceFromUrl(url);
+                            ref.getBytes(Constants.IMAGE_MAX_SIZE).addOnFailureListener(exception -> {
+                                if (root != null)
+                                    Toast.makeText(root, "Failed to retrieve some images. Check your network",
+                                            Toast.LENGTH_SHORT).show();
+
+                            }).addOnSuccessListener(bytes -> {
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                result.add(bitmap);
+                                picsWaiting[0]--;
+                                if (picsWaiting[0] == 0)
+                                    listener.executeAfterComplete(result);
+                            });
+                        }
+                        if (picsWaiting[0] == 0) {
+                            if (root != null)
+                                Toast.makeText(root, "this user didn't upload any picture", Toast.LENGTH_SHORT).show();
+                            listener.executeAfterComplete(result);
+                        }
+                    }
+                });
     }
 
-    public List<QA> getDisplayQuestions(String id) {
-        return new ArrayList<>();
+    public void getDisplayQuestions(String id, DataAccessListener listener) {
+        db.collection(Constants.KEY_COLLECTION_QA).whereEqualTo(Constants.KEY_USER_ID, id).
+                get().addOnCompleteListener(task -> {
+                    List<QA> qaList = new ArrayList<>();
+                    if (checkResult(task)) {
+                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                            QA qa = new QA();
+                            qa.setQuestion((String)document.get(Constants.KEY_QUESTION));
+                            qa.setAnswers((List<String>) document.get(Constants.KEY_ANSWERS));
+                            qaList.add(qa);
+                        }
+                    }
+                    if (qaList.size() == 0 && root != null) {
+                        Toast.makeText(root, "this user do not want to display any question", Toast.LENGTH_SHORT).show();
+                    }
+                    listener.executeAfterComplete(qaList);
+                });
     }
 
     public boolean checkLocation(String id1, String id2) {
@@ -82,5 +154,13 @@ public class DataAccess {
 
     public static void setSelf(User self) {
         DataAccess.self = self;
+    }
+
+    public Activity getRoot() {
+        return root;
+    }
+
+    public void setRoot(Activity root) {
+        this.root = root;
     }
 }

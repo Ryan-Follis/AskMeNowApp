@@ -8,7 +8,10 @@ import android.widget.ImageButton;
 
 import com.example.askmenow.R;
 import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.SearchAdapter;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,13 +37,15 @@ public class SearchUserFragment extends Fragment {
         RecyclerView resultList = root.findViewById(R.id.search_result_list);
 
         // do search
-        resultList.setAdapter(search(query));
-        resultList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        View loadResult = root.findViewById(R.id.load_result);
+        loadResult.setVisibility(View.VISIBLE);
+        da.searchUser(query, params -> {
+            List<User> users = (List<User>) params[0];
+            resultList.setAdapter(new SearchAdapter(getActivity(), users));
+            resultList.setLayoutManager(new LinearLayoutManager(getActivity()));
+            loadResult.setVisibility(View.GONE);
+        });
 
         return root;
-    }
-
-    private SearchAdapter search(String query) {
-        return new SearchAdapter(this.getActivity(), da.searchUser(query));
     }
 }

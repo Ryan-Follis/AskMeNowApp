@@ -4,16 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/pic_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/pic_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/load_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
     <include layout="@layout/basic_info"
         android:layout_width="match_parent"
         android:layout_height="48dp"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <include layout="@layout/list_container"
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
+
+        <ProgressBar
+            android:id="@+id/load_qa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

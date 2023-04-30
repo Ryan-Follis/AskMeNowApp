@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             if (destination.equals("search result")) {
                 // show search result
                 String id = intent.getStringExtra("id");
-                SearchResultFragment searchResult = new SearchResultFragment(this, id);
+                SearchResultFragment searchResult = new SearchResultFragment(id);
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchResult).commit();
             } else if (destination.equals("friend list")) {
                 // show friend list
