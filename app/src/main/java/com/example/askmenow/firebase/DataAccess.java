@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DataAccess {
 
@@ -31,18 +32,27 @@ public class DataAccess {
         return task != null && task.isSuccessful();
     }
 
+    public static User docToUser(DocumentSnapshot document) {
+        User user = new User();
+        user.id = document.getId();
+        user.name = document.getString(Constants.KEY_NAME);
+        user.image = document.getString(Constants.KEY_IMAGE);
+        user.username = document.getString(Constants.KEY_USERNAME);
+        user.email = document.getString(Constants.KEY_EMAIL);
+        Object tempAge = document.getLong(Constants.KEY_AGE);
+        if (tempAge != null) {
+            user.age = ((Long)tempAge).intValue();
+        }
+        user.interests = (List<String>) document.get(Constants.KEY_INTERESTS);
+        return user;
+    }
+
     public void getUser(String id, DataAccessListener listener) {
         db.collection(Constants.KEY_COLLECTION_USERS).document(id)
                 .get().addOnCompleteListener(task -> {
-                    User user = null;
+                    User user = new User();
                     if (checkResult(task)) {
-                        DocumentSnapshot document = task.getResult();
-                        user = new User();
-                        user.id = document.getId();
-                        user.name = document.getString(Constants.KEY_NAME);
-                        user.image = document.getString(Constants.KEY_IMAGE);
-                        user.username = document.getString(Constants.KEY_USERNAME);
-                        user.email = document.getString(Constants.KEY_EMAIL);
+                        user = docToUser(task.getResult());
                     }
                     listener.executeAfterComplete(user);
                 });
@@ -55,13 +65,7 @@ public class DataAccess {
             List<User> result = new ArrayList<>();
             if (checkResult(task)) {
                 for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                    User user = new User();
-                    user.id = document.getId();
-                    user.name = document.getString(Constants.KEY_NAME);
-                    user.image = document.getString(Constants.KEY_IMAGE);
-                    user.username = document.getString(Constants.KEY_USERNAME);
-                    user.email = document.getString(Constants.KEY_EMAIL);
-                    result.add(user);
+                    result.add(docToUser(document));
                 }
             }
             listener.executeAfterComplete(result);
@@ -77,13 +81,7 @@ public class DataAccess {
                     List<User> result = new ArrayList<>();
                     if (checkResult(task)) {
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                            User user = new User();
-                            user.id = document.getId();
-                            user.name = document.getString(Constants.KEY_NAME);
-                            user.image = document.getString(Constants.KEY_IMAGE);
-                            user.username = document.getString(Constants.KEY_USERNAME);
-                            user.email = document.getString(Constants.KEY_EMAIL);
-                            result.add(user);
+                            result.add(docToUser(document));
                         }
                     }
                     listener.executeAfterComplete(result);
@@ -100,8 +98,7 @@ public class DataAccess {
                     if(checkResult(task)) {
                         picsWaiting[0] = task.getResult().getDocuments().size();
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                            String url = document.getString(Constants.KEY_IMAGE);
-                            StorageReference ref = storage.getReferenceFromUrl(url);
+                            StorageReference ref = storage.getReferenceFromUrl(document.getString(Constants.KEY_IMAGE));
                             ref.getBytes(Constants.IMAGE_MAX_SIZE).addOnFailureListener(exception -> {
                                 if (root != null)
                                     Toast.makeText(root, "Failed to retrieve some images. Check your network",

@@ -35,7 +35,7 @@
             android:backgroundTint="@color/white"
             android:contentDescription="view friend profile"
             android:text=""
-            android:textColor="#03A9F4"
+            android:textColor="@color/blue"
             android:textSize="20sp" />
         <LinearLayout
             android:layout_width="match_parent"
