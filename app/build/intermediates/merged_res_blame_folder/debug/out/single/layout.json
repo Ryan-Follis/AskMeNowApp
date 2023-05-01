@@ -8,6 +8,10 @@
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\item_container_sent_message.xml"
     },
     {
+        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/item_container_recent_conversion.xml",
+        "source": "com.example.askmenow.app-main-54:/layout/item_container_recent_conversion.xml"
+    },
+    {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\activity_maps.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\activity_maps.xml"
     },
@@ -26,10 +30,6 @@
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\fragment_map.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-54:\\layout\\fragment_map.xml"
-    },
-    {
-        "merged": "com.example.askmenow.app-mergeDebugResources-51:/layout/activity_chat.xml",
-        "source": "com.example.askmenow.app-main-54:/layout/activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-51:\\layout\\activity_main.xml",
