@@ -3,7 +3,6 @@ package com.example.askmenow.utilities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.askmenow.R;
 import com.example.askmenow.firebase.DataAccess;
-import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.google.android.flexbox.FlexboxLayout;
@@ -30,9 +28,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     private final Activity context;
     private final List<User> users;
 
-    private List<String> rememberList;
-
-    public ProfileAdapter(Activity activity, List<User> users, User self) {
+    public ProfileAdapter(Activity activity, List<User> users) {
         context = activity;
         this.users = users;
         da.setRoot(context);
@@ -101,7 +97,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         holder.name.setText(user.username);
         if (user.age > 0)
             holder.age.setText(String.valueOf(user.age));
-        if (da.checkLocation(da.getSelf().id, user.id))
+        if (da.checkLocation(DataAccess.getSelf().id, user.id))
             holder.nearby.setText("nearby");
         else
             holder.nearby.setText("");
@@ -158,13 +154,5 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             loadQA = itemView.findViewById(R.id.load_qa);
             interests = itemView.findViewById(R.id.show_interest);
         }
-    }
-
-    public List<String> getRememberList() {
-        return rememberList;
-    }
-
-    public void setRememberList(List<String> rememberList) {
-        this.rememberList = rememberList;
     }
 }

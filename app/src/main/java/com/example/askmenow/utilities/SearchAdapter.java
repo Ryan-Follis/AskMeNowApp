@@ -14,7 +14,6 @@ import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.model.User;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;
 
@@ -34,14 +33,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_container_user, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = users.get(position);
-        holder.rowText.setText(user.username);
+        holder.username.setText(user.username);
+        holder.name.setText(user.name);
         // decode image
         if (user.image != null) {
             byte[] bytes = Base64.getDecoder().decode(user.image);
@@ -49,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             holder.userImage.setImageBitmap(img);
         }
 
-        holder.rowText.setOnClickListener((View view)->{
+        holder.name.setOnClickListener((View view)->{
             Intent intent = new Intent(context, MainActivity.class);
             intent.putExtra("id", user.id);
             intent.putExtra("dest", "search result");
@@ -63,12 +63,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView rowText;
+        private final TextView name;
+        private final TextView username;
         private final ImageView userImage;
+        private final View viewSupporter;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rowText = itemView.findViewById(R.id.search_row);
-            userImage = itemView.findViewById(R.id.search_user_image);
+            name = itemView.findViewById(R.id.textName);
+            username = itemView.findViewById(R.id.textUsername);
+            userImage = itemView.findViewById(R.id.profileImage);
+            viewSupporter = itemView.findViewById(R.id.viewSupporter);
         }
     }
 }

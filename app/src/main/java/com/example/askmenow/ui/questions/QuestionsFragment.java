@@ -16,7 +16,6 @@ import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.ProfileAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -49,14 +48,12 @@ public class QuestionsFragment extends Fragment {
                 Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
             }
 //            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
-            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
+            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users);
             profileContainer.setAdapter(profileAdapter);
             load.setVisibility(View.GONE);
 
             // get remember list
-            RememberListOperations.getRememberList(params1 -> {
-                rememberList = (List<String>) params1[0];
-            });
+            RememberListOperations.getRememberList(params1 -> rememberList = (List<String>) params1[0]);
         });
 
         profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
