@@ -29,7 +29,7 @@ public class RememberListOperations {
         da.getField(Constants.KEY_COLLECTION_USERS, da.getSelf().id, Constants.KEY_REMEMBER, params -> {
             List<String> resultList = (List<String>) params[0];
             List<User> rememberList = new ArrayList<>();
-            if (resultList != null || resultList.size() == 0) {
+            if (resultList != null && resultList.size() != 0) {
                 final int[] taskWaiting = new int[1];
                 taskWaiting[0] = resultList.size();
                 for (String id : resultList)
@@ -57,6 +57,26 @@ public class RememberListOperations {
             Boolean result = (Boolean) params[0];
             if (!result)
                 Toast.makeText(da.getRoot(), "Failed to remove this user from your remember list", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    public static void rememberUser(String userId, List<String> list) {
+        da.addToArray(Constants.KEY_COLLECTION_USERS, da.getSelf().id, Constants.KEY_REMEMBER, userId, params -> {
+            Boolean result = (Boolean) params[0];
+            if (!result) {
+                Toast.makeText(da.getRoot(), "Failed to add this user to your remember list", Toast.LENGTH_SHORT).show();
+                list.remove(userId);
+            }
+        });
+    }
+
+    public static void forgetUser(String userId, List<String> list) {
+        da.removeFromArray(Constants.KEY_COLLECTION_USERS, da.getSelf().id, Constants.KEY_REMEMBER, userId, params -> {
+            Boolean result = (Boolean) params[0];
+            if (!result) {
+                Toast.makeText(da.getRoot(), "Failed to remove this user from your remember list", Toast.LENGTH_SHORT).show();
+                list.add(userId);
+            }
         });
     }
 
