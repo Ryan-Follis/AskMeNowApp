@@ -9,14 +9,12 @@ import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.Constants;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +85,13 @@ public class DataAccess {
                     }
                     listener.executeAfterComplete(result);
                 });
+    }
+
+    public void uploadUserPics(String id, String filename, byte[] file, DataAccessListener listener) {
+        StorageReference ref = storage.getReference().child("userPics/"+id+"/"+filename);
+        ref.putBytes(file).addOnFailureListener(listener::executeAfterComplete)
+                .addOnSuccessListener(taskSnapshot -> changeField(Constants.KEY_COLLECTION_USERS, id, Constants.KEY_PICS,
+                        ref.getDownloadUrl(), listener));
     }
 
     // result is a list of bitmaps.
@@ -197,10 +202,6 @@ public class DataAccess {
                 listener.executeAfterComplete(false, task);
             }
         });
-    }
-
-    public boolean checkLocation(String id1, String id2) {
-        return false;
     }
 
     // get the user who is using this app
