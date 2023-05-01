@@ -28,6 +28,9 @@
             android:textColor="@color/black"
             android:layout_toEndOf="@+id/user_name"/>
 
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/board-game" title="board game icons">Board game icons created by Good Ware - Flaticon</a>
+        -->
         <ImageButton
             android:id="@+id/show_interest"
             android:layout_width="48dp"

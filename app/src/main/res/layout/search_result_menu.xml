@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/return" title="return icons">Return icons created by Freepik - Flaticon</a>
+        -->
         <ImageButton
             android:id="@+id/profile_hub"
             android:layout_width="48dp"
@@ -16,16 +19,22 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ret" />
 
-        <ImageButton
-            android:id="@+id/friend_request"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_toStartOf="@id/remember_user"
-            android:background="@color/white"
-            android:contentDescription="friend request"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/friends" />
+<!--        &lt;!&ndash;image attribution:-->
+<!--        <a href="https://www.flaticon.com/free-icons/friend" title="friend icons">Friend icons created by Freepik - Flaticon</a>-->
+<!--        &ndash;&gt;-->
+<!--        <ImageButton-->
+<!--            android:id="@+id/friend_request"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:layout_toStartOf="@id/remember_user"-->
+<!--            android:background="@color/white"-->
+<!--            android:contentDescription="friend request"-->
+<!--            android:scaleType="fitXY"-->
+<!--            app:srcCompat="@drawable/friends" />-->
 
+        <!--image attribution:
+        vecteezy.com
+        -->
         <ImageButton
             android:id="@+id/remember_user"
             android:layout_width="48dp"
@@ -35,8 +44,11 @@
             android:background="@color/white"
             android:contentDescription="remember user"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/love" />
+            app:srcCompat="@drawable/remembered" />
 
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/comment" title="comment icons">Comment icons created by Freepik - Flaticon</a>
+        -->
         <ImageButton
             android:id="@+id/send_dm"
             android:layout_width="48dp"

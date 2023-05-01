@@ -9,10 +9,14 @@ import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.Constants;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,14 +92,18 @@ public class DataAccess {
     // result is a list of bitmaps.
     // result is an empty list if error happens.
     public void getUserPics(String id, DataAccessListener listener) {
-        db.collection(Constants.KEY_COLLECTION_DISPLAY_PICS).whereEqualTo(Constants.KEY_USER_ID, id).get().
+        db.collection(Constants.KEY_COLLECTION_USERS).document(id).get().
                 addOnCompleteListener(task->{
                     final List<Bitmap> result = new ArrayList<>();
                     final int[] picsWaiting = new int[1];
                     if(checkResult(task)) {
-                        picsWaiting[0] = task.getResult().getDocuments().size();
-                        for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                            StorageReference ref = storage.getReferenceFromUrl(document.getString(Constants.KEY_IMAGE));
+                        DocumentSnapshot document = task.getResult();
+                        List<String> picUrls = (List<String>) document.get(Constants.KEY_PICS);
+                        if (picUrls == null)
+                            picUrls = new ArrayList<>();
+                        picsWaiting[0] =picUrls.size() ;
+                        for (String url : picUrls) {
+                            StorageReference ref = storage.getReferenceFromUrl(url);
                             ref.getBytes(Constants.IMAGE_MAX_SIZE).addOnFailureListener(exception -> {
                                 if (root != null)
                                     Toast.makeText(root, "Failed to retrieve some images. Check your network",
@@ -135,6 +143,60 @@ public class DataAccess {
                     }
                     listener.executeAfterComplete(qaList);
                 });
+    }
+
+    public void getField(String collection, String id, String field, DataAccessListener listener) {
+        db.collection(collection).document(id).get().addOnCompleteListener(task -> {
+            Object result = null;
+            if (checkResult(task)) {
+                result = task.getResult().get(field);
+            }
+            listener.executeAfterComplete(result);
+        });
+    }
+
+    // change the value of a field, listener is executed after the request is complete.
+    // listener will receive two parameters. The parameter indicates whether the field is update successfully.
+    // the second parameter is the return result of the update request.
+    //
+    // you can add or delete fields through this method. To add a field, just pass in the field name and initial value.
+    // to delete a field, use FieldValue.delete() as the value.
+    //
+    // cannot update array
+    public void changeField(String collection, String id, String field, Object value,
+                                   DataAccessListener listener) {
+        DocumentReference target = db.collection(collection).document(id);
+        target.update(field, value).addOnCompleteListener(task -> {
+            if (checkResult(task)) {
+                listener.executeAfterComplete(true, task);
+            } else {
+                listener.executeAfterComplete(false, task);
+            }
+        });
+    }
+
+    public void addToArray(String collection, String id, String field, Object append,
+                            DataAccessListener listener) {
+        DocumentReference target = db.collection(collection).document(id);
+        target.update(field, FieldValue.arrayUnion(append)).addOnCompleteListener(task -> {
+            if (checkResult(task)) {
+                listener.executeAfterComplete(true, task);
+            } else {
+                listener.executeAfterComplete(false, task);
+            }
+        });
+    }
+
+    public void removeFromArray(String collection, String id, String field, Object remove,
+                           DataAccessListener listener) {
+        DocumentReference target = db.collection(collection).document(id);
+        target.update(field, FieldValue.arrayRemove(remove)).addOnCompleteListener(task -> {
+            if (checkResult(task)) {
+                listener.executeAfterComplete(true, task);
+            } else {
+                listener.executeAfterComplete(false, task);
+            }
+        });
     }
 
     public boolean checkLocation(String id1, String id2) {

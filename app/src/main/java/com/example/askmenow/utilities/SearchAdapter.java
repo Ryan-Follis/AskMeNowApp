@@ -43,9 +43,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         User user = users.get(position);
         holder.rowText.setText(user.username);
         // decode image
-        byte[] bytes = Base64.getDecoder().decode(user.image);
-        Bitmap img = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        holder.userImage.setImageBitmap(img);
+        if (user.image != null) {
+            byte[] bytes = Base64.getDecoder().decode(user.image);
+            Bitmap img = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            holder.userImage.setImageBitmap(img);
+        }
 
         holder.rowText.setOnClickListener((View view)->{
             Intent intent = new Intent(context, MainActivity.class);

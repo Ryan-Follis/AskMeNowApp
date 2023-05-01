@@ -6,6 +6,9 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <!--image attribution:
+    <a href="https://www.flaticon.com/free-icons/return" title="return icons">Return icons created by Freepik - Flaticon</a>
+    -->
     <ImageButton
         android:id="@+id/profile_hub"
         android:layout_width="48dp"

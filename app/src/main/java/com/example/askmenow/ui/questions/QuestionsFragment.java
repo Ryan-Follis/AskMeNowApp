@@ -26,6 +26,7 @@ public class QuestionsFragment extends Fragment {
     private FragmentQuestionsBinding binding;
     private final DataAccess da = new DataAccess();
     private final User self = DataAccess.getSelf();
+    private final ProfileAdapter[] profileAdapter = new ProfileAdapter[1];
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,8 +45,9 @@ public class QuestionsFragment extends Fragment {
             if (users.size() == 0) {
                 Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
             }
-            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
-            profileContainer.setAdapter(profileAdapter);
+//            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
+            profileAdapter[0] = new ProfileAdapter(this.getActivity(), users, self);
+            profileContainer.setAdapter(profileAdapter[0]);
             load.setVisibility(View.GONE);
         });
 
@@ -53,6 +55,7 @@ public class QuestionsFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+                profileAdapter[0].updateRememberState(position);
             }
 
             @Override
@@ -73,7 +76,6 @@ public class QuestionsFragment extends Fragment {
         // register click events for top menu buttons
         ImageButton search = root.findViewById(R.id.search_user);
         ImageButton friendRequest = root.findViewById(R.id.friend_request);
-        ImageButton rememberUser = root.findViewById(R.id.remember_user);
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         search.setOnClickListener((View v)-> getActivity().onSearchRequested());
         friendRequest.setOnClickListener((View v)->{
@@ -81,9 +83,6 @@ public class QuestionsFragment extends Fragment {
             friendIntent.putExtra("dest", "friend list");
             friendIntent.putExtra("user id", self.id);
             startActivity(friendIntent);
-        });
-        rememberUser.setOnClickListener((View v)->{
-
         });
         sendDM.setOnClickListener((View v)-> {
             // uploadPhoto(sendDM);

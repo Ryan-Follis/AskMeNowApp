@@ -3,6 +3,7 @@ package com.example.askmenow.utilities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.askmenow.R;
 import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.google.android.flexbox.FlexboxLayout;
@@ -27,11 +29,17 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     private final DataAccess da = new DataAccess();
     private final Activity context;
     private final List<User> users;
+    private final Boolean[] rememberStates;
+    private int initializedPages = 0;
     private final User self;
 
     public ProfileAdapter(Activity activity, List<User> users, User self) {
         context = activity;
         this.users = users;
+        rememberStates = new Boolean[users.size()];
+        for (int i = 0; i< rememberStates.length; i++) {
+            rememberStates[i] = false;
+        }
         this.self = self;
         da.setRoot(context);
     }
@@ -125,11 +133,54 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             }
             interestPopup.show();
         });
+
+        // update remember
+        ImageButton remember = context.findViewById(R.id.remember_user);
+        RememberListOperations.remembered(user.id, position, params -> {
+            int pos = (int) params[1];
+            rememberStates[pos] = (Boolean) params[0];
+            if (rememberStates[pos]) {
+                remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                remember.setOnClickListener(v -> forgetListener(remember, user));
+            } else {
+                remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                remember.setOnClickListener(v -> rememberListener(remember, user));
+            }
+        });
+
+        // record pages initialized
+        if (position > initializedPages)
+            initializedPages = position;
     }
 
     @Override
     public int getItemCount() {
          return users.size();
+    }
+
+    public void updateRememberState(int position) {
+        if (position <= initializedPages) {
+            ImageButton remember = context.findViewById(R.id.remember_user);
+            if (rememberStates[position]) {
+                remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                remember.setOnClickListener(v -> forgetListener(remember, users.get(position)));
+            } else {
+                remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                remember.setOnClickListener(v -> rememberListener(remember, users.get(position)));
+            }
+        }
+    }
+
+    private void rememberListener(ImageButton remember, User user) {
+        RememberListOperations.rememberUser(user.id);
+        remember.setImageResource(R.drawable.remembered);
+        remember.setOnClickListener(v -> forgetListener(remember, user));
+    }
+
+    private void forgetListener(ImageButton remember, User user) {
+        RememberListOperations.forgetUser(user.id);
+        remember.setImageResource(R.drawable.remember);
+        remember.setOnClickListener(v -> rememberListener(remember, user));
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

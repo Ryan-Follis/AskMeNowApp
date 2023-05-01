@@ -1,20 +1,25 @@
 package com.example.askmenow.ui.questions;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
 import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.model.QA;
 import com.example.askmenow.model.User;
 import com.example.askmenow.utilities.ListViewerAdapter;
 import com.example.askmenow.utilities.PictureViewerAdapter;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
 
@@ -94,22 +99,16 @@ public class SearchResultFragment extends Fragment {
 
         // set up buttons
         ImageButton retProfileHub = root.findViewById(R.id.profile_hub);
-        ImageButton friendRequest = root.findViewById(R.id.friend_request);
-        ImageButton rememberUser = root.findViewById(R.id.remember_user);
+        ImageButton remember = root.findViewById(R.id.remember_user);
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         retProfileHub.setOnClickListener((View v)->getActivity().onBackPressed());
-        friendRequest.setOnClickListener((View v)->{
-
-        });
-        rememberUser.setOnClickListener((View v)->{
-
-        });
         sendDM.setOnClickListener((View v)-> {
         });
 
         // show basic information
         TextView userName = root.findViewById(R.id.user_name);
         TextView nearby = root.findViewById(R.id.nearby);
+        ImageButton interests = root.findViewById(R.id.show_interest);
 
         da.getUser(resultId, params -> {
             if (params == null || params[0] == null) {
@@ -117,9 +116,55 @@ public class SearchResultFragment extends Fragment {
             } else {
                 User user = (User) params[0];
                 userName.post(() -> userName.setText(user.username));
+                interests.setOnClickListener(view -> {
+                    Dialog interestPopup = new Dialog(getActivity());
+                    interestPopup.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    interestPopup.setContentView(R.layout.interest_popup);
+                    interestPopup.setCanceledOnTouchOutside(true);
+                    FlexboxLayout layout = interestPopup.findViewById(R.id.interest_popup);
+                    if (user.interests != null) {
+                        for (String interest : user.interests) {
+                            Button button = new Button(getActivity());
+                            button.setLayoutParams(new FlexboxLayout.LayoutParams(
+                                    FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT));
+                            button.setText(interest);
+                            button.setTextColor(R.color.black);
+                            button.setBackgroundResource(R.drawable.interest_button);
+                            button.setOnClickListener(v -> {
+
+                            });
+                            layout.addView(button);
+                        }
+                    }
+                    interestPopup.show();
+                });
+
+                // update remember
+                RememberListOperations.remembered(user.id, params1 -> {
+                    Boolean result = (Boolean) params1[0];
+                    if (result) {
+                        remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                        remember.setOnClickListener(v -> forgetListener(remember, user));
+                    } else {
+                        remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                        remember.setOnClickListener(v -> rememberListener(remember, user));
+                    }
+                });
             }
         });
 
         return root;
+    }
+
+    private void rememberListener(ImageButton remember, User user) {
+        RememberListOperations.rememberUser(user.id);
+        remember.setImageResource(R.drawable.remembered);
+        remember.setOnClickListener(v -> forgetListener(remember, user));
+    }
+
+    private void forgetListener(ImageButton remember, User user) {
+        RememberListOperations.forgetUser(user.id);
+        remember.setImageResource(R.drawable.remember);
+        remember.setOnClickListener(v -> rememberListener(remember, user));
     }
 }
