@@ -3,12 +3,15 @@ package com.example.askmenow.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivitySignInBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,6 +28,8 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
+        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
+        editor.remove(Constants.KEY_IS_SIGNED_IN);
         // below line takes user straight to the DirectMessagesActivity if they are already
         // signed in when they open the app
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
@@ -65,6 +70,8 @@ public class SignInActivity extends AppCompatActivity {
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME, documentSnapshot.getString(Constants.KEY_NAME));
                         preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
+                        User user = DataAccess.docToUser(documentSnapshot);
+                        DataAccess.setSelf(user);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

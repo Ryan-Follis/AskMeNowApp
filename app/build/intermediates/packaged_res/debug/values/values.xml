@@ -2,6 +2,7 @@
 <resources xmlns:ns1="http://schemas.android.com/tools">
     <color name="askmenow_orange">#D67718</color>
     <color name="black">#FF000000</color>
+    <color name="blue">#03A9F4</color>
     <color name="dark_gray">#292828</color>
     <color name="error">#B00020</color>
     <color name="icon_background">#20FFFFFF</color>
@@ -37,6 +38,7 @@
     <string name="online">Online</string>
     <string name="password">Password</string>
     <string name="project_id" translatable="false">askmenow-7e093</string>
+    <string name="search_hint">search user</string>
     <string name="select_user">Select User</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -55,5 +57,9 @@
         <item name="android:statusBarColor" ns1:targetApi="l">@color/primary</item>
 
         
+    </style>
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

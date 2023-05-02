@@ -22,4 +22,8 @@
     <string name="title_activity_users">UsersActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="online">Online</string>
+
+    <!--search bar hint for the profile hub-->
+    <string name="search_hint">search user</string>
+
 </resources>
