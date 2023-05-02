@@ -9,6 +9,7 @@ import com.example.askmenow.listeners.DataAccessListener;
 import com.example.askmenow.models.QA;
 import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,6 +30,12 @@ public class DataAccess {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
     private Activity root;
+
+    public DataAccess() {}
+
+    public DataAccess(Activity activity) {
+        root = activity;
+    }
 
     public static boolean checkResult(Task task) {
         return task != null && task.isSuccessful();
@@ -219,5 +226,16 @@ public class DataAccess {
 
     public void setRoot(Activity root) {
         this.root = root;
+    }
+
+    public void saveSelf() {
+        PreferenceManager manager = new PreferenceManager(root);
+        manager.putString(Constants.KEY_USER_ID, self.id);
+    }
+
+    public void restoreSelf() {
+        self = new User();
+        PreferenceManager manager = new PreferenceManager(root);
+        self.id = manager.getString(Constants.KEY_USER_ID);
     }
 }
