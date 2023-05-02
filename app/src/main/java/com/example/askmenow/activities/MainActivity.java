@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         getToken();
+        callFragment(getIntent());
     }
 
     private void showToast(String message){
