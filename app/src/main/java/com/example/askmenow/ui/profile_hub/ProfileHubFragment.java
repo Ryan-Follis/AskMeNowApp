@@ -9,27 +9,28 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.ChatActivity;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.databinding.FragmentProfileHubBinding;
 import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
+import com.example.askmenow.utilities.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
-import androidx.fragment.app.Fragment;
 
 public class ProfileHubFragment extends Fragment {
 
     private FragmentProfileHubBinding binding;
     private final DataAccess da = new DataAccess();
     private final User self = DataAccess.getSelf();
+    private int currentPos = 0;
     private List<User> users;
     private List<String> rememberList;
 
@@ -53,15 +54,26 @@ public class ProfileHubFragment extends Fragment {
             load.setVisibility(View.GONE);
 
             // get remember list
-            RememberListOperations.getRememberList(params1 -> rememberList = (List<String>) params1[0]);
+            RememberListOperations.getRememberList(params1 -> {
+                List<User> resultList = (List<User>) params1[0];
+                rememberList = new ArrayList<>();
+                for (User user : resultList)
+                    rememberList.add(user.id);
+            });
         });
 
         profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 // update remember
                 ImageButton remember = getActivity().findViewById(R.id.remember_user);
+                currentPos = position;
                 if (rememberList != null && rememberList.contains(users.get(position).id)) {
                     remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> forgetListener(remember, users.get(position)));
@@ -69,11 +81,6 @@ public class ProfileHubFragment extends Fragment {
                     remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> rememberListener(remember, users.get(position)));
                 }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
             }
 
             @Override
@@ -98,47 +105,13 @@ public class ProfileHubFragment extends Fragment {
             startActivity(friendIntent);
         });
         sendDM.setOnClickListener((View v)-> {
-            // uploadPhoto(sendDM);
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(Constants.KEY_USER, users.get(currentPos));
+            startActivity(intent);
         });
 
         return root;
     }
-
-//    // this activity launcher gets the photo that the user chooses and pass it to uploadPhotoActivity
-//    ActivityResultLauncher<Intent> selectPhotoActivity = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(), result -> {
-//                if (result.getResultCode() == Activity.RESULT_OK) {
-//                    Intent photo = result.getData();
-//                    if (photo != null && photo.getData() != null) {
-//                        Uri photoUri = photo.getData();
-//                        // pass the URI to uploadPhotoActivity
-//                        Intent editText = new Intent(getActivity(), UploadPhotoActivity.class);
-//                        editText.putExtra("photoURI", photoUri.toString());
-//                        getActivity().startActivity(editText);
-//                    }
-//                }
-//            });
-//
-//    public void chooseImage() {
-//        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-//        i.setType("image/*");
-//        selectPhotoActivity.launch(i);
-//    }
-//
-//    public void uploadPhoto(ImageButton selectPhoto) {
-//        // set up the popup menu
-//        PopupMenu photoMenu = new PopupMenu(getActivity(), selectPhoto);
-//        photoMenu.getMenuInflater().inflate(R.menu.select_photo_menu, photoMenu.getMenu());
-//
-//        photoMenu.setOnMenuItemClickListener((MenuItem item) -> {
-//            if (item.getItemId() == R.id.gallery) {
-//                // select photo from the gallery
-//                chooseImage();
-//            }
-//            return true;
-//        });
-//        photoMenu.show();
-//    }
 
     @Override
     public void onDestroyView() {

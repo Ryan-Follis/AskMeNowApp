@@ -3,6 +3,7 @@ package com.example.askmenow.ui.personal_profile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,14 @@ import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.listeners.DataAccessListener;
+import com.example.askmenow.models.User;
+import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
@@ -37,10 +47,6 @@ public class PersonalProfileFragment extends Fragment {
     AutoCompleteTextView auto;
     ArrayAdapter<String> adapter;
     private AlertDialog.Builder dBuilder;
-    private AlertDialog changePass;
-    private EditText newcontactpopup_old, newcontactpopup_new;
-    private Button newcontactpopup_cancel, newcontactpopup_submit;
-    private ImageView img;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +69,7 @@ public class PersonalProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 logout();
             }
         });
@@ -72,6 +79,7 @@ public class PersonalProfileFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 changePassword();
             }
         });
@@ -81,6 +89,7 @@ public class PersonalProfileFragment extends Fragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 forgotPassword();
             }
         });
@@ -90,10 +99,17 @@ public class PersonalProfileFragment extends Fragment {
         deleteProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 deleteProfile();
             }
         });
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        EditText nameIn = root.findViewById(R.id.usernameField);
+        EditText ageIn = root.findViewById(R.id.ageField);
+        nameIn.setText(database.collection(Constants.KEY_NAME).toString());
+        ageIn.setText(database.collection(Constants.KEY_AGE).toString());
         return root;
+
     }
 
     @Override
@@ -138,22 +154,43 @@ public class PersonalProfileFragment extends Fragment {
     }
 
     public int changePassword(){
-        dBuilder.setTitle("Change Password").setMessage("Change your password?");
+        dBuilder.setTitle("Change Password").setMessage("Do you want to change your password?");
+        LinearLayout lila1= new LinearLayout(getActivity().getApplicationContext());
+        lila1.setOrientation(LinearLayout.VERTICAL);
         final EditText old = new EditText(getActivity().getApplicationContext());
         old.setHint("Old Password");
         final EditText newPassword = new EditText(getActivity().getApplicationContext());
         newPassword.setHint("New Password");
-        dBuilder.setView(old);
-        dBuilder.setView(newPassword);
+        lila1.addView(old);
+        lila1.addView(newPassword);
+        dBuilder.setView(lila1);
         dBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 /*
                  * find out how to delete record of thing in firebase
                  * */
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                database.collection(Constants.KEY_COLLECTION_USERS)
+                        .whereEqualTo(Constants.KEY_PASSWORD, old.getText().toString())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if(task.isSuccessful() && task.getResult() != null
+                                    && task.getResult().getDocuments().size() > 0){
+                                DataAccess da = new DataAccess();
+                                /*da.changeField(Constants.KEY_COLLECTION_USERS, Constants.KEY_USER_ID, Constants.KEY_PASSWORD,
+                                        newPassword.getText().toString(), new DataAccessListener() {
+                                            @Override
+                                            public void executeAfterComplete(Object... params) {
 
-                Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
-                startActivity(switchActivityIntent);
+                                            }
+                                        });*/
+                                showToast("Password successfully changed.");
+                            }
+                            else{
+                                showToast("Username or password is incorrect.");
+                            }
+                        });
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -171,6 +208,10 @@ public class PersonalProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        PreferenceManager preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+                        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
+                        editor.remove(Constants.KEY_IS_SIGNED_IN);
+                        editor.commit();
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
                     }
@@ -180,6 +221,7 @@ public class PersonalProfileFragment extends Fragment {
                         dialogInterface.cancel();
                     }
                 });
+        dBuilder.show();
         return 0;
     }
 
@@ -189,7 +231,12 @@ public class PersonalProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        PreferenceManager preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+                        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
+                        editor.remove(Constants.KEY_IS_SIGNED_IN);
+                        editor.commit();
+                        Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(switchActivityIntent);
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -215,6 +262,10 @@ public class PersonalProfileFragment extends Fragment {
         byte[] bytes = outputStream.toByteArray();
         // not sure if I need .encodeToString(bytes, Base64.DEFAULT) in line below or not
         return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
