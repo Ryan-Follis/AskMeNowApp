@@ -21,10 +21,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
-
-import androidx.fragment.app.Fragment;
 
 public class ProfileHubFragment extends Fragment {
 
