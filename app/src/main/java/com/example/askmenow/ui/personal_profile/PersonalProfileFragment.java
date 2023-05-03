@@ -3,6 +3,7 @@ package com.example.askmenow.ui.personal_profile;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
+import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
@@ -175,6 +178,10 @@ public class PersonalProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        PreferenceManager preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+                        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
+                        editor.remove(Constants.KEY_IS_SIGNED_IN);
+                        editor.commit();
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
                     }
@@ -184,6 +191,7 @@ public class PersonalProfileFragment extends Fragment {
                         dialogInterface.cancel();
                     }
                 });
+        dBuilder.show();
         return 0;
     }
 
@@ -193,7 +201,12 @@ public class PersonalProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        PreferenceManager preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+                        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
+                        editor.remove(Constants.KEY_IS_SIGNED_IN);
+                        editor.commit();
+                        Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
+                        startActivity(switchActivityIntent);
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
