@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_baseline_message_24"
         android:title="DMs" />
 
-    <item
+    <!-- item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications"
-        android:title="Notifications" />
+        android:title="Notifications" /!-->
 
     <item
         android:id="@+id/navigation_questions"
