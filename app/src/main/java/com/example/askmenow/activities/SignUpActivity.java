@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.askmenow.databinding.ActivitySignUpBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -77,6 +79,10 @@ public class SignUpActivity extends AppCompatActivity {
                     preferenceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
                     preferenceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
                     preferenceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                    User user = new User();
+                    user.id = documentReference.getId();
+                    user.name = binding.inputName.getText().toString();
+                    DataAccess.setSelf(user);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
