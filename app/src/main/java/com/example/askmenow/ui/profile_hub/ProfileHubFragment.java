@@ -16,6 +16,7 @@ import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,12 @@ public class ProfileHubFragment extends Fragment {
             load.setVisibility(View.GONE);
 
             // get remember list
-            RememberListOperations.getRememberList(params1 -> rememberList = (List<String>) params1[0]);
+            RememberListOperations.getRememberList(params1 -> {
+                List<User> resultList = (List<User>) params1[0];
+                rememberList = new ArrayList<>();
+                for (User user : resultList)
+                    rememberList.add(user.id);
+            });
         });
 
         profileContainer.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
