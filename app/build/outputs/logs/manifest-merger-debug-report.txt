@@ -7,10 +7,10 @@ INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidMani
 	android:name
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:26:13-58
 manifest
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
 MERGED from [androidx.databinding:viewbinding:7.4.1] C:\Users\dylan\.gradle\caches\transforms-3\dd2b1aabfb5be80e68f0aa7d5ac88ad3\transformed\viewbinding-7.4.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-ui:2.4.1] C:\Users\dylan\.gradle\caches\transforms-3\383a1580d6b2c7d636f56261e4eadb19\transformed\navigation-ui-2.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\dylan\.gradle\caches\transforms-3\fa9f432bdd91895abf057b06421c2a73\transformed\material-1.8.0\AndroidManifest.xml:17:1-26:12
@@ -103,27 +103,27 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\dylan\.gradle\ca
 MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\dylan\.gradle\caches\transforms-3\27cac39c2a942222e7024153b898c2f4\transformed\annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
 MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\dylan\.gradle\caches\transforms-3\34fd541943f90e8a596f1debfb24ada2\transformed\grpc-android-1.52.1\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\dylan\.gradle\caches\transforms-3\e26c44267a708cd52078dccd521d829b\transformed\protolite-well-known-types-18.0.0\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
-INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
+INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
 	package
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-70:12
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:1-79:12
 		INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:5:5-68:19
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:5:5-77:19
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\dylan\.gradle\caches\transforms-3\fa9f432bdd91895abf057b06421c2a73\transformed\material-1.8.0\AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.8.0] C:\Users\dylan\.gradle\caches\transforms-3\fa9f432bdd91895abf057b06421c2a73\transformed\material-1.8.0\AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\dylan\.gradle\caches\transforms-3\a1a482c966acac06dbc8cf0e0f93d9a4\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -225,51 +225,63 @@ ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifes
 	android:name
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:40:13-54
 activity#com.example.askmenow.activities.MainActivity
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:43:9-46:58
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:43:9-55:20
 	android:label
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:46:13-56
 	android:exported
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:45:13-36
 	android:name
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:44:13-52
+intent-filter#action:name:android.intent.action.SEARCH
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:47:13-51:29
+action#android.intent.action.SEARCH
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:50:17-70
+	android:name
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:50:25-68
+meta-data#android.app.searchable
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:53:13-54:53
+	android:resource
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:54:17-51
+	android:name
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:53:24-61
 activity#com.example.askmenow.activities.UsersActivity
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:47:9-50:60
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:56:9-59:60
 	android:label
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:50:13-57
-	android:exported
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:49:13-36
-	android:name
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:48:13-53
-activity#com.example.askmenow.activities.ChatActivity
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:51:9-55:58
-	android:label
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:55:13-56
-	android:windowSoftInputMode
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:53:13-55
-	android:exported
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:54:13-36
-	android:name
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:52:13-52
-activity#com.example.askmenow.activities.MapsActivity
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:56:9-59:59
-	android:label
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:59:13-56
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:59:13-57
 	android:exported
 		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:58:13-36
 	android:name
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:57:13-52
-service#com.example.askmenow.firebase.DirectMessagesService
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:61:9-67:19
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:57:13-53
+activity#com.example.askmenow.activities.ChatActivity
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:60:9-64:58
+	android:label
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:64:13-56
+	android:windowSoftInputMode
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:62:13-55
 	android:exported
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:63:13-37
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:63:13-36
 	android:name
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:62:13-59
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:61:13-52
+activity#com.example.askmenow.activities.MapsActivity
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:65:9-68:59
+	android:label
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:68:13-56
+	android:exported
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:67:13-36
+	android:name
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:66:13-52
+service#com.example.askmenow.firebase.DirectMessagesService
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:70:9-76:19
+	android:exported
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:72:13-37
+	android:name
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:71:13-59
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:64:13-66:29
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:73:13-75:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:65:17-78
+ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:74:17-78
 	android:name
-		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:65:25-75
+		ADDED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml:74:25-75
 uses-sdk
 INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\dylan\Desktop\GitHub\AskMeNowApp\app\src\main\AndroidManifest.xml

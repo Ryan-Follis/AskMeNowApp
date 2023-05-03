@@ -63,6 +63,7 @@ public class PersonalProfileFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 logout();
             }
         });
@@ -72,6 +73,7 @@ public class PersonalProfileFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 changePassword();
             }
         });
@@ -81,6 +83,7 @@ public class PersonalProfileFragment extends Fragment {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 forgotPassword();
             }
         });
@@ -90,6 +93,7 @@ public class PersonalProfileFragment extends Fragment {
         deleteProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dBuilder = new AlertDialog.Builder(view.getContext());
                 deleteProfile();
             }
         });

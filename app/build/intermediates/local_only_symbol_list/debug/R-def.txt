@@ -224,3 +224,4 @@ style Theme.AskMeNow
 style roundedImageView
 xml backup_rules
 xml data_extraction_rules
+xml searchable
