@@ -107,42 +107,6 @@ public class ProfileHubFragment extends Fragment {
         return root;
     }
 
-//    // this activity launcher gets the photo that the user chooses and pass it to uploadPhotoActivity
-//    ActivityResultLauncher<Intent> selectPhotoActivity = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(), result -> {
-//                if (result.getResultCode() == Activity.RESULT_OK) {
-//                    Intent photo = result.getData();
-//                    if (photo != null && photo.getData() != null) {
-//                        Uri photoUri = photo.getData();
-//                        // pass the URI to uploadPhotoActivity
-//                        Intent editText = new Intent(getActivity(), UploadPhotoActivity.class);
-//                        editText.putExtra("photoURI", photoUri.toString());
-//                        getActivity().startActivity(editText);
-//                    }
-//                }
-//            });
-//
-//    public void chooseImage() {
-//        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-//        i.setType("image/*");
-//        selectPhotoActivity.launch(i);
-//    }
-//
-//    public void uploadPhoto(ImageButton selectPhoto) {
-//        // set up the popup menu
-//        PopupMenu photoMenu = new PopupMenu(getActivity(), selectPhoto);
-//        photoMenu.getMenuInflater().inflate(R.menu.select_photo_menu, photoMenu.getMenu());
-//
-//        photoMenu.setOnMenuItemClickListener((MenuItem item) -> {
-//            if (item.getItemId() == R.id.gallery) {
-//                // select photo from the gallery
-//                chooseImage();
-//            }
-//            return true;
-//        });
-//        photoMenu.show();
-//    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
