@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,13 @@ import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.listeners.DataAccessListener;
+import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
@@ -145,22 +151,43 @@ public class PersonalProfileFragment extends Fragment {
     }
 
     public int changePassword(){
-        dBuilder.setTitle("Change Password").setMessage("Change your password?");
+        dBuilder.setTitle("Change Password").setMessage("Do you want to change your password?");
+        LinearLayout lila1= new LinearLayout(getActivity().getApplicationContext());
+        lila1.setOrientation(LinearLayout.VERTICAL);
         final EditText old = new EditText(getActivity().getApplicationContext());
         old.setHint("Old Password");
         final EditText newPassword = new EditText(getActivity().getApplicationContext());
         newPassword.setHint("New Password");
-        dBuilder.setView(old);
-        dBuilder.setView(newPassword);
+        lila1.addView(old);
+        lila1.addView(newPassword);
+        dBuilder.setView(lila1);
         dBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 /*
                  * find out how to delete record of thing in firebase
                  * */
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                database.collection(Constants.KEY_COLLECTION_USERS)
+                        .whereEqualTo(Constants.KEY_PASSWORD, old.getText().toString())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if(task.isSuccessful() && task.getResult() != null
+                                    && task.getResult().getDocuments().size() > 0){
+                                DataAccess da = new DataAccess();
+                                /*da.changeField(Constants.KEY_COLLECTION_USERS, Constants.KEY_USER_ID, Constants.KEY_PASSWORD,
+                                        newPassword.getText().toString(), new DataAccessListener() {
+                                            @Override
+                                            public void executeAfterComplete(Object... params) {
 
-                Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
-                startActivity(switchActivityIntent);
+                                            }
+                                        });*/
+                                showToast("Password successfully changed.");
+                            }
+                            else{
+                                showToast("Username or password is incorrect.");
+                            }
+                        });
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -232,6 +259,10 @@ public class PersonalProfileFragment extends Fragment {
         byte[] bytes = outputStream.toByteArray();
         // not sure if I need .encodeToString(bytes, Base64.DEFAULT) in line below or not
         return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 }
