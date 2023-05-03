@@ -63,6 +63,11 @@ public class ProfileHubFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
                 // update remember
                 ImageButton remember = getActivity().findViewById(R.id.remember_user);
                 if (rememberList != null && rememberList.contains(users.get(position).id)) {
@@ -72,11 +77,6 @@ public class ProfileHubFragment extends Fragment {
                     remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> rememberListener(remember, users.get(position)));
                 }
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
             }
 
             @Override
