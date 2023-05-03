@@ -1,7 +1,12 @@
 package com.example.askmenow.firebase;
 
+import static java.security.AccessController.getContext;
+
+import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.askmenow.activities.MainActivity;
+import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.listeners.DataAccessListener;
 import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
@@ -27,6 +32,9 @@ public class RememberListOperations {
 //    }
 
     public static void getRememberList(DataAccessListener listener) {
+        /*if(da.getSelf().id==null){
+            Intent intent = new Intent(getContext(), SignInActivity.class);
+        }*/
         da.getField(Constants.KEY_COLLECTION_USERS, da.getSelf().id, Constants.KEY_REMEMBER, params -> {
             List<String> resultList = (List<String>) params[0];
             List<User> rememberList = new ArrayList<>();

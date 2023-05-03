@@ -28,14 +28,13 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceManager = new PreferenceManager(getApplicationContext());
-        SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
-        editor.remove(Constants.KEY_IS_SIGNED_IN);
-        editor.commit();
+
         // below line takes user straight to the DirectMessagesActivity if they are already
         // signed in when they open the app
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            (new DataAccess(this)).restoreSelf();
             finish();
         }
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
