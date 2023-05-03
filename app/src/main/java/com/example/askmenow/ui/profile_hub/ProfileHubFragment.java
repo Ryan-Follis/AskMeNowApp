@@ -9,12 +9,14 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.ChatActivity;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.databinding.FragmentProfileHubBinding;
 import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
+import com.example.askmenow.utilities.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,7 @@ public class ProfileHubFragment extends Fragment {
     private FragmentProfileHubBinding binding;
     private final DataAccess da = new DataAccess();
     private final User self = DataAccess.getSelf();
+    private int currentPos = 0;
     private List<User> users;
     private List<String> rememberList;
 
@@ -70,6 +73,7 @@ public class ProfileHubFragment extends Fragment {
                 super.onPageSelected(position);
                 // update remember
                 ImageButton remember = getActivity().findViewById(R.id.remember_user);
+                currentPos = position;
                 if (rememberList != null && rememberList.contains(users.get(position).id)) {
                     remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> forgetListener(remember, users.get(position)));
@@ -101,7 +105,9 @@ public class ProfileHubFragment extends Fragment {
             startActivity(friendIntent);
         });
         sendDM.setOnClickListener((View v)-> {
-            // uploadPhoto(sendDM);
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(Constants.KEY_USER, users.get(currentPos));
+            startActivity(intent);
         });
 
         return root;
