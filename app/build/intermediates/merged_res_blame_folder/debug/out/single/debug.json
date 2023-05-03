@@ -328,6 +328,10 @@
         "source": "com.example.askmenow.app-main-56:/drawable/background_content_top.xml"
     },
     {
+        "merged": "com.example.askmenow.app-merged_res-54:/xml_searchable.xml.flat",
+        "source": "com.example.askmenow.app-main-56:/xml/searchable.xml"
+    },
+    {
         "merged": "com.example.askmenow.app-merged_res-54:/layout_pic_container.xml.flat",
         "source": "com.example.askmenow.app-main-56:/layout/pic_container.xml"
     },
