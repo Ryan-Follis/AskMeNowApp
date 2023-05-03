@@ -33,14 +33,20 @@ import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PersonalProfileFragment extends Fragment {
     private FragmentPersonalProfileBinding binding;
+    private PreferenceManager preferenceManager;
     private static String[]  data = new String[6];
     private static int visibility = -1;
     String[] dropdownMenu = {"Everyone", "Friends Only", "Only Me"};
@@ -53,6 +59,7 @@ public class PersonalProfileFragment extends Fragment {
         // pullProfile();
         binding = FragmentPersonalProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
 
         //listener for updating the Visibility Settings
         /* auto.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -178,14 +185,18 @@ public class PersonalProfileFragment extends Fragment {
                             if(task.isSuccessful() && task.getResult() != null
                                     && task.getResult().getDocuments().size() > 0){
                                 DataAccess da = new DataAccess();
-                                /*da.changeField(Constants.KEY_COLLECTION_USERS, Constants.KEY_USER_ID, Constants.KEY_PASSWORD,
-                                        newPassword.getText().toString(), new DataAccessListener() {
-                                            @Override
-                                            public void executeAfterComplete(Object... params) {
-
-                                            }
-                                        });*/
-                                showToast("Password successfully changed.");
+                                if(isValidPassword(newPassword.getText().toString())) {
+                                    DocumentReference documentReference =
+                                            database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                                    preferenceManager.getString(Constants.KEY_USER_ID)
+                                            );
+                                    documentReference.update(Constants.KEY_PASSWORD, newPassword.getText().toString())
+                                            .addOnFailureListener(e -> showToast("Unable to update password."));
+                                    showToast("Password successfully changed.");
+                                }
+                                else{
+                                    showToast("Password chosen does not fit criteria.");
+                                }
                             }
                             else{
                                 showToast("Username or password is incorrect.");
@@ -212,8 +223,21 @@ public class PersonalProfileFragment extends Fragment {
                         SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
                         editor.remove(Constants.KEY_IS_SIGNED_IN);
                         editor.commit();
+                        FirebaseFirestore database = FirebaseFirestore.getInstance();
+                        DocumentReference documentReference =
+                                database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                        preferenceManager.getString(Constants.KEY_USER_ID)
+                                );
+                        HashMap<String, Object> updates = new HashMap<>();
+                        updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                        documentReference.update(updates)
+                                .addOnSuccessListener(unused -> {
+                                    preferenceManager.clear();
+                                })
+                                .addOnFailureListener(e -> showToast("Unable to sign out."));
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
+                        getActivity().finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -235,8 +259,12 @@ public class PersonalProfileFragment extends Fragment {
                         SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
                         editor.remove(Constants.KEY_IS_SIGNED_IN);
                         editor.commit();
+                        FirebaseFirestore database = FirebaseFirestore.getInstance();
+                        database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                preferenceManager.getString(Constants.KEY_USER_ID)).delete();
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
+                        getActivity().finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -266,6 +294,19 @@ public class PersonalProfileFragment extends Fragment {
 
     private void showToast(String message){
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isValidPassword(String password){
+        String passwordCheck = "^" +
+                "(?=.*[A-Za-z])" +      // contains at least 1 alphabetic character
+                "(?=.*[0-9])" +         // contains at least 1 digit
+                //"(?=.*[!@#$%^&+=.?])" + // contains at least 1 special character
+                "(?=\\S+$)" +           // contains no whitespace characters
+                ".{8,256}" +            // is between 8 and 256 characters long
+                "$";
+        Pattern pattern = Pattern.compile(passwordCheck, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
 }
