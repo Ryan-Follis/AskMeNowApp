@@ -46,10 +46,6 @@ public class PersonalProfileFragment extends Fragment {
     AutoCompleteTextView auto;
     ArrayAdapter<String> adapter;
     private AlertDialog.Builder dBuilder;
-    private AlertDialog changePass;
-    private EditText newcontactpopup_old, newcontactpopup_new;
-    private Button newcontactpopup_cancel, newcontactpopup_submit;
-    private ImageView img;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
