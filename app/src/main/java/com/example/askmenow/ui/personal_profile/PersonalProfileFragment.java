@@ -32,6 +32,7 @@ import com.example.askmenow.listeners.DataAccessListener;
 import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -102,7 +103,13 @@ public class PersonalProfileFragment extends Fragment {
                 deleteProfile();
             }
         });
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        EditText nameIn = root.findViewById(R.id.usernameField);
+        EditText ageIn = root.findViewById(R.id.ageField);
+        nameIn.setText(database.collection(Constants.KEY_NAME).toString());
+        ageIn.setText(database.collection(Constants.KEY_AGE).toString());
         return root;
+
     }
 
     @Override
