@@ -73,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                         preferenceManager.getString(Constants.KEY_USER_ID)
                 );
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
-                // Line commented out below may not be needed
-                // .addOnSuccessListener(unused -> showToast("Token updated successfully."))
                 .addOnFailureListener(e -> showToast("Unable to update token."));
     }
 

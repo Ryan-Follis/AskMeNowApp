@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,30 +27,39 @@ import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
+import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.listeners.DataAccessListener;
+import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PersonalProfileFragment extends Fragment {
     private FragmentPersonalProfileBinding binding;
+    private PreferenceManager preferenceManager;
     private static String[]  data = new String[6];
     private static int visibility = -1;
     String[] dropdownMenu = {"Everyone", "Friends Only", "Only Me"};
     AutoCompleteTextView auto;
     ArrayAdapter<String> adapter;
     private AlertDialog.Builder dBuilder;
-    private AlertDialog changePass;
-    private EditText newcontactpopup_old, newcontactpopup_new;
-    private Button newcontactpopup_cancel, newcontactpopup_submit;
-    private ImageView img;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // pullProfile();
         binding = FragmentPersonalProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
 
         //listener for updating the Visibility Settings
         /* auto.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -100,7 +110,13 @@ public class PersonalProfileFragment extends Fragment {
                 deleteProfile();
             }
         });
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        EditText nameIn = root.findViewById(R.id.usernameField);
+        EditText ageIn = root.findViewById(R.id.ageField);
+        nameIn.setText(database.collection(Constants.KEY_NAME).toString());
+        ageIn.setText(database.collection(Constants.KEY_AGE).toString());
         return root;
+
     }
 
     @Override
@@ -145,22 +161,47 @@ public class PersonalProfileFragment extends Fragment {
     }
 
     public int changePassword(){
-        dBuilder.setTitle("Change Password").setMessage("Change your password?");
+        dBuilder.setTitle("Change Password").setMessage("Do you want to change your password?");
+        LinearLayout lila1= new LinearLayout(getActivity().getApplicationContext());
+        lila1.setOrientation(LinearLayout.VERTICAL);
         final EditText old = new EditText(getActivity().getApplicationContext());
         old.setHint("Old Password");
         final EditText newPassword = new EditText(getActivity().getApplicationContext());
         newPassword.setHint("New Password");
-        dBuilder.setView(old);
-        dBuilder.setView(newPassword);
+        lila1.addView(old);
+        lila1.addView(newPassword);
+        dBuilder.setView(lila1);
         dBuilder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 /*
                  * find out how to delete record of thing in firebase
                  * */
-
-                Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
-                startActivity(switchActivityIntent);
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                database.collection(Constants.KEY_COLLECTION_USERS)
+                        .whereEqualTo(Constants.KEY_PASSWORD, old.getText().toString())
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if(task.isSuccessful() && task.getResult() != null
+                                    && task.getResult().getDocuments().size() > 0){
+                                DataAccess da = new DataAccess();
+                                if(isValidPassword(newPassword.getText().toString())) {
+                                    DocumentReference documentReference =
+                                            database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                                    preferenceManager.getString(Constants.KEY_USER_ID)
+                                            );
+                                    documentReference.update(Constants.KEY_PASSWORD, newPassword.getText().toString())
+                                            .addOnFailureListener(e -> showToast("Unable to update password."));
+                                    showToast("Password successfully changed.");
+                                }
+                                else{
+                                    showToast("Password chosen does not fit criteria.");
+                                }
+                            }
+                            else{
+                                showToast("Username or password is incorrect.");
+                            }
+                        });
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -182,8 +223,21 @@ public class PersonalProfileFragment extends Fragment {
                         SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
                         editor.remove(Constants.KEY_IS_SIGNED_IN);
                         editor.commit();
+                        FirebaseFirestore database = FirebaseFirestore.getInstance();
+                        DocumentReference documentReference =
+                                database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                        preferenceManager.getString(Constants.KEY_USER_ID)
+                                );
+                        HashMap<String, Object> updates = new HashMap<>();
+                        updates.put(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                        documentReference.update(updates)
+                                .addOnSuccessListener(unused -> {
+                                    preferenceManager.clear();
+                                })
+                                .addOnFailureListener(e -> showToast("Unable to sign out."));
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
+                        getActivity().finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -205,8 +259,12 @@ public class PersonalProfileFragment extends Fragment {
                         SharedPreferences.Editor editor = preferenceManager.sharedPreferences.edit();
                         editor.remove(Constants.KEY_IS_SIGNED_IN);
                         editor.commit();
+                        FirebaseFirestore database = FirebaseFirestore.getInstance();
+                        database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                preferenceManager.getString(Constants.KEY_USER_ID)).delete();
                         Intent switchActivityIntent = new Intent(getActivity(), SignInActivity.class);
                         startActivity(switchActivityIntent);
+                        getActivity().finish();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -232,6 +290,23 @@ public class PersonalProfileFragment extends Fragment {
         byte[] bytes = outputStream.toByteArray();
         // not sure if I need .encodeToString(bytes, Base64.DEFAULT) in line below or not
         return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isValidPassword(String password){
+        String passwordCheck = "^" +
+                "(?=.*[A-Za-z])" +      // contains at least 1 alphabetic character
+                "(?=.*[0-9])" +         // contains at least 1 digit
+                //"(?=.*[!@#$%^&+=.?])" + // contains at least 1 special character
+                "(?=\\S+$)" +           // contains no whitespace characters
+                ".{8,256}" +            // is between 8 and 256 characters long
+                "$";
+        Pattern pattern = Pattern.compile(passwordCheck, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
 }
