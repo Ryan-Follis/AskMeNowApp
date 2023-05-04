@@ -51,7 +51,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         holder.name.setOnClickListener((View view)->{
             Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("id", user.id);
+            intent.putExtra("user", user);
             intent.putExtra("dest", "search result");
             context.startActivity(intent);
         });

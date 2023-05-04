@@ -3,7 +3,6 @@ package com.example.askmenow.firebase;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import com.example.askmenow.listeners.DataAccessListener;
@@ -20,7 +19,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -144,9 +142,13 @@ public class DataAccess {
                             QA qa = new QA();
                             qa.setqId(document.getId());
                             qa.setQuestion((String)document.get(Constants.KEY_QUESTION));
+                            qa.setQuestionAccess((String)document.get(Constants.KEY_USER_ACCESS));
+                            qa.setToUser((String)document.get(Constants.KEY_QUESTION_TO));
                             List<Map<String, String>> answers = (List<Map<String, String>>) document.get(Constants.KEY_ANSWERS);
                             if (answers == null)
                                 answers = new ArrayList<>();
+                            // remove private answers
+                            answers.removeIf(answer -> Constants.VALUE_USER_ACCESS[2].equals(answer.get(Constants.KEY_USER_ACCESS)));
                             qa.setAnswers(answers);
                             qaList.add(qa);
                         }

@@ -45,8 +45,10 @@ public class Constants {
 
     public static final String KEY_ANSWER_ID = "id";
     public static final String KEY_ANSWER_CONTENT = "answer";
-    public static final String KEY_ANSWER_ACCESS = "access";
+    public static final String KEY_USER_ACCESS = "access";
+    public static final String[] VALUE_USER_ACCESS = {"public", "anonymous", "private"};
     public static final String KEY_ANSWER_NAME = "user";
+    public static final String KEY_QUESTION_TO = "questionTo";
 
     public static HashMap<String, String> remoteMsgHeaders = null;
     public static HashMap<String, String> getRemoteMsgHeaders(){

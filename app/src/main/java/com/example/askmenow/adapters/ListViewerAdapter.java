@@ -1,12 +1,15 @@
 package com.example.askmenow.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.askmenow.R;
 import com.example.askmenow.models.QA;
+import com.example.askmenow.utilities.Constants;
 
+import java.util.Iterator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -17,9 +20,12 @@ public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.Vi
     private static final int MAX_Q = 10;
 
     private final List<QA> qaList;
+    private final Activity root;
 
-    public ListViewerAdapter(List<QA> qaList) {
+    public ListViewerAdapter(List<QA> qaList, Activity activity) {
+        filterList(qaList);
         this.qaList = qaList;
+        root = activity;
     }
 
     @NonNull
@@ -31,7 +37,7 @@ public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.list.setAdapter(new QAListAdapter(qaList.get(position)));
+        holder.list.setAdapter(new QAListAdapter(qaList.get(position), root));
         holder.list.setLayoutManager(new LinearLayoutManager(holder.list.getContext()));
     }
 
@@ -47,5 +53,10 @@ public class ListViewerAdapter extends RecyclerView.Adapter<ListViewerAdapter.Vi
             super(itemView);
             list = itemView.findViewById(R.id.qa_list);
         }
+    }
+
+    // remove private questions from the question list
+    private void filterList(List<QA> qaList) {
+        qaList.removeIf(question -> !Constants.VALUE_USER_ACCESS[0].equals(question.getQuestionAccess()));
     }
 }

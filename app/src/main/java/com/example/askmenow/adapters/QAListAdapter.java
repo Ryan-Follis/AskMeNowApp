@@ -1,5 +1,6 @@
 package com.example.askmenow.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder> {
@@ -26,10 +28,12 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
     private final QA question;
     private int length;
     private final DataAccess da = new DataAccess();
+    private final Activity root;
 
-    public QAListAdapter(QA question) {
+    public QAListAdapter(QA question, Activity activity) {
         this.question = question;
         length = Math.min(MAX_A + 2, question.getAnswers().size() + 2);
+        root = activity;
     }
 
     @NonNull
@@ -46,8 +50,10 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position == 0) {
+            // show question
             holder.rowText.setText(question.getQuestion());
         } else if (position == length - 1) {
+            // send answer
             holder.newAnswerText.setHint("answer me now");
             holder.sendAnswer.setOnClickListener(v -> {
                 Map<String, String> newAnswer = new HashMap<>();
@@ -56,19 +62,45 @@ public class QAListAdapter extends RecyclerView.Adapter<QAListAdapter.ViewHolder
                     newAnswer.put(Constants.KEY_ANSWER_ID, DataAccess.getSelf().id);
                     newAnswer.put(Constants.KEY_ANSWER_CONTENT, newAsnwerText);
                     newAnswer.put(Constants.KEY_ANSWER_NAME, DataAccess.getSelf().username);
-                    da.addToArray(Constants.KEY_COLLECTION_QA, question.getqId(), Constants.KEY_ANSWERS, newAnswer, params -> {
-                        if ((Boolean) params[0]) {
-                            question.getAnswers().add(newAnswer);
-                            length++;
-                            notifyItemInserted(position);
-                        }
-                    });
+
+                    // choose who can see the answer
+                    final int selectedItem[] = new int[1];
+                    selectedItem[0] = 0;
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(root);
+                    dialogBuilder.setTitle("display answer to");
+                    final String[] choices = {"everyone", "everyone anonymously", "this user only"};
+                    dialogBuilder.setSingleChoiceItems(choices, selectedItem[0], ((dialog1, which) -> {
+                        selectedItem[0] = which;
+                    }));
+                    dialogBuilder.setPositiveButton("send answer", ((dialog, which) -> {
+                        newAnswer.put(Constants.KEY_USER_ACCESS, Constants.VALUE_USER_ACCESS[selectedItem[0]]);
+                        da.addToArray(Constants.KEY_COLLECTION_QA, question.getqId(), Constants.KEY_ANSWERS, newAnswer, params -> {
+                            if ((Boolean) params[0]) {
+                                if (selectedItem[0] != 2) {
+                                    question.getAnswers().add(newAnswer);
+                                    length++;
+                                    notifyItemInserted(position);
+                                }
+                                holder.newAnswerText.setText("");
+                            }
+                        });
+                    }));
+                    dialogBuilder.setNegativeButton("cancel", (dialog, which) -> dialog.cancel());
+                    dialogBuilder.create().show();
                 }
             });
         } else {
+            // show answer
             Map<String, String> answer = question.getAnswers().get(position - 1);
+            String access = answer.get(Constants.KEY_USER_ACCESS);
+            if (Constants.VALUE_USER_ACCESS[2].equals(access))
+                return;
             holder.rowText.setText(answer.get(Constants.KEY_ANSWER_CONTENT));
-            holder.userName.setText(answer.get(Constants.KEY_ANSWER_NAME));
+            if (Constants.VALUE_USER_ACCESS[1].equals(access))
+                holder.userName.setText("anonymous answer");
+            else {
+                holder.userName.setText(answer.get(Constants.KEY_ANSWER_NAME));
+            }
         }
     }
 

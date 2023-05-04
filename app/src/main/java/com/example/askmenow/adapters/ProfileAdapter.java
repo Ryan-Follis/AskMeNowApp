@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -58,7 +59,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         });
         da.getDisplayQuestions(user.id, params -> {
             List<QA> qaList= (List<QA>)params[0];
-            ListViewerAdapter listAdapter = new ListViewerAdapter(qaList);
+            ListViewerAdapter listAdapter = new ListViewerAdapter(qaList, context);
             holder.listContainer.setAdapter(listAdapter);
             holder.loadQA.setVisibility(View.GONE);
         });
@@ -104,6 +105,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             holder.nearby.setText("nearby");
         else
             holder.nearby.setText("");
+        // show interests
         holder.interests.setOnClickListener(view -> {
             Dialog interestPopup = new Dialog(context);
             interestPopup.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -131,15 +133,31 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         holder.submitQuestion.setOnClickListener(v -> {
             String question = holder.questionText.getText().toString();
             if (!question.trim().equals("")) {
-                Map<String, String> questionFields = new HashMap<>();
-                questionFields.put(Constants.KEY_USER_ID, DataAccess.getSelf().id);
-                questionFields.put(Constants.KEY_QUESTION, question);
-                da.addDoc(Constants.KEY_COLLECTION_QA, questionFields, params -> {
-
-                });
+                // choose who can see the question
+                final int[] selectedItem = new int[1];
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                dialogBuilder.setTitle("display answer to");
+                final String[] choices = {"everyone", "this user anonymously", "this user only"};
+                dialogBuilder.setSingleChoiceItems(choices, selectedItem[0], ((dialog1, which) -> {
+                    selectedItem[0] = which;
+                }));
+                dialogBuilder.setPositiveButton("ask", ((dialog, which) -> {
+                    Map<String, String> questionFields = new HashMap<>();
+                    questionFields.put(Constants.KEY_USER_ID, DataAccess.getSelf().id);
+                    questionFields.put(Constants.KEY_QUESTION, question);
+                    questionFields.put(Constants.KEY_USER_ACCESS, Constants.VALUE_USER_ACCESS[selectedItem[0]]);
+                    if (selectedItem[0] != 0) {
+                        // question to a particular user, need a questionTo field
+                        questionFields.put(Constants.KEY_QUESTION_TO, user.id);
+                    }
+                    da.addDoc(Constants.KEY_COLLECTION_QA, questionFields, params -> {
+                        holder.questionText.setText("");
+                    });
+                }));
+                dialogBuilder.setNegativeButton("cancel", (dialog, which) -> dialog.cancel());
+                dialogBuilder.create().show();
             }
         });
-
     }
 
     @Override

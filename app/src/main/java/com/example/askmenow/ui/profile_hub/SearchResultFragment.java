@@ -1,6 +1,7 @@
 package com.example.askmenow.ui.profile_hub;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,34 +9,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.askmenow.R;
+import com.example.askmenow.activities.ChatActivity;
 import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.QA;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ListViewerAdapter;
 import com.example.askmenow.adapters.PictureViewerAdapter;
+import com.example.askmenow.utilities.Constants;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class SearchResultFragment extends Fragment {
 
-    private final String resultId;
+    private final User resultUser;
     private final DataAccess da = new DataAccess();
 
-    public SearchResultFragment(String id) {
-        resultId = id;
+    public SearchResultFragment(User user) {
+        resultUser = user;
         da.setRoot(getActivity());
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,15 +57,15 @@ public class SearchResultFragment extends Fragment {
         loadImg.setVisibility(View.VISIBLE);
         loadQA.setVisibility(View.VISIBLE);
 
-        da.getUserPics(resultId, params -> {
+        da.getUserPics(resultUser.id, params -> {
             List<Bitmap> pics = (List<Bitmap>) params[0];
             PictureViewerAdapter picAdapter = new PictureViewerAdapter(pics);
             picContainer.setAdapter(picAdapter);
             loadImg.setVisibility(View.GONE);
         });
-        da.getDisplayQuestions(resultId, params -> {
+        da.getDisplayQuestions(resultUser.id, params -> {
             List<QA> qaList = (List<QA>) params[0];
-            ListViewerAdapter listViewerAdapter = new ListViewerAdapter(qaList);
+            ListViewerAdapter listViewerAdapter = new ListViewerAdapter(qaList, getActivity());
             listContainer.setAdapter(listViewerAdapter);
             loadQA.setVisibility(View.GONE);
         });
@@ -103,6 +109,9 @@ public class SearchResultFragment extends Fragment {
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         retProfileHub.setOnClickListener((View v)->getActivity().onBackPressed());
         sendDM.setOnClickListener((View v)-> {
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(Constants.KEY_USER, resultUser);
+            startActivity(intent);
         });
 
         // show basic information
@@ -110,7 +119,8 @@ public class SearchResultFragment extends Fragment {
         TextView nearby = root.findViewById(R.id.nearby);
         ImageButton interests = root.findViewById(R.id.show_interest);
 
-        da.getUser(resultId, params -> {
+        // show interests
+        da.getUser(resultUser.id, params -> {
             if (params == null || params[0] == null) {
                 Toast.makeText(getActivity(), "Some error happened. Please try again", Toast.LENGTH_SHORT).show();
             } else {
@@ -153,6 +163,38 @@ public class SearchResultFragment extends Fragment {
             }
         });
 
+        // ask question
+        EditText questionText = root.findViewById(R.id.qa_input);
+        ImageButton submitQuestion = root.findViewById(R.id.send_answer);
+        submitQuestion.setOnClickListener(v -> {
+            String question = questionText.getText().toString();
+            if (!question.trim().equals("")) {
+                // choose who can see the question
+                final int[] selectedItem = new int[1];
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setTitle("display answer to");
+                final String[] choices = {"everyone", "this user anonymously", "this user only"};
+                dialogBuilder.setSingleChoiceItems(choices, selectedItem[0], ((dialog1, which) -> {
+                    selectedItem[0] = which;
+                }));
+                dialogBuilder.setPositiveButton("ask", ((dialog, which) -> {
+                    Map<String, String> questionFields = new HashMap<>();
+                    questionFields.put(Constants.KEY_USER_ID, DataAccess.getSelf().id);
+                    questionFields.put(Constants.KEY_QUESTION, question);
+                    questionFields.put(Constants.KEY_USER_ACCESS, Constants.VALUE_USER_ACCESS[selectedItem[0]]);
+                    if (selectedItem[0] != 0) {
+                        // question to a particular user, need a questionTo field
+                        questionFields.put(Constants.KEY_QUESTION_TO, resultUser.id);
+                    }
+                    da.addDoc(Constants.KEY_COLLECTION_QA, questionFields, params -> {
+                        questionText.setText("");
+                    });
+                }));
+                dialogBuilder.setNegativeButton("cancel", (dialog, which) -> dialog.cancel());
+                dialogBuilder.create().show();
+            }
+        });
+
         return root;
     }
 
@@ -160,11 +202,13 @@ public class SearchResultFragment extends Fragment {
         RememberListOperations.rememberUser(user.id);
         remember.setImageResource(R.drawable.remembered);
         remember.setOnClickListener(v -> forgetListener(remember, user));
+        ProfileHubFragment.rememberUser(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
         remember.setImageResource(R.drawable.remember);
         remember.setOnClickListener(v -> rememberListener(remember, user));
+        ProfileHubFragment.forgetUser(user.id);
     }
 }

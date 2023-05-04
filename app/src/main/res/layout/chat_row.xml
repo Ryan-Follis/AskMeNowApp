@@ -13,7 +13,7 @@
         android:textColor="@color/black"
         android:hint="ask me now"
         android:textColorHint="@color/black"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/black" />
 
     <ImageButton
         android:id="@+id/send_answer"

@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.models.User;
 import com.example.askmenow.ui.profile_hub.RememberListFragment;
 import com.example.askmenow.ui.profile_hub.SearchResultFragment;
 import com.example.askmenow.ui.profile_hub.SearchUserFragment;
@@ -91,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (destination != null) {
             if (destination.equals("search result")) {
                 // show search result
-                String id = intent.getStringExtra("id");
-                SearchResultFragment searchResult = new SearchResultFragment(id);
+                User user = (User) intent.getSerializableExtra("user");
+                SearchResultFragment searchResult = new SearchResultFragment(user);
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, searchResult).commit();
             } else if (destination.equals("friend list")) {
                 // show friend list

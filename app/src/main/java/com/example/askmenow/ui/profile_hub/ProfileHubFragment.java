@@ -32,7 +32,7 @@ public class ProfileHubFragment extends Fragment {
     private final User self = DataAccess.getSelf();
     private int currentPos = 0;
     private List<User> users;
-    private List<String> rememberList;
+    private static List<String> rememberList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +131,14 @@ public class ProfileHubFragment extends Fragment {
         remember.setImageResource(R.drawable.remember);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         rememberList.remove(user.id);
+    }
+
+    public static void rememberUser(String userId) {
+        rememberList.add(userId);
+    }
+
+    public static void forgetUser(String userId) {
+        rememberList.remove(userId);
     }
 
 }
