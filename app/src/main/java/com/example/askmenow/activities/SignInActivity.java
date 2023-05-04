@@ -34,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
         if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-            (new DataAccess(this)).restoreSelf();
+            DataAccess.restoreSelf(preferenceManager);
             finish();
         }
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
@@ -72,6 +72,7 @@ public class SignInActivity extends AppCompatActivity {
                         preferenceManager.putString(Constants.KEY_IMAGE, documentSnapshot.getString(Constants.KEY_IMAGE));
                         User user = DataAccess.docToUser(documentSnapshot);
                         DataAccess.setSelf(user);
+                        DataAccess.saveSelf(preferenceManager);
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

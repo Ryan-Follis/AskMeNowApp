@@ -43,6 +43,11 @@ public class Constants {
 
     public static final long IMAGE_MAX_SIZE = 3145728; // in byte. this is 3mb.
 
+    public static final String KEY_ANSWER_ID = "id";
+    public static final String KEY_ANSWER_CONTENT = "answer";
+    public static final String KEY_ANSWER_ACCESS = "access";
+    public static final String KEY_ANSWER_NAME = "user";
+
     public static HashMap<String, String> remoteMsgHeaders = null;
     public static HashMap<String, String> getRemoteMsgHeaders(){
         if(remoteMsgHeaders == null){

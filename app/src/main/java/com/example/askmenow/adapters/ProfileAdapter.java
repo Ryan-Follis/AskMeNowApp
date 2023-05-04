@@ -15,9 +15,12 @@ import com.example.askmenow.R;
 import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.models.QA;
 import com.example.askmenow.models.User;
+import com.example.askmenow.utilities.Constants;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -124,7 +127,18 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             interestPopup.show();
         });
 
+        // ask question
+        holder.submitQuestion.setOnClickListener(v -> {
+            String question = holder.questionText.getText().toString();
+            if (!question.trim().equals("")) {
+                Map<String, String> questionFields = new HashMap<>();
+                questionFields.put(Constants.KEY_USER_ID, DataAccess.getSelf().id);
+                questionFields.put(Constants.KEY_QUESTION, question);
+                da.addDoc(Constants.KEY_COLLECTION_QA, questionFields, params -> {
 
+                });
+            }
+        });
 
     }
 
@@ -142,6 +156,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         private final ViewPager2 listContainer;
         private final View loadImage;
         private final View loadQA;
+        private final TextView questionText;
+        private final ImageButton submitQuestion;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -153,6 +169,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             loadImage = itemView.findViewById(R.id.load_image);
             loadQA = itemView.findViewById(R.id.load_qa);
             interests = itemView.findViewById(R.id.show_interest);
+            questionText = itemView.findViewById(R.id.qa_input);
+            submitQuestion = itemView.findViewById(R.id.send_answer);
         }
     }
 }

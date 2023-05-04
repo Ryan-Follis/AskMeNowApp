@@ -3,6 +3,7 @@ package com.example.askmenow.firebase;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.ContactsContract;
 import android.widget.Toast;
 
 import com.example.askmenow.listeners.DataAccessListener;
@@ -11,17 +12,17 @@ import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataAccess {
 
@@ -141,13 +142,17 @@ public class DataAccess {
                     if (checkResult(task)) {
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
                             QA qa = new QA();
+                            qa.setqId(document.getId());
                             qa.setQuestion((String)document.get(Constants.KEY_QUESTION));
-                            qa.setAnswers((List<String>) document.get(Constants.KEY_ANSWERS));
+                            List<Map<String, String>> answers = (List<Map<String, String>>) document.get(Constants.KEY_ANSWERS);
+                            if (answers == null)
+                                answers = new ArrayList<>();
+                            qa.setAnswers(answers);
                             qaList.add(qa);
                         }
                     }
                     if (qaList.size() == 0 && root != null) {
-                        Toast.makeText(root, "this user do not want to display any question", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(root, "this user does not want to display any question", Toast.LENGTH_SHORT).show();
                     }
                     listener.executeAfterComplete(qaList);
                 });
@@ -207,6 +212,16 @@ public class DataAccess {
         });
     }
 
+    public void addDoc(String collection, Map fields, DataAccessListener listener) {
+        db.collection(collection).add(fields).addOnCompleteListener(task -> {
+            Boolean result = false;
+            if (checkResult(task)) {
+                result = true;
+            }
+            listener.executeAfterComplete(result);
+        });
+    }
+
     public boolean checkLocation(String id1, String id2) {
         return false;
     }
@@ -228,14 +243,14 @@ public class DataAccess {
         this.root = root;
     }
 
-    public void saveSelf() {
-        PreferenceManager manager = new PreferenceManager(root);
+    public static void saveSelf(PreferenceManager manager) {
         manager.putString(Constants.KEY_USER_ID, self.id);
+        manager.putString(Constants.KEY_USERNAME, self.username);
     }
 
-    public void restoreSelf() {
+    public static void restoreSelf(PreferenceManager manager) {
         self = new User();
-        PreferenceManager manager = new PreferenceManager(root);
         self.id = manager.getString(Constants.KEY_USER_ID);
+        self.username = manager.getString(Constants.KEY_USERNAME);
     }
 }

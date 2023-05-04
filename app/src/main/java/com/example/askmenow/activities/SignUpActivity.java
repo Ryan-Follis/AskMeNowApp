@@ -83,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.id = documentReference.getId();
                     user.name = binding.inputName.getText().toString();
                     DataAccess.setSelf(user);
+                    DataAccess.saveSelf(preferenceManager);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
