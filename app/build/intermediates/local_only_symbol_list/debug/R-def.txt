@@ -63,12 +63,13 @@ drawable unselected_dot
 id accept_friend
 id age
 id ageField
+id answer_name
+id answer_text
 id auto
 id buttonSignIn
 id buttonSignUp
 id changepassword
 id chatRecyclerView
-id confirm_upload
 id container
 id conversationsRecyclerView
 id decline_friend
@@ -107,7 +108,6 @@ id navigation_questions
 id nearby
 id newChat
 id new_friend_request
-id photo_return
 id pic1
 id pic10
 id pic2
@@ -121,16 +121,16 @@ id pic9
 id pic_container
 id picture
 id pictures
-id preview_photo
 id profileImage
 id profile_container
 id profile_hub
 id progressBar
+id qa_input
 id qa_list
-id qa_row
 id remember_user
 id search_result_list
 id search_user
+id send_answer
 id send_dm
 id show_interest
 id signout
@@ -161,6 +161,7 @@ layout activity_sign_in
 layout activity_sign_up
 layout activity_users
 layout basic_info
+layout chat_row
 layout fragment_dms
 layout fragment_friend_list
 layout fragment_map
@@ -184,7 +185,6 @@ layout qa_list
 layout qa_row
 layout search_result_menu
 layout top_toolbar
-layout upload_photo
 menu bottom_nav_menu
 mipmap ic_launcher
 mipmap ic_launcher_round

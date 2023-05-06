@@ -4,6 +4,10 @@
         "source": "com.example.askmenow.app-main-56:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
+        "merged": "com.example.askmenow.app-merged_res-54:/layout_chat_row.xml.flat",
+        "source": "com.example.askmenow.app-main-56:/layout/chat_row.xml"
+    },
+    {
         "merged": "com.example.askmenow.app-merged_res-54:/drawable_comment.png.flat",
         "source": "com.example.askmenow.app-main-56:/drawable/comment.png"
     },
@@ -294,10 +298,6 @@
     {
         "merged": "com.example.askmenow.app-merged_res-54:/layout_list.xml.flat",
         "source": "com.example.askmenow.app-main-56:/layout/list.xml"
-    },
-    {
-        "merged": "com.example.askmenow.app-merged_res-54:/layout_upload_photo.xml.flat",
-        "source": "com.example.askmenow.app-main-56:/layout/upload_photo.xml"
     },
     {
         "merged": "com.example.askmenow.app-merged_res-54:/layout_fragment_search_user.xml.flat",

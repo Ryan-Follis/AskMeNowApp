@@ -3,9 +3,6 @@ package com.example.askmenow.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.askmenow.adapters.UsersAdapter;
 import com.example.askmenow.databinding.ActivityUsersBinding;
 import com.example.askmenow.listeners.UserListener;

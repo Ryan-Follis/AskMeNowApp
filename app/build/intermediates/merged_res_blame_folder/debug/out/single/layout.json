@@ -92,6 +92,10 @@
         "source": "com.example.askmenow.app-main-56:/layout/item_container_sent_message.xml"
     },
     {
+        "merged": "com.example.askmenow.app-mergeDebugResources-53:/layout/chat_row.xml",
+        "source": "com.example.askmenow.app-main-56:/layout/chat_row.xml"
+    },
+    {
         "merged": "com.example.askmenow.app-mergeDebugResources-53:/layout/list_container.xml",
         "source": "com.example.askmenow.app-main-56:/layout/list_container.xml"
     },
@@ -118,9 +122,5 @@
     {
         "merged": "com.example.askmenow.app-mergeDebugResources-53:/layout/qa_row.xml",
         "source": "com.example.askmenow.app-main-56:/layout/qa_row.xml"
-    },
-    {
-        "merged": "com.example.askmenow.app-mergeDebugResources-53:/layout/upload_photo.xml",
-        "source": "com.example.askmenow.app-main-56:/layout/upload_photo.xml"
     }
 ]

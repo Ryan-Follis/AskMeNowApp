@@ -26,8 +26,10 @@ import androidx.fragment.app.Fragment;
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
+import com.example.askmenow.adapters.ProfileAdapter;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
 import com.example.askmenow.firebase.DataAccess;
+import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.listeners.DataAccessListener;
 import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
@@ -39,8 +41,10 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,8 +55,9 @@ public class PersonalProfileFragment extends Fragment {
     private static int visibility = -1;
     String[] dropdownMenu = {"Everyone", "Friends Only", "Only Me"};
     AutoCompleteTextView auto;
-    ArrayAdapter<String> adapter;
+    private final DataAccess da = new DataAccess();
     private AlertDialog.Builder dBuilder;
+    private static List<String> rememberList;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,14 +67,14 @@ public class PersonalProfileFragment extends Fragment {
         preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
 
         //listener for updating the Visibility Settings
-        /* auto.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+         /*auto.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(getActivity().getApplicationContext(), item,Toast.LENGTH_SHORT).show();
                 visibility = i;
             }
-        }); */
+        });*/
 
         //Listener for log out feature
         Button logout = root.findViewById(R.id.signout);
@@ -115,6 +120,24 @@ public class PersonalProfileFragment extends Fragment {
         EditText ageIn = root.findViewById(R.id.ageField);
         nameIn.setText(database.collection(Constants.KEY_NAME).toString());
         ageIn.setText(database.collection(Constants.KEY_AGE).toString());
+
+        da.getAllUser(params -> {
+            List<User> users = (List<User>) params[0];
+            if (users.size() == 0) {
+                Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
+            }
+//            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
+            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users);
+
+
+            // get remember list
+            RememberListOperations.getRememberList(params1 -> {
+                List<User> resultList = (List<User>) params1[0];
+                rememberList = new ArrayList<>();
+                for (User user : resultList)
+                    rememberList.add(user.id);
+            });
+        });
         return root;
 
     }
