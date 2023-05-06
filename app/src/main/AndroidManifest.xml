@@ -46,6 +46,16 @@
                 <action android:name="android.intent.action.MAPS" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CustomInfoWindowAdapter"
+            android:exported="true"
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.INFO" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

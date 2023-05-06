@@ -22,4 +22,8 @@
         <item>20 miles</item>
         <item>50 miles</item>
     </string-array>
+    <string name="question_title">Ask a Question</string>
+    <string name="question_placeholder">What\'s the best thing to do here?</string>
+    <string name="send_button">Send Response</string>
+
 </resources>

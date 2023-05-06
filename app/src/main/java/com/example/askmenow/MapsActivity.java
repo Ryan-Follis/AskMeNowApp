@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -411,8 +412,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void addMarkers2Map(String locationType, String radius) {
-         String type = locationType.replaceAll(",\\s*|,", "+").toLowerCase();
-       if(type.charAt(type.length()-1)=='+'){ type = type.substring(0,type.length()-1);	      }
+        String type = locationType.replaceAll(",\\s*|,", "+").toLowerCase();
+        if(type.charAt(type.length()-1)=='+'){ type = type.substring(0,type.length()-1);	      }
         String finalType = type;
         new AsyncTask<Void, Void, String>() {
             @Override
@@ -422,7 +423,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         "&radius=" + radius.substring(0, radius.length() - 1) +
                         "&query=" + finalType +
                         "&key=AIzaSyC1Mk78TRBBocMcwVshCri_Z2q9VlJ5eGI";
-System.out.println(url_inter);
                 try {
                     URL url = new URL(url_inter);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -463,6 +463,41 @@ System.out.println(url_inter);
                                 .title(name)
                                 .snippet(address);
                         map.addMarker(markerOptions);
+                        // just tap on window
+                        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
+                                while(!onInfoWindowClose(marker)) {
+                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
+                                    intent.putExtra("MARKERNAME", name);
+                                    intent.putExtra("MARKERADDR", address);
+                                    MapsActivity.this.startActivity(intent);
+                                }
+                            }
+                            public boolean onInfoWindowClose(Marker marker) {
+                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        });
+                        // hold down on window
+                        map.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
+                            @Override
+                            public void onInfoWindowLongClick(Marker marker) {
+                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window was held!", Toast.LENGTH_SHORT).show();
+                                // call CustomInfoWindowAdapter here?
+                                //CustomInfoWindowAdapter.getInfoWindow(marker);
+
+
+                            }
+                        });
+
+                        map.setOnInfoWindowCloseListener(new GoogleMap.OnInfoWindowCloseListener() {
+                            @Override
+                            public void onInfoWindowClose(Marker marker) {
+                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
