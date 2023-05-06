@@ -463,35 +463,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .title(name)
                                 .snippet(address);
                         map.addMarker(markerOptions);
-                        // just tap on window
                         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
                             public void onInfoWindowClick(Marker marker) {
                                 Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
-                                while(!onInfoWindowClose(marker)) {
-                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
-                                    intent.putExtra("MARKERNAME", name);
-                                    intent.putExtra("MARKERADDR", address);
-                                    MapsActivity.this.startActivity(intent);
-                                }
-                            }
-                            public boolean onInfoWindowClose(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
-                                return true;
+
+                                Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
+                                intent.putExtra("MARKERNAME", marker.getTitle());
+                                intent.putExtra("MARKERADDR", marker.getSnippet());
+                                MapsActivity.this.startActivity(intent);
+
                             }
                         });
                         // hold down on window
-                        map.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
-                            @Override
-                            public void onInfoWindowLongClick(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window was held!", Toast.LENGTH_SHORT).show();
-                                // call CustomInfoWindowAdapter here?
-                                //CustomInfoWindowAdapter.getInfoWindow(marker);
-
-
-                            }
-                        });
-
                         map.setOnInfoWindowCloseListener(new GoogleMap.OnInfoWindowCloseListener() {
                             @Override
                             public void onInfoWindowClose(Marker marker) {

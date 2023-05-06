@@ -20,6 +20,7 @@ public class CustomInfoWindowAdapter extends AppCompatActivity {
     private final Context mContext;*/
     private String markerName;
     private String markerAddr;
+    static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,18 @@ public class CustomInfoWindowAdapter extends AppCompatActivity {
         markerNameText.setText(markerName);
         markerAddrText.setText(markerAddr);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 
     /*public CustomInfoWindowAdapter(Context context) {
