@@ -116,9 +116,11 @@ public class PersonalProfileFragment extends Fragment {
             }
         });
         FirebaseFirestore database = FirebaseFirestore.getInstance();
+
         EditText nameIn = root.findViewById(R.id.usernameField);
         EditText ageIn = root.findViewById(R.id.ageField);
-        nameIn.setText(database.collection(Constants.KEY_NAME).toString());
+        //nameIn.setText(database.collection(Constants.KEY_NAME).toString());
+        nameIn.setText(preferenceManager.getString(Constants.KEY_NAME));
         ageIn.setText(database.collection(Constants.KEY_AGE).toString());
 
         da.getAllUser(params -> {
