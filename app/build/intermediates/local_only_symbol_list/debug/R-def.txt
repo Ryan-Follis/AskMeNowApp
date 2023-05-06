@@ -30,6 +30,7 @@ drawable background_image
 drawable background_input
 drawable background_received_message
 drawable background_sent_message
+drawable baseline_arrow_circle_up_24
 drawable board_game
 drawable comment
 drawable dot_container
@@ -61,6 +62,7 @@ drawable selected_dot
 drawable test_pic
 drawable unselected_dot
 id accept_friend
+id addpic
 id age
 id ageField
 id answer_name

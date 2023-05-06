@@ -1,5 +1,6 @@
 package com.example.askmenow.ui.personal_profile;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +44,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -51,13 +56,17 @@ import java.util.regex.Pattern;
 public class PersonalProfileFragment extends Fragment {
     private FragmentPersonalProfileBinding binding;
     private PreferenceManager preferenceManager;
-    private static String[]  data = new String[6];
+    private static String[] data = new String[6];
     private static int visibility = -1;
     String[] dropdownMenu = {"Everyone", "Friends Only", "Only Me"};
     AutoCompleteTextView auto;
     private final DataAccess da = new DataAccess();
     private AlertDialog.Builder dBuilder;
     private static List<String> rememberList;
+    static int GET_FROM_GALLERY = 1;
+    ImageView img;
+    int[] images = new int[10];
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -115,6 +124,20 @@ public class PersonalProfileFragment extends Fragment {
                 deleteProfile();
             }
         });
+
+        Button addPic = root.findViewById(R.id.addpic);
+        addPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+                onActivityResult(GET_FROM_GALLERY,1,intent);
+            }
+        });
+
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         EditText nameIn = root.findViewById(R.id.usernameField);
         EditText ageIn = root.findViewById(R.id.ageField);
@@ -142,17 +165,18 @@ public class PersonalProfileFragment extends Fragment {
 
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
-    public int push(String field){
+    public int push(String field) {
         return 0;
     }
 
-    public int pullProfile(){
+    public int pullProfile() {
         Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
         String user_username = intent.getStringExtra("username");
         String age = intent.getStringExtra("age");
@@ -160,11 +184,11 @@ public class PersonalProfileFragment extends Fragment {
         fullName.setText(user_username);
         TextView ageView = getView().findViewById(R.id.ageField);
         ageView.setText(age);
-        visibility = intent.getIntExtra("visibility",1);
+        visibility = intent.getIntExtra("visibility", 1);
         return 0;
     }
 
-    public int forgotPassword(){
+    public int forgotPassword() {
         dBuilder.setTitle("Forgot Your Password?").setMessage("Do you want to go to the password recovery page?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -183,9 +207,9 @@ public class PersonalProfileFragment extends Fragment {
         return 0;
     }
 
-    public int changePassword(){
+    public int changePassword() {
         dBuilder.setTitle("Change Password").setMessage("Do you want to change your password?");
-        LinearLayout lila1= new LinearLayout(getActivity().getApplicationContext());
+        LinearLayout lila1 = new LinearLayout(getActivity().getApplicationContext());
         lila1.setOrientation(LinearLayout.VERTICAL);
         final EditText old = new EditText(getActivity().getApplicationContext());
         old.setHint("Old Password");
@@ -205,10 +229,10 @@ public class PersonalProfileFragment extends Fragment {
                         .whereEqualTo(Constants.KEY_PASSWORD, old.getText().toString())
                         .get()
                         .addOnCompleteListener(task -> {
-                            if(task.isSuccessful() && task.getResult() != null
-                                    && task.getResult().getDocuments().size() > 0){
+                            if (task.isSuccessful() && task.getResult() != null
+                                    && task.getResult().getDocuments().size() > 0) {
                                 DataAccess da = new DataAccess();
-                                if(isValidPassword(newPassword.getText().toString())) {
+                                if (isValidPassword(newPassword.getText().toString())) {
                                     DocumentReference documentReference =
                                             database.collection(Constants.KEY_COLLECTION_USERS).document(
                                                     preferenceManager.getString(Constants.KEY_USER_ID)
@@ -216,12 +240,10 @@ public class PersonalProfileFragment extends Fragment {
                                     documentReference.update(Constants.KEY_PASSWORD, newPassword.getText().toString())
                                             .addOnFailureListener(e -> showToast("Unable to update password."));
                                     showToast("Password successfully changed.");
-                                }
-                                else{
+                                } else {
                                     showToast("Password chosen does not fit criteria.");
                                 }
-                            }
-                            else{
+                            } else {
                                 showToast("Username or password is incorrect.");
                             }
                         });
@@ -236,7 +258,7 @@ public class PersonalProfileFragment extends Fragment {
         return 0;
     }
 
-    public int logout(){
+    public int logout() {
         dBuilder.setTitle("Logout?")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -272,7 +294,7 @@ public class PersonalProfileFragment extends Fragment {
         return 0;
     }
 
-    public int deleteProfile(){
+    public int deleteProfile() {
         dBuilder.setTitle("Delete Profile?")
                 .setMessage("Are you sure you want to delete your profile?\nYour data can not be recovered.")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -299,12 +321,12 @@ public class PersonalProfileFragment extends Fragment {
         return 0;
     }
 
-    public void createNewContactDialog(){
+    public void createNewContactDialog() {
         dBuilder = new AlertDialog.Builder(getActivity().getApplicationContext());
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup, null);
     }
 
-    private String encodeImage(Bitmap bitmap){
+    private String encodeImage(Bitmap bitmap) {
         int previewWidth = 150;
         int previewHeight = bitmap.getHeight() * previewWidth / bitmap.getWidth();
         Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false);
@@ -315,11 +337,11 @@ public class PersonalProfileFragment extends Fragment {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    private void showToast(String message){
+    private void showToast(String message) {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private boolean isValidPassword(String password){
+    private boolean isValidPassword(String password) {
         String passwordCheck = "^" +
                 "(?=.*[A-Za-z])" +      // contains at least 1 alphabetic character
                 "(?=.*[0-9])" +         // contains at least 1 digit
@@ -332,4 +354,23 @@ public class PersonalProfileFragment extends Fragment {
         return matcher.matches();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            try {
+                img.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }
