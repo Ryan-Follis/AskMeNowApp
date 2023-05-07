@@ -40,6 +40,7 @@ public class Constants {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_WEEK_SCORE = "weekScore";
+    public static final String KEY_USER_PHOTOS = "userPhotos";
 
     public static final long IMAGE_MAX_SIZE = 3145728; // in byte. this is 3mb.
 

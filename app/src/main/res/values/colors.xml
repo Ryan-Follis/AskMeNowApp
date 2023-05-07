@@ -9,6 +9,7 @@
     <color name="dark_gray">#292828</color>
     <color name="light_gray">#DEDDD9</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#03A9F4</color>
 
     <color name="primary">#1C2E46</color>
     <color name="primary_dark">#142232</color>
@@ -21,5 +22,7 @@
     <color name="user_online">#02BF02</color>
 
     <color name="askmenow_orange">#D67718</color>
-    <color name="blue">#03A9F4</color>
+    <color name="question_gold">#756A01</color>
+    <color name="answer_maroon">#660801</color>
+
 </resources>
