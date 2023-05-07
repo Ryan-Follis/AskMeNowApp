@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.askmenow.activities.MainActivity;
-import com.example.askmenow.databinding.ActivityUsersBinding;
-import com.example.askmenow.listeners.UserListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -17,9 +15,6 @@ import com.example.askmenow.models.User;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-
 
 
 public class LocationChecker  extends AppCompatActivity {

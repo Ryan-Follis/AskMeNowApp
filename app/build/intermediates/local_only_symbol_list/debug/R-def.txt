@@ -34,6 +34,8 @@ drawable background_received_message
 drawable background_sent_message
 drawable board_game
 drawable comment
+drawable custom_seekbar
+drawable custom_seekbar_thumb
 drawable dot_container
 drawable friends
 drawable heart
@@ -45,6 +47,7 @@ drawable ic_baseline_person_24
 drawable ic_baseline_public_24
 drawable ic_baseline_question_mark_24
 drawable ic_dashboard_black_24dp
+drawable ic_gps_fixed_black_24dp
 drawable ic_home_black_24dp
 drawable ic_info
 drawable ic_launcher
@@ -52,6 +55,7 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_logout
 drawable ic_notifications
+drawable ic_notifications_black_24dp
 drawable ic_send
 drawable interest_button
 drawable photo
@@ -134,10 +138,10 @@ id profile_hub
 id progressBar
 id qa_input
 id qa_list
-id question_text
 id questions_list
 id questions_title
 id remember_user
+id response_text
 id search_result_list
 id search_user
 id send_answer
@@ -146,6 +150,7 @@ id send_dm
 id show_interest
 id signout
 id snippet
+id test
 id textAddImage
 id textAvailability
 id textCreateNewAccount
@@ -207,6 +212,7 @@ mipmap ic_launcher_round
 navigation mobile_navigation
 string add_image
 string app_name
+string chazen_museum
 string confirm_password
 string create_new_account
 string default_info_snippet
@@ -220,6 +226,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string location_type_prompt
 string login
+string madison_museum
 string name
 string online
 string option_get_place

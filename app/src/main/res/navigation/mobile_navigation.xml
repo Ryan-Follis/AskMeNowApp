@@ -25,15 +25,9 @@
 
     <activity
         android:id="@+id/navigation_map"
-<<<<<<< HEAD
-        android:name="com.example.askmenow.ui.map.MapFragment"
-        android:label="Map"
-        tools:layout="@layout/fragment_map" />
-=======
         android:name="com.example.askmenow.activities.MapsActivity"
         android:label="Map"
         tools:layout="@layout/activity_maps"/>
->>>>>>> 4be06962d645708e7fa74c51f2243149bb679a94
 
     <fragment
         android:id="@+id/navigation_personal_profile"
