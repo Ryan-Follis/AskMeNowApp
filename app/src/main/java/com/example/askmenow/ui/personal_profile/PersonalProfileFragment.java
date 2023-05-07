@@ -129,40 +129,14 @@ public class PersonalProfileFragment extends Fragment {
         addPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
-                onActivityResult(GET_FROM_GALLERY,1,intent);
+                getPics(root);
             }
         });
-
-        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         EditText nameIn = root.findViewById(R.id.usernameField);
         EditText ageIn = root.findViewById(R.id.ageField);
-        //nameIn.setText(database.collection(Constants.KEY_NAME).toString());
         nameIn.setText(preferenceManager.getString(Constants.KEY_NAME));
-        ageIn.setText(database.collection(Constants.KEY_AGE).toString());
-
-        da.getAllUser(params -> {
-            List<User> users = (List<User>) params[0];
-            if (users.size() == 0) {
-                Toast.makeText(getActivity(), "no user found", Toast.LENGTH_SHORT).show();
-            }
-//            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users, self);
-            ProfileAdapter profileAdapter = new ProfileAdapter(this.getActivity(), users);
-
-
-            // get remember list
-            RememberListOperations.getRememberList(params1 -> {
-                List<User> resultList = (List<User>) params1[0];
-                rememberList = new ArrayList<>();
-                for (User user : resultList)
-                    rememberList.add(user.id);
-            });
-        });
+        ageIn.setText(preferenceManager.getString(Constants.KEY_AGE));
         return root;
 
     }
@@ -172,22 +146,6 @@ public class PersonalProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public int push(String field) {
-        return 0;
-    }
-
-    public int pullProfile() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-        String user_username = intent.getStringExtra("username");
-        String age = intent.getStringExtra("age");
-        TextView fullName = getView().findViewById(R.id.usernameField);
-        fullName.setText(user_username);
-        TextView ageView = getView().findViewById(R.id.ageField);
-        ageView.setText(age);
-        visibility = intent.getIntExtra("visibility", 1);
-        return 0;
     }
 
     public int forgotPassword() {
@@ -373,6 +331,98 @@ public class PersonalProfileFragment extends Fragment {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void getPics(View root){
+        int i;
+        for(i = 0;i<10 ;i++){
+            if(images[i]==0){
+                images[i] = 1;
+                break;
+            } else if (i==9) {
+                i = 10;
+            }
+        }
+        if(i==0){
+            img = root.findViewById(R.id.pic1);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==1){
+            img = root.findViewById(R.id.pic2);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==2){
+            img = root.findViewById(R.id.pic3);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==3){
+            img = root.findViewById(R.id.pic4);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==4){
+            img = root.findViewById(R.id.pic5);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==5){
+            img = root.findViewById(R.id.pic6);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==6){
+            img = root.findViewById(R.id.pic7);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==7){
+            img = root.findViewById(R.id.pic8);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==8){
+            img = root.findViewById(R.id.pic9);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==9){
+            img = root.findViewById(R.id.pic10);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
         }
     }
 }
