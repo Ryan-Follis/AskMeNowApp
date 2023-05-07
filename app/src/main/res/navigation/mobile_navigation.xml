@@ -23,11 +23,11 @@
         android:label="Profile Hub"
         tools:layout="@layout/fragment_profile_hub" />
 
-    <fragment
+    <activity
         android:id="@+id/navigation_map"
-        android:name="com.example.askmenow.ui.map.MapFragment"
+        android:name="com.example.askmenow.activities.MapsActivity"
         android:label="Map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/activity_maps"/>
 
     <fragment
         android:id="@+id/navigation_personal_profile"

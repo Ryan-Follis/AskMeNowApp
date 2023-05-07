@@ -99,6 +99,7 @@ id load_image
 id load_qa
 id load_result
 id map
+id mapContainer
 id marker_address
 id marker_description
 id marker_name
@@ -177,7 +178,7 @@ layout chat_row
 layout custom_info_contents
 layout fragment_dms
 layout fragment_friend_list
-layout fragment_map
+layout fragment_maps
 layout fragment_notifications
 layout fragment_personal_profile
 layout fragment_profile_hub

@@ -1,8 +1,9 @@
-package com.example.askmenow.activities;
+package com.example.askmenow.ui.map;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,16 +18,20 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
+import com.example.askmenow.activities.CustomInfoWindowAdapter;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.databinding.FragmentMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,10 +70,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsFragment extends Fragment /*implements OnMapReadyCallback*/ {
 
-    private ActivityMapsBinding binding;
-    private static final String TAG = MapsActivity.class.getSimpleName();
+    /*private FragmentMapsBinding binding;
+    private static final String TAG = com.example.askmenow.activities.MapsActivity.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
     // The entry point to the Places API.
@@ -94,8 +99,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
 
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        // Retrieve the content view that renders the map.
+        binding = FragmentMapsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Retrieve location and camera position from saved instance state.
@@ -104,24 +116,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
-        // Retrieve the content view that renders the map.
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setListeners();
-
         // Construct a PlacesClient
-        Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
-        placesClient = Places.createClient(this);
+        Places.initialize(getActivity().getApplicationContext(), BuildConfig.MAPS_API_KEY);
+        placesClient = Places.createClient(getActivity().getApplicationContext());
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
 
         // Build the map.
         /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);*/
+                .findFragmentById(R.id.map);
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.mapContainer, mapFragment).commit();
+        // getSupportFragmentManager().beginTransaction().add(R.id.mapContainer, mapFragment).commit();
         mapFragment.getMapAsync(this);
         // Call the method to prompt the user for their preferences
         showLocationTypeDialog();
@@ -135,19 +141,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build(); //R.id.navigation_notifications,
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController); */
+        NavigationUI.setupWithNavController(binding.navView, navController); *
 
-    }
-
-    private void setListeners(){
-        binding.imageBack.setOnClickListener(v -> onBackPressed());
     }
 
     /**
      * Saves the state of the map when the activity is paused.
-     */
+     *
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         if (map != null) {
             outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
             outState.putParcelable(KEY_LOCATION, lastKnownLocation);
@@ -160,10 +162,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *
      * @param menu The options menu.
      * @return Boolean.
-     */
+     *
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.current_place_menu, menu);
         return true;
     }
 
@@ -172,7 +174,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *
      * @param item The menu item to handle.
      * @return Boolean.
-     */
+     *
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.option_get_place) {
@@ -184,7 +186,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
-     */
+     *
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -203,7 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public View getInfoContents(Marker marker) {
                 // Inflate the layouts for the info window, title and snippet.
                 View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        findViewById(R.id.mapContainer), false);
+                        (FrameLayout) findViewById(R.id.map), false);
 
                 TextView title = infoWindow.findViewById(R.id.title);
                 title.setText(marker.getTitle());
@@ -229,12 +231,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Gets the current location of the device, and positions the map's camera.
-     */
+     *
     private void getDeviceLocation() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
-         */
+         *
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
@@ -266,13 +268,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Prompts the user for permission to use the device location.
-     */
+     *
     private void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
-         */
+         *
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -286,7 +288,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Handles the result of the request for location permissions.
-     */
+     *
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -307,7 +309,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Prompts the user to select the current place from a list of likely places, and shows the
      * current place on the map - provided the user has granted location permission.
-     */
+     *
     private void showCurrentPlace() {
         if (map == null) {
             return;
@@ -362,7 +364,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        MapsActivity.this.openPlacesDialog();
+                        com.example.askmenow.activities.MapsActivity.this.openPlacesDialog();
                     } else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
@@ -385,7 +387,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Displays a form allowing the user to select a place from a list of likely places.
-     */
+     *
     private void openPlacesDialog() {
         // Ask the user to choose the place where they are now.
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
@@ -420,7 +422,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
-     */
+     *
     private void updateLocationUI() {
         if (map == null) {
             return;
@@ -496,16 +498,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override
                             public void onInfoWindowClick(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(com.example.askmenow.activities.MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
                                 while(!onInfoWindowClose(marker)) {
-                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
+                                    Intent intent = new Intent(com.example.askmenow.activities.MapsActivity.this, CustomInfoWindowAdapter.class);
                                     intent.putExtra("MARKERNAME", name);
                                     intent.putExtra("MARKERADDR", address);
-                                    MapsActivity.this.startActivity(intent);
+                                    com.example.askmenow.activities.MapsActivity.this.startActivity(intent);
                                 }
                             }
                             public boolean onInfoWindowClose(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(com.example.askmenow.activities.MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
                                 return true;
                             }
                         });
@@ -513,7 +515,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         map.setOnInfoWindowLongClickListener(new GoogleMap.OnInfoWindowLongClickListener() {
                             @Override
                             public void onInfoWindowLongClick(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window was held!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(com.example.askmenow.activities.MapsActivity.this, marker.getTitle() +"'s window was held!", Toast.LENGTH_SHORT).show();
                                 // call CustomInfoWindowAdapter here?
                                 //CustomInfoWindowAdapter.getInfoWindow(marker);
 
@@ -524,7 +526,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         map.setOnInfoWindowCloseListener(new GoogleMap.OnInfoWindowCloseListener() {
                             @Override
                             public void onInfoWindowClose(Marker marker) {
-                                Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(com.example.askmenow.activities.MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -562,7 +564,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Create a new AlertDialog to display the radius options
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(MapsActivity.this);
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(com.example.askmenow.activities.MapsActivity.this);
                 builder2.setTitle("Choose a radius:");
                 builder2.setItems(radiusOptions, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -578,7 +580,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         locationType = locationTypeBuilder.toString().trim();
 
                         // Display a Toast message indicating the user's selections
-                        Toast.makeText(MapsActivity.this, "You chose " + locationType + " within " + radius, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(com.example.askmenow.activities.MapsActivity.this, "You chose " + locationType + " within " + radius, Toast.LENGTH_SHORT).show();
                         addMarkers2Map ( locationType,  radius);
                     }
                 });
@@ -587,5 +589,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         builder.show();
     }
-
+*/
 }
