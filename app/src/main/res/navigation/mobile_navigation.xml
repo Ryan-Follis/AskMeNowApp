@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dms">
+    app:startDestination="@+id/navigation_profile_hub">
 
     <fragment
         android:id="@+id/navigation_dms"
@@ -18,20 +18,26 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
+        android:id="@+id/navigation_profile_hub"
+        android:name="com.example.askmenow.ui.profile_hub.ProfileHubFragment"
+        android:label="Profile Hub"
+        tools:layout="@layout/fragment_profile_hub" />
+
+    <activity
         android:id="@+id/navigation_map"
+<<<<<<< HEAD
         android:name="com.example.askmenow.ui.map.MapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_map" />
+=======
+        android:name="com.example.askmenow.activities.MapsActivity"
+        android:label="Map"
+        tools:layout="@layout/activity_maps"/>
+>>>>>>> 4be06962d645708e7fa74c51f2243149bb679a94
 
     <fragment
-        android:id="@+id/navigation_questions"
-        android:name="com.example.askmenow.ui.questions.QuestionsFragment"
-        android:label="Swipes"
-        tools:layout="@layout/fragment_questions" />
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.example.askmenow.ui.profile.ProfileFragment"
+        android:id="@+id/navigation_personal_profile"
+        android:name="com.example.askmenow.ui.personal_profile.PersonalProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_personal_profile" />
 </navigation>

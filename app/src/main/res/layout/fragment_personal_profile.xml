@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.personal_profile.PersonalProfileFragment">
+    <HorizontalScrollView
+        android:id="@+id/pictures"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:hint="pictures">
+        <LinearLayout
+            android:orientation="horizontal"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white">
+
+            <ImageView
+                android:id="@+id/pic1"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic2"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic3"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic4"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic5"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic6"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic7"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic8"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic9"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+            <ImageView
+                android:id="@+id/pic10"
+                android:layout_width="415sp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher"></ImageView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/pictures"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/usernameField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/username"
+        android:layout_below="@id/pictures"
+        android:layout_toRightOf="@id/username"
+        android:textAlignment="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/ageField"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/age"
+        android:layout_below="@id/username"
+        android:layout_toRightOf="@id/age"
+        android:textAlignment="center"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/interests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My interests: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/age"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/visibleTo"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:text="Visible to: "
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/interests"
+        android:textColor="@color/white"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_height="24sp"
+        android:layout_toRightOf="@+id/visibleTo"
+        android:id="@+id/drop"
+        android:layout_alignBottom="@+id/visibleTo"
+        android:layout_below="@id/interests">
+        <AutoCompleteTextView
+            android:id="@+id/auto"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:inputType="none">
+        </AutoCompleteTextView>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/visibleTo"/>
+
+    <Button
+        android:id="@+id/changepassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/signout"/>
+
+    <Button
+        android:id="@+id/forgot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot My Password"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_below="@id/changepassword"/>
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/error"
+        android:layout_below="@id/forgot"/>
+</RelativeLayout>

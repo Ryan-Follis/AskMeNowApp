@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Smashicons - Flaticon</a>
+        -->
+        <ImageButton
+            android:id="@+id/search_user"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/white"
+            android:contentDescription="search user"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/search" />
+
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/friend" title="friend icons">Friend icons created by Freepik - Flaticon</a>
+        -->
+        <ImageButton
+            android:id="@+id/friend_request"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toStartOf="@id/remember_user"
+            android:background="@color/white"
+            android:contentDescription="friend request"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/friends" />
+
+        <!--image attribution:
+        vecteezy.com
+        -->
+        <ImageButton
+            android:id="@+id/remember_user"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_toStartOf="@id/send_dm"
+            android:background="@color/white"
+            android:contentDescription="remember user"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/remember" />
+
+        <!--image attribution:
+        <a href="https://www.flaticon.com/free-icons/comment" title="comment icons">Comment icons created by Freepik - Flaticon</a>
+        -->
+        <ImageButton
+            android:id="@+id/send_dm"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:background="@color/white"
+            android:contentDescription="send dm"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/comment" />
+
+    </RelativeLayout>
+
+</LinearLayout>

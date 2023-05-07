@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:contentDescription="scroll view">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/interest_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        app:flexWrap="wrap"
+        app:justifyContent="space_around">
+
+    </com.google.android.flexbox.FlexboxLayout>
+</ScrollView>

@@ -40,6 +40,7 @@
         android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"
+<<<<<<< HEAD
     />
     <TextView
         android:id="@+id/test"
@@ -51,6 +52,15 @@
         android:id="@+id/response_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+=======
+        />
+
+
+    <EditText
+        android:id="@+id/question_text"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+>>>>>>> 4be06962d645708e7fa74c51f2243149bb679a94
         android:hint="@string/question_placeholder"
         android:inputType="textCapSentences"
         android:maxLines="2"
@@ -63,4 +73,8 @@
         android:text="@string/send_button"
         android:textSize="16sp" />
 
+<<<<<<< HEAD
 </LinearLayout>
+=======
+</LinearLayout>
+>>>>>>> 4be06962d645708e7fa74c51f2243149bb679a94
