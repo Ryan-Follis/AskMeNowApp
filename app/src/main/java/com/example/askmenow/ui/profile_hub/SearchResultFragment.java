@@ -153,10 +153,14 @@ public class SearchResultFragment extends Fragment {
                 RememberListOperations.remembered(user.id, params1 -> {
                     Boolean result = (Boolean) params1[0];
                     if (result) {
-                        remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                        // image attribution
+                        // <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Freepik - Flaticon</a>
+                        remember.setImageResource(R.drawable.dislike);
                         remember.setOnClickListener(v -> forgetListener(remember, user));
                     } else {
-                        remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                        // image attribution
+                        // <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Freepik - Flaticon</a>
+                        remember.setImageResource(R.drawable.like);
                         remember.setOnClickListener(v -> rememberListener(remember, user));
                     }
                 });
@@ -200,14 +204,14 @@ public class SearchResultFragment extends Fragment {
 
     private void rememberListener(ImageButton remember, User user) {
         RememberListOperations.rememberUser(user.id);
-        remember.setImageResource(R.drawable.remembered);
+        remember.setImageResource(R.drawable.dislike);
         remember.setOnClickListener(v -> forgetListener(remember, user));
         ProfileHubFragment.rememberUser(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
-        remember.setImageResource(R.drawable.remember);
+        remember.setImageResource(R.drawable.like);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         ProfileHubFragment.forgetUser(user.id);
     }

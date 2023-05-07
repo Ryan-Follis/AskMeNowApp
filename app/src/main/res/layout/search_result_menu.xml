@@ -33,7 +33,7 @@
     <!--            app:srcCompat="@drawable/friends" />-->
 
     <!--image attribution:
-    vecteezy.com
+    <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Freepik - Flaticon</a>
     -->
     <ImageButton
         android:id="@+id/remember_user"
@@ -44,7 +44,7 @@
         android:background="@color/white"
         android:contentDescription="remember user"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/remembered" />
+        app:srcCompat="@drawable/like" />
 
     <!--image attribution:
     <a href="https://www.flaticon.com/free-icons/comment" title="comment icons">Comment icons created by Freepik - Flaticon</a>

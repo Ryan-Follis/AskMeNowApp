@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.firebase.DataAccess;
 import com.example.askmenow.models.User;
 import com.example.askmenow.ui.dms.DMsFragment;
 import com.example.askmenow.ui.personal_profile.PersonalProfileFragment;
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
         getToken();
         callFragment(getIntent());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        DataAccess.saveSelf(new PreferenceManager(this));
     }
 
     private void showToast(String message){
