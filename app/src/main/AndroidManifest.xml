@@ -66,6 +66,14 @@
             android:name=".activities.MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".activities.CustomInfoWindowAdapter"
+            android:exported="true"
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="android.intent.action.INFO" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".firebase.DirectMessagesService"

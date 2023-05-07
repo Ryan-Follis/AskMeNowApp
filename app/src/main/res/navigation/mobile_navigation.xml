@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_questions">
+    app:startDestination="@+id/navigation_profile_hub">
 
     <fragment
         android:id="@+id/navigation_dms"
@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
-        android:id="@+id/navigation_questions"
+        android:id="@+id/navigation_profile_hub"
         android:name="com.example.askmenow.ui.profile_hub.ProfileHubFragment"
         android:label="Profile Hub"
         tools:layout="@layout/fragment_profile_hub" />
@@ -30,7 +30,7 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/navigation_profile"
+        android:id="@+id/navigation_personal_profile"
         android:name="com.example.askmenow.ui.personal_profile.PersonalProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_personal_profile" />
