@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -49,6 +50,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -66,7 +68,9 @@ public class PersonalProfileFragment extends Fragment {
     static int GET_FROM_GALLERY = 1;
     ImageView img;
     int[] images = new int[10];
-
+    List<Bitmap> bitmaps = new LinkedList<Bitmap>();
+    Bitmap b;
+    DocumentReference doc;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +78,9 @@ public class PersonalProfileFragment extends Fragment {
         binding = FragmentPersonalProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        doc = database.collection(Constants.KEY_COLLECTION_USERS)
+                .document(preferenceManager.getString(Constants.KEY_USER_ID));
 
         //listener for updating the Visibility Settings
          /*auto.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -130,6 +137,10 @@ public class PersonalProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getPics(root);
+                try {
+                    doc.update(Constants.KEY_PICS,b);
+                } catch (NullPointerException e) {
+                }
             }
         });
 
@@ -324,12 +335,9 @@ public class PersonalProfileFragment extends Fragment {
             Uri selectedImage = data.getData();
             try {
                 img.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage));
+                b = ((BitmapDrawable)img.getDrawable()).getBitmap();
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         }
     }
