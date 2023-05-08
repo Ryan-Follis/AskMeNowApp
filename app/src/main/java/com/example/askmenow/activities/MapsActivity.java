@@ -132,8 +132,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         showLocationTypeDialog();
 
         preferenceManager = new PreferenceManager(getApplicationContext());
-        //preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
-        //preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
 
         /* BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -236,8 +234,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
     private void updateLocation(Location location){
-        preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
-        preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         DocumentReference documentReference =
                 database.collection(Constants.KEY_COLLECTION_USERS).document(
@@ -263,15 +259,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
+                            //Updates gps location to firebase
                             updateLocation(lastKnownLocation);
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                                preferenceManager = new PreferenceManager(getApplicationContext());
-                                preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
-                                preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
-
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

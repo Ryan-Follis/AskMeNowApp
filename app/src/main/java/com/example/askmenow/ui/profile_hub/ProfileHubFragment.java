@@ -17,6 +17,7 @@ import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
 import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.LocationChecker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +57,9 @@ public class ProfileHubFragment extends Fragment {
             // get remember list
             RememberListOperations.getRememberList(params1 -> {
                 List<User> resultList = (List<User>) params1[0];
+                List<User> closeList = LocationChecker.usersInArea(self,resultList,10);
                 rememberList = new ArrayList<>();
-                for (User user : resultList)
+                for (User user : closeList)
                     rememberList.add(user.id);
             });
         });
