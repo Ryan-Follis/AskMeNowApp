@@ -19,6 +19,9 @@ public class Constants {
     public static final String KEY_FCM_TOKEN = "fcmToken";
     public static final String KEY_QUESTION = "question";
     public static final String KEY_ANSWERS = "answers";
+    public static final String KEY_IS_QUESTION = "isQuestion";
+    public static final String KEY_IS_ANSWER = "isAnswer";
+    public static final String KEY_CURR_MSG_STATUS = "currMsgStatus";
     public static final String KEY_REMEMBER = "rememberList";
     public static final String KEY_USER = "user";
     public static final String KEY_COLLECTION_CHAT = "chat";
@@ -40,8 +43,9 @@ public class Constants {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_WEEK_SCORE = "weekScore";
-    public static final String KEY_USER_PHOTOS = "userPhotos";
 
+    public static final long ASKING_QUESTION = 1;
+    public static final long ANSWERING_QUESTION = 2;
     public static final long IMAGE_MAX_SIZE = 3145728; // in byte. this is 3mb.
 
     public static final String KEY_ANSWER_ID = "id";

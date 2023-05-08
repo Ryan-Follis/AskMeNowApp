@@ -17,6 +17,9 @@ import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
 import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ import androidx.viewpager2.widget.ViewPager2;
 public class ProfileHubFragment extends Fragment {
 
     private FragmentProfileHubBinding binding;
+    private PreferenceManager preferenceManager;
+    private FirebaseFirestore database;
     private final DataAccess da = new DataAccess();
     private final User self = DataAccess.getSelf();
     private int currentPos = 0;
@@ -38,6 +43,9 @@ public class ProfileHubFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileHubBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+        database = FirebaseFirestore.getInstance();
 
         // set up viewPager2
         View load = root.findViewById(R.id.load);
@@ -105,6 +113,27 @@ public class ProfileHubFragment extends Fragment {
             startActivity(friendIntent);
         });
         sendDM.setOnClickListener((View v)-> {
+            DocumentReference documentReference =
+                    database.collection(Constants.KEY_COLLECTION_USERS).document(
+                            preferenceManager.getString(Constants.KEY_USER_ID)
+                    );
+            documentReference.update(Constants.KEY_CURR_MSG_STATUS, 0);
+            Intent intent = new Intent(getActivity(), ChatActivity.class);
+            intent.putExtra(Constants.KEY_USER, users.get(currentPos));
+            startActivity(intent);
+        });
+
+        // Added by Ryan - profileHubQNA
+        ImageButton askQuestion = root.findViewById(R.id.ask_question);
+        askQuestion.setOnClickListener((View v) ->{
+            // This intent launches a ChatActivity just like clicking the sendDM
+            // button does. However, this button also changes the currMsgStatus
+            // field of the current user to indicate that a question is being asked.
+            DocumentReference documentReference =
+                    database.collection(Constants.KEY_COLLECTION_USERS).document(
+                            preferenceManager.getString(Constants.KEY_USER_ID)
+                    );
+            documentReference.update(Constants.KEY_CURR_MSG_STATUS, Constants.ASKING_QUESTION);
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra(Constants.KEY_USER, users.get(currentPos));
             startActivity(intent);

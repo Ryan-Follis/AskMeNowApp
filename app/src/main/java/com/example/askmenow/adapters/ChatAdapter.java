@@ -1,7 +1,11 @@
 package com.example.askmenow.adapters;
 
+import static android.app.PendingIntent.getActivity;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,6 +18,10 @@ import com.example.askmenow.databinding.ItemContainerSentMessageBinding;
 import com.example.askmenow.databinding.ItemContainerReceivedMessageBinding;
 import com.example.askmenow.databinding.ItemContainerSentQuestionBinding;
 import com.example.askmenow.models.ChatMessage;
+import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -22,6 +30,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<ChatMessage> chatMessages;
     private Bitmap receiverProfileImage;
     private final String senderID;
+    private Context applicationContext;
 
     public static final int VIEW_TYPE_SENT_MESSAGE = 1;
     public static final int VIEW_TYPE_RECEIVED_MESSAGE = 2;
@@ -34,15 +43,17 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         receiverProfileImage = bitmap;
     }
 
-    public ChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderID){
+    public ChatAdapter(List<ChatMessage> chatMessages, Bitmap receiverProfileImage, String senderID, Context applicationContext){
         this.chatMessages = chatMessages;
         this.receiverProfileImage = receiverProfileImage;
         this.senderID = senderID;
+        // this.applicationContext = applicationContext;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        this.applicationContext = parent.getContext();
         if(viewType == VIEW_TYPE_SENT_MESSAGE){
             return new SentMessageViewHolder(
                     ItemContainerSentMessageBinding.inflate(
@@ -51,8 +62,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             false
                     )
             );
-        }
-        else if(viewType == VIEW_TYPE_RECEIVED_MESSAGE){
+        } else if(viewType == VIEW_TYPE_RECEIVED_MESSAGE){
             return new ReceivedMessageViewHolder(
                     ItemContainerReceivedMessageBinding.inflate(
                             LayoutInflater.from(parent.getContext()),
@@ -60,9 +70,39 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             false
                     )
             );
-        }
-        else if(viewType == VIEW_TYPE_SENT_QUESTION){
-            return new SentQuestion
+        } else if(viewType == VIEW_TYPE_SENT_QUESTION){
+            return new SentQuestionViewHolder(
+                    ItemContainerSentQuestionBinding.inflate(
+                            LayoutInflater.from(parent.getContext()),
+                            parent,
+                            false
+                    )
+            );
+        } else if(viewType == VIEW_TYPE_RECEIVED_QUESTION){
+            return new ReceivedQuestionViewHolder(
+                    ItemContainerReceivedQuestionBinding.inflate(
+                            LayoutInflater.from(parent.getContext()),
+                            parent,
+                            false
+                    ),
+                    applicationContext
+            );
+        } else if(viewType == VIEW_TYPE_SENT_ANSWER){
+            return new SentAnswerViewHolder(
+                    ItemContainerSentAnswerBinding.inflate(
+                            LayoutInflater.from(parent.getContext()),
+                            parent,
+                            false
+                    )
+            );
+        } else{
+            return new ReceivedAnswerViewHolder(
+                    ItemContainerReceivedAnswerBinding.inflate(
+                            LayoutInflater.from(parent.getContext()),
+                            parent,
+                            false
+                    )
+            );
         }
     }
 
@@ -70,9 +110,16 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(getItemViewType(position) == VIEW_TYPE_SENT_MESSAGE){
             ((SentMessageViewHolder) holder).setData(chatMessages.get(position));
-        }
-        else{
+        } else if(getItemViewType(position) == VIEW_TYPE_RECEIVED_MESSAGE){
             ((ReceivedMessageViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
+        } else if(getItemViewType(position) == VIEW_TYPE_SENT_QUESTION){
+            ((SentQuestionViewHolder) holder).setData(chatMessages.get(position));
+        } else if(getItemViewType(position) == VIEW_TYPE_RECEIVED_QUESTION){
+            ((ReceivedQuestionViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
+        } else if(getItemViewType(position) == VIEW_TYPE_SENT_ANSWER){
+            ((SentAnswerViewHolder) holder).setData(chatMessages.get(position));
+        } else{
+            ((ReceivedAnswerViewHolder) holder).setData(chatMessages.get(position), receiverProfileImage);
         }
     }
 
@@ -83,13 +130,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position){
-        if(chatMessages.get(position).senderID.equals(senderID)){
+        if(chatMessages.get(position).senderID.equals(senderID) &&
+                chatMessages.get(position).isQuestion) {
+            return VIEW_TYPE_SENT_QUESTION;
+        } else if(chatMessages.get(position).senderID.equals(senderID) &&
+                chatMessages.get(position).isAnswer){
+            return VIEW_TYPE_SENT_ANSWER;
+        } else if(chatMessages.get(position).senderID.equals(senderID)){
             return VIEW_TYPE_SENT_MESSAGE;
-        }
-        else{
+        } else if(chatMessages.get(position).receiverID.equals(senderID) &&
+                chatMessages.get(position).isQuestion){
+            return VIEW_TYPE_RECEIVED_QUESTION;
+        } else if(chatMessages.get(position).receiverID.equals(senderID) &&
+                chatMessages.get(position).isAnswer){
+            return VIEW_TYPE_RECEIVED_ANSWER;
+        } else{
             return VIEW_TYPE_RECEIVED_MESSAGE;
         }
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
     static class SentMessageViewHolder extends RecyclerView.ViewHolder{
 
@@ -142,14 +202,30 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     static class ReceivedQuestionViewHolder extends RecyclerView.ViewHolder{
 
         private final ItemContainerReceivedQuestionBinding binding;
+        private final Context receivedQuestionApplicationContext;
 
-        ReceivedQuestionViewHolder(ItemContainerReceivedQuestionBinding itemContainterReceivedQuestionBinding){
-            super(itemContainterReceivedQuestionBinding.getRoot());
-            binding = itemContainterReceivedQuestionBinding;
+        ReceivedQuestionViewHolder(ItemContainerReceivedQuestionBinding itemContainerReceivedQuestionBinding, Context applicationContext){
+            super(itemContainerReceivedQuestionBinding.getRoot());
+            binding = itemContainerReceivedQuestionBinding;
+            receivedQuestionApplicationContext = applicationContext;
         }
 
         void setData(ChatMessage chatMessage, Bitmap receiverProfileImage){
             binding.textMessage.setText(chatMessage.message);
+            // On click listeners for received messages allowing for responses to be
+            // sent by the user
+            binding.textMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PreferenceManager preferenceManager = new PreferenceManager(receivedQuestionApplicationContext);
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    DocumentReference documentReference =
+                            database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                    preferenceManager.getString(Constants.KEY_USER_ID)
+                            );
+                    documentReference.update(Constants.KEY_CURR_MSG_STATUS, Constants.ANSWERING_QUESTION);
+                }
+            });
             binding.textDateTime.setText(chatMessage.dateTime);
             if(receiverProfileImage != null){
                 binding.profileImage.setImageBitmap(receiverProfileImage);

@@ -71,6 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
         newUser.put(Constants.KEY_USERNAME, binding.inputUsername.getText().toString());
         newUser.put(Constants.KEY_PASSWORD, binding.inputPassword.getText().toString());
         newUser.put(Constants.KEY_IMAGE, encodedImage);
+        newUser.put(Constants.KEY_AVAILABILITY, 0);
+        newUser.put(Constants.KEY_CURR_MSG_STATUS, 0);
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(newUser)
                 .addOnSuccessListener(documentReference -> {

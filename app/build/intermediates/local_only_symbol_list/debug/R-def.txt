@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 array location_types
 array radius_options
+color answer_maroon
 color askmenow_orange
 color black
 color blue
@@ -16,6 +17,7 @@ color primary_text
 color purple_200
 color purple_500
 color purple_700
+color question_gold
 color received_message_background
 color secondary_text
 color teal_200
@@ -30,14 +32,19 @@ drawable background_content_top
 drawable background_icon
 drawable background_image
 drawable background_input
+drawable background_received_answer
 drawable background_received_message
+drawable background_received_question
+drawable background_sent_answer
 drawable background_sent_message
+drawable background_sent_question
 drawable board_game
 drawable comment
 drawable dot_container
 drawable friends
 drawable heart
 drawable ic_add
+drawable ic_ask_question
 drawable ic_back
 drawable ic_baseline_message_24
 drawable ic_baseline_people_24
@@ -67,6 +74,7 @@ id age
 id ageField
 id answer_name
 id answer_text
+id ask_question
 id auto
 id buttonSignIn
 id buttonSignUp
@@ -185,9 +193,13 @@ layout fragment_profile_hub
 layout fragment_search_result
 layout fragment_search_user
 layout interest_popup
+layout item_container_received_answer
 layout item_container_received_message
+layout item_container_received_question
 layout item_container_recent_conversion
+layout item_container_sent_answer
 layout item_container_sent_message
+layout item_container_sent_question
 layout item_container_user
 layout list
 layout list_container

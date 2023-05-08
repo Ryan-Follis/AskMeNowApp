@@ -22,6 +22,16 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/search" />
 
+        <ImageButton
+            android:id="@+id/ask_question"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toStartOf="@id/friend_request"
+            android:background="@color/white"
+            android:contentDescription="ask user a question"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_ask_question"/>
+
         <!--image attribution:
         <a href="https://www.flaticon.com/free-icons/friend" title="friend icons">Friend icons created by Freepik - Flaticon</a>
         -->
@@ -29,6 +39,7 @@
             android:id="@+id/friend_request"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="10dp"
             android:layout_toStartOf="@id/remember_user"
             android:background="@color/white"
             android:contentDescription="friend request"

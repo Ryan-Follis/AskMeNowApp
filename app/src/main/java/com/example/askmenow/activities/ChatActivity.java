@@ -1,7 +1,6 @@
 package com.example.askmenow.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,7 +18,8 @@ import com.example.askmenow.network.APIService;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.FirebaseError;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,7 +27,6 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.checkerframework.checker.units.qual.C;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +55,8 @@ public class ChatActivity extends OnlineStatusActivity {
     private FirebaseFirestore database;
     private String conversionID = null;
     private Boolean isReceiverAvailable = false;
+
+
 
 
     @Override
@@ -74,7 +76,8 @@ public class ChatActivity extends OnlineStatusActivity {
         chatAdapter = new ChatAdapter(
                 chatMessages,
                 getBitmapFromEncodedString(receiverUser.image),
-                preferenceManager.getString(Constants.KEY_USER_ID)
+                preferenceManager.getString(Constants.KEY_USER_ID),
+                getApplicationContext()
         );
         binding.chatRecyclerView.setAdapter(chatAdapter);
         database = FirebaseFirestore.getInstance();
@@ -86,11 +89,41 @@ public class ChatActivity extends OnlineStatusActivity {
         message.put(Constants.KEY_RECEIVER_ID, receiverUser.id);
         message.put(Constants.KEY_MESSAGE, binding.inputMessage.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
-        database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+        message.put(Constants.KEY_IS_QUESTION, false);
+        message.put(Constants.KEY_IS_ANSWER, false);
+        // This portion of code determines whether the user sending the message is asking/answering
+        // a question
+        DocumentReference documentReference =
+                database.collection(Constants.KEY_COLLECTION_USERS).document(
+                    preferenceManager.getString(Constants.KEY_USER_ID)
+        );
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if(documentSnapshot.exists()){
+                        if((long)documentSnapshot.get(Constants.KEY_CURR_MSG_STATUS) == Constants.ASKING_QUESTION){
+                            message.put(Constants.KEY_IS_QUESTION, true);
+                            documentReference.update(Constants.KEY_CURR_MSG_STATUS, 0);
+                            database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+                        }
+                        else if((long)documentSnapshot.get(Constants.KEY_CURR_MSG_STATUS) == Constants.ANSWERING_QUESTION){
+                            message.put(Constants.KEY_IS_ANSWER, true);
+                            documentReference.update(Constants.KEY_CURR_MSG_STATUS, 0);
+                            database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+                        } else{
+                            database.collection(Constants.KEY_COLLECTION_CHAT).add(message);
+                        }
+                    }
+                }
+            }
+        });
+
         if(conversionID != null){
             updateConversion(binding.inputMessage.getText().toString());
-        }
-        else{
+        } else{
             HashMap<String, Object> conversion = new HashMap<>();
             conversion.put(Constants.KEY_SENDER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
             conversion.put(Constants.KEY_SENDER_NAME, preferenceManager.getString(Constants.KEY_NAME));
@@ -218,6 +251,8 @@ public class ChatActivity extends OnlineStatusActivity {
                     chatMessage.senderID = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                     chatMessage.receiverID = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
                     chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
+                    chatMessage.isQuestion = documentChange.getDocument().getBoolean(Constants.KEY_IS_QUESTION);
+                    chatMessage.isAnswer = documentChange.getDocument().getBoolean(Constants.KEY_IS_ANSWER);
                     chatMessage.dateTime = getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
                     chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
                     chatMessages.add(chatMessage);
@@ -226,8 +261,7 @@ public class ChatActivity extends OnlineStatusActivity {
             Collections.sort(chatMessages, (obj1, obj2) -> obj1.dateObject.compareTo(obj2.dateObject));
             if(count == 0){
                 chatAdapter.notifyDataSetChanged();
-            }
-            else{
+            } else{
                 chatAdapter.notifyItemRangeInserted(chatMessages.size(), chatMessages.size());
                 binding.chatRecyclerView.smoothScrollToPosition(chatMessages.size() - 1);
             }
@@ -255,7 +289,14 @@ public class ChatActivity extends OnlineStatusActivity {
     }
 
     private void setListeners(){
-        binding.imageBack.setOnClickListener(v -> onBackPressed());
+        binding.imageBack.setOnClickListener(v ->{
+            DocumentReference documentReference =
+                    database.collection(Constants.KEY_COLLECTION_USERS).document(
+                            preferenceManager.getString(Constants.KEY_USER_ID)
+                    );
+            documentReference.update(Constants.KEY_CURR_MSG_STATUS, 0);
+            onBackPressed();
+        });
         binding.layoutSend.setOnClickListener(v -> sendMessage());
     }
 
