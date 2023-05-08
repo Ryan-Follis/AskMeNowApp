@@ -52,12 +52,12 @@
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\activity_sign_up.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-54:/layout/item_container_received_answer.xml",
-        "source": "com.example.askmenow.app-main-57:/layout/item_container_received_answer.xml"
-    },
-    {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\fragment_search_user.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\fragment_search_user.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-mergeDebugResources-54:/layout/activity_chat.xml",
+        "source": "com.example.askmenow.app-main-57:/layout/activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\fragment_map.xml",
@@ -98,10 +98,6 @@
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\chat_row.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\chat_row.xml"
-    },
-    {
-        "merged": "com.example.askmenow.app-mergeDebugResources-54:/layout/item_container_received_question.xml",
-        "source": "com.example.askmenow.app-main-57:/layout/item_container_received_question.xml"
     },
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\qa_row.xml",
@@ -156,11 +152,11 @@
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\profile.xml"
     },
     {
-        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\top_toolbar.xml",
-        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\top_toolbar.xml"
-    },
-    {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\item_container_received_answer.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\item_container_received_answer.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\top_toolbar.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\top_toolbar.xml"
     }
 ]

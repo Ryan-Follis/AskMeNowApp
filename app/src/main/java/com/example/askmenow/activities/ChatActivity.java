@@ -297,6 +297,13 @@ public class ChatActivity extends OnlineStatusActivity {
             documentReference.update(Constants.KEY_CURR_MSG_STATUS, 0);
             onBackPressed();
         });
+        binding.askQuestion.setOnClickListener(view -> {
+            DocumentReference documentReference =
+                    database.collection(Constants.KEY_COLLECTION_USERS).document(
+                            preferenceManager.getString(Constants.KEY_USER_ID)
+                    );
+            documentReference.update(Constants.KEY_CURR_MSG_STATUS, Constants.ASKING_QUESTION);
+        });
         binding.layoutSend.setOnClickListener(v -> sendMessage());
     }
 

@@ -74,6 +74,7 @@ id age
 id ageField
 id answer_name
 id answer_text
+id askQuestion
 id ask_question
 id auto
 id buttonSignIn
@@ -89,7 +90,6 @@ id forgot
 id friend_request
 id headerBackground
 id imageBack
-id imageInfo
 id imageSignOut
 id inputConfirmPassword
 id inputEmail
