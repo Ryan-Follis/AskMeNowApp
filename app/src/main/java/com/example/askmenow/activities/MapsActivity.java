@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,6 +51,8 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +130,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         // Call the method to prompt the user for their preferences
         showLocationTypeDialog();
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        //preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
+        //preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
 
         /* BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -226,7 +235,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-
+    private void updateLocation(Location location){
+        preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
+        preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        DocumentReference documentReference =
+                database.collection(Constants.KEY_COLLECTION_USERS).document(
+                        preferenceManager.getString(Constants.KEY_USER_ID)
+                );
+        documentReference.update(Constants.KEY_LATITUDE, location.getLatitude());
+        documentReference.update(Constants.KEY_LONGITUDE, location.getLongitude());
+    }
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -244,10 +263,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
+                            updateLocation(lastKnownLocation);
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                preferenceManager = new PreferenceManager(getApplicationContext());
+                                preferenceManager.putString(Constants.KEY_LATITUDE,String.valueOf(lastKnownLocation.getLatitude()));
+                                preferenceManager.putString(Constants.KEY_LONGITUDE,String.valueOf(lastKnownLocation.getLongitude()));
+
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
