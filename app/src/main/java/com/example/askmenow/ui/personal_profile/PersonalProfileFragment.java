@@ -38,11 +38,14 @@ import com.example.askmenow.listeners.DataAccessListener;
 import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -52,6 +55,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,7 +72,7 @@ public class PersonalProfileFragment extends Fragment {
     static int GET_FROM_GALLERY = 1;
     ImageView img;
     int[] images = new int[10];
-    List<Bitmap> bitmaps = new LinkedList<Bitmap>();
+    List<String> bitmaps = new LinkedList<String>();
     Bitmap b;
     DocumentReference doc;
     @Override
@@ -137,10 +141,6 @@ public class PersonalProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getPics(root);
-                try {
-                    doc.update(Constants.KEY_PICS,b);
-                } catch (NullPointerException e) {
-                }
             }
         });
 
@@ -336,6 +336,20 @@ public class PersonalProfileFragment extends Fragment {
             try {
                 img.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage));
                 b = ((BitmapDrawable)img.getDrawable()).getBitmap();
+                Random r = new Random();
+                String path = ((Double)r.nextDouble()).toString();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference ref = storage.getReference();
+                StorageReference ref2 = ref.child(path);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataa = baos.toByteArray();
+                ref2.putBytes(dataa).addOnFailureListener(taskSnapshot ->{
+                    System.out.println("Fail");
+                }).addOnSuccessListener(taskSnapshot -> {
+                    bitmaps.add(ref2.getDownloadUrl().toString());
+                    doc.update(Constants.KEY_PICS,bitmaps);
+                });
             } catch (FileNotFoundException e) {
             } catch (IOException e) {
             }
