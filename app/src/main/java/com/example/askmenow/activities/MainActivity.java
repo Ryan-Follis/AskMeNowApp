@@ -2,12 +2,17 @@ package com.example.askmenow.activities;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,6 +30,11 @@ import com.example.askmenow.ui.profile_hub.SearchResultFragment;
 import com.example.askmenow.ui.profile_hub.SearchUserFragment;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private PreferenceManager preferenceManager;
+    // The below three fields are used for initially updating the user's location
+    // (if permission is granted) upon loading up the app, rather than only explicitly
+    // when they go to the Map feature.
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean locationPermissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
         getToken();
+
+        // Prompt the user for permission.
+        getLocationPermission();
+        // Stores user location information if they gave permission.
+        updateLocationInFirebase();
+
         callFragment(getIntent());
     }
 
@@ -79,6 +100,60 @@ public class MainActivity extends AppCompatActivity {
                 );
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
                 .addOnFailureListener(e -> showToast("Unable to update token."));
+    }
+
+    /**
+     * Prompts the user for permission to use the device location.
+     */
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    /**
+     * Gets the current location of the user and stores their latitutde and longitude into Firebase.
+     */
+    private void updateLocationInFirebase() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+            if (locationPermissionGranted) {
+                FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            Location lastKnownLocation = task.getResult();
+                            FirebaseFirestore database = FirebaseFirestore.getInstance();
+                            DocumentReference documentReference =
+                                    database.collection(Constants.KEY_COLLECTION_USERS).document(
+                                            preferenceManager.getString(Constants.KEY_USER_ID)
+                                    );
+                            documentReference.update(Constants.KEY_LATITUDE, lastKnownLocation.getLatitude());
+                            documentReference.update(Constants.KEY_LONGITUDE, lastKnownLocation.getLongitude());
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage(), e);
+        }
     }
 
     // Added by Letong

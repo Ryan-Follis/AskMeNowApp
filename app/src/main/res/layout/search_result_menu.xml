@@ -36,15 +36,15 @@
     vecteezy.com
     -->
     <ImageButton
-        android:id="@+id/remember_user"
+        android:id="@+id/like_user"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_toStartOf="@id/send_dm"
         android:background="@color/white"
-        android:contentDescription="remember user"
+        android:contentDescription="like user"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/remembered" />
+        app:srcCompat="@drawable/like" />
 
     <!--image attribution:
     <a href="https://www.flaticon.com/free-icons/comment" title="comment icons">Comment icons created by Freepik - Flaticon</a>

@@ -56,16 +56,8 @@
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\fragment_search_user.xml"
     },
     {
-        "merged": "com.example.askmenow.app-mergeDebugResources-54:/layout/activity_chat.xml",
-        "source": "com.example.askmenow.app-main-57:/layout/activity_chat.xml"
-    },
-    {
-        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\fragment_map.xml",
-        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\fragment_map.xml"
-    },
-    {
-        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\map_back_button.xml",
-        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\map_back_button.xml"
+        "merged": "com.example.askmenow.app-mergeDebugResources-54:/layout/top_toolbar.xml",
+        "source": "com.example.askmenow.app-main-57:/layout/top_toolbar.xml"
     },
     {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\item_container_received_message.xml",
@@ -152,11 +144,11 @@
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\profile.xml"
     },
     {
-        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\item_container_received_answer.xml",
-        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\item_container_received_answer.xml"
-    },
-    {
         "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\top_toolbar.xml",
         "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\top_toolbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-mergeDebugResources-54:\\layout\\item_container_received_answer.xml",
+        "source": "C:\\Users\\ryanf\\.gradle\\daemon\\7.6\\com.example.askmenow.app-main-57:\\layout\\item_container_received_answer.xml"
     }
 ]

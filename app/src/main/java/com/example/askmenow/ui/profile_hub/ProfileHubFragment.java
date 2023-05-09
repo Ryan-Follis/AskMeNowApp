@@ -17,6 +17,7 @@ import com.example.askmenow.firebase.RememberListOperations;
 import com.example.askmenow.models.User;
 import com.example.askmenow.adapters.ProfileAdapter;
 import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.LocationChecker;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -64,8 +65,10 @@ public class ProfileHubFragment extends Fragment {
             // get remember list
             RememberListOperations.getRememberList(params1 -> {
                 List<User> resultList = (List<User>) params1[0];
+                List<User> closeList = LocationChecker.usersInArea(self, resultList, 10);
                 rememberList = new ArrayList<>();
-                for (User user : resultList)
+                // for (User user : resultList)
+                for(User user : closeList)
                     rememberList.add(user.id);
             });
         });
@@ -80,13 +83,13 @@ public class ProfileHubFragment extends Fragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 // update remember
-                ImageButton remember = getActivity().findViewById(R.id.remember_user);
+                ImageButton remember = getActivity().findViewById(R.id.like_user);
                 currentPos = position;
                 if (rememberList != null && rememberList.contains(users.get(position).id)) {
-                    remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                    remember.setImageResource(R.drawable.dislike); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> forgetListener(remember, users.get(position)));
                 } else {
-                    remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                    remember.setImageResource(R.drawable.like); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> rememberListener(remember, users.get(position)));
                 }
             }
@@ -150,14 +153,14 @@ public class ProfileHubFragment extends Fragment {
 
     private void rememberListener(ImageButton remember, User user) {
         RememberListOperations.rememberUser(user.id);
-        remember.setImageResource(R.drawable.remembered);
+        remember.setImageResource(R.drawable.dislike);
         remember.setOnClickListener(v -> forgetListener(remember, user));
         rememberList.add(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
-        remember.setImageResource(R.drawable.remember);
+        remember.setImageResource(R.drawable.like);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         rememberList.remove(user.id);
     }

@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
 import com.example.askmenow.databinding.ActivityMainBinding;
+import com.example.askmenow.utilities.Constants;
+import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,6 +51,8 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,6 +72,7 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private ActivityMapsBinding binding;
+    private PreferenceManager preferenceManager;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -125,6 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         // Call the method to prompt the user for their preferences
         showLocationTypeDialog();
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
         /* BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -223,8 +229,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-
-
     }
 
     /**
@@ -244,6 +248,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
+                            // updateLocation(lastKnownLocation);
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
