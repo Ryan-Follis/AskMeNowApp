@@ -71,12 +71,6 @@ public class CustomInfoWindow extends AppCompatActivity {
                             public void onSuccess(DocumentReference documentReference) {
                                 System.out.println("SUCCESS");
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                System.out.println("FAILURE");
-                            }
                         });
             }
 
@@ -103,12 +97,6 @@ public class CustomInfoWindow extends AppCompatActivity {
                             Comment comment = documentSnapshot.toObject(Comment.class);
                             adapter.addComment(comment.getText());
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("FAILURE");
                     }
                 });
     }
