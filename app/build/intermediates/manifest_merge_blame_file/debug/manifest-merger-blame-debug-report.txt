@@ -182,8 +182,8 @@
 106-->C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:68:13-56
 107        <activity
 107-->C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:69:9-76:20
-108            android:name="com.example.askmenow.activities.CustomInfoWindowAdapter"
-108-->C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:70:13-63
+108            android:name="com.example.askmenow.activities.CustomInfoWindow"
+108-->C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:70:13-56
 109            android:exported="true"
 109-->C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:71:13-36
 110            android:label="@string/title_activity_maps" >

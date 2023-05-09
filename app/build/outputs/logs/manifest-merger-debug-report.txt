@@ -22,12 +22,13 @@ MERGED from [com.google.android.gms:play-services-maps:18.1.0] C:\Users\Layal kh
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\58af7b0c8ee5e3ffb2c37a9a3b03cce2\transformed\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-storage-ktx:20.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\2c552803d264243f3edd8f622f7460bb\transformed\firebase-storage-ktx-20.1.0\AndroidManifest.xml:2:1-20:12
 MERGED from [com.google.firebase:firebase-storage:20.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\346363babfa4269a88d83ccaec8b022d\transformed\firebase-storage-20.1.0\AndroidManifest.xml:15:1-38:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.2.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\111553da7c4ce243875c127dc1ae1155\transformed\recyclerview-1.2.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\83acbd64f7b1c87e82b2a8b24b3f55c8\transformed\lifecycle-livedata-ktx-2.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-fragment:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\adc8be7d75b24a37619aed2101472604\transformed\navigation-fragment-2.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.fragment:fragment-ktx:1.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\ed9b40db54d4e9b4dd6dcdf171042331\transformed\fragment-ktx-1.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-runtime:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\eb5be88619a95bd7e43efbf2273398e0\transformed\navigation-runtime-2.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-common:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\a5f3fff79151c0058985ec80bb6c41c0\transformed\navigation-common-2.4.1\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-messaging:23.1.2] C:\Users\Layal khreis\.gradle\caches\transforms-3\60df8a509b94aafb7c5b0a7cdc85016c\transformed\firebase-messaging-23.1.2\AndroidManifest.xml:17:1-61:12
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\1e8cd4c8a9953c3f2506320051ed4a3a\transformed\play-services-location-20.0.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-firestore-ktx:24.4.5] C:\Users\Layal khreis\.gradle\caches\transforms-3\112e4f7b4339e0bfa511643e217cc025\transformed\firebase-firestore-ktx-24.4.5\AndroidManifest.xml:2:1-20:12
@@ -76,7 +77,6 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Lay
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\2bded62cfb0a11345e01210c7635626d\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.media:media:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\1dfa0b1e3c398a064509332d4bda9658\transformed\media-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\4fab1efe8b3a2bfe808573bb992ed1dc\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\e73e16e5f7d88b0eab257be324f26678\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\54cfc7cd0001fd982cb7f1809b4c385d\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\cf19593fff6deb4526160d6f3c8b3dce\transformed\core-ktx-1.9.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\eb91ddbec729eaabaaa5089bd510cc58\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -277,14 +277,14 @@ ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\sr
 		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:67:13-36
 	android:name
 		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:66:13-52
-activity#com.example.askmenow.activities.CustomInfoWindowAdapter
+activity#com.example.askmenow.activities.CustomInfoWindow
 ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:69:9-76:20
 	android:label
 		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:72:13-56
 	android:exported
 		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:71:13-36
 	android:name
-		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:70:13-63
+		ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:70:13-56
 intent-filter#action:name:android.intent.action.INFO
 ADDED from C:\Users\Layal khreis\AndroidStudioProjects\AMN_Map - Copy (2)\app\src\main\AndroidManifest.xml:73:13-75:29
 action#android.intent.action.INFO
@@ -329,6 +329,10 @@ MERGED from [com.google.firebase:firebase-storage-ktx:20.1.0] C:\Users\Layal khr
 MERGED from [com.google.firebase:firebase-storage-ktx:20.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\2c552803d264243f3edd8f622f7460bb\transformed\firebase-storage-ktx-20.1.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-storage:20.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\346363babfa4269a88d83ccaec8b022d\transformed\firebase-storage-20.1.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.firebase:firebase-storage:20.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\346363babfa4269a88d83ccaec8b022d\transformed\firebase-storage-20.1.0\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.2.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\111553da7c4ce243875c127dc1ae1155\transformed\recyclerview-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.2.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\111553da7c4ce243875c127dc1ae1155\transformed\recyclerview-1.2.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\83acbd64f7b1c87e82b2a8b24b3f55c8\transformed\lifecycle-livedata-ktx-2.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\83acbd64f7b1c87e82b2a8b24b3f55c8\transformed\lifecycle-livedata-ktx-2.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.navigation:navigation-fragment:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\adc8be7d75b24a37619aed2101472604\transformed\navigation-fragment-2.4.1\AndroidManifest.xml:20:5-22:41
@@ -339,8 +343,6 @@ MERGED from [androidx.navigation:navigation-runtime:2.4.1] C:\Users\Layal khreis
 MERGED from [androidx.navigation:navigation-runtime:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\eb5be88619a95bd7e43efbf2273398e0\transformed\navigation-runtime-2.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.navigation:navigation-common:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\a5f3fff79151c0058985ec80bb6c41c0\transformed\navigation-common-2.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.navigation:navigation-common:2.4.1] C:\Users\Layal khreis\.gradle\caches\transforms-3\a5f3fff79151c0058985ec80bb6c41c0\transformed\navigation-common-2.4.1\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\77d38362f057b3bac84f89a8f25773cc\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-messaging:23.1.2] C:\Users\Layal khreis\.gradle\caches\transforms-3\60df8a509b94aafb7c5b0a7cdc85016c\transformed\firebase-messaging-23.1.2\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-messaging:23.1.2] C:\Users\Layal khreis\.gradle\caches\transforms-3\60df8a509b94aafb7c5b0a7cdc85016c\transformed\firebase-messaging-23.1.2\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-location:20.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\1e8cd4c8a9953c3f2506320051ed4a3a\transformed\play-services-location-20.0.0\AndroidManifest.xml:5:5-44
@@ -437,8 +439,6 @@ MERGED from [androidx.media:media:1.0.0] C:\Users\Layal khreis\.gradle\caches\tr
 MERGED from [androidx.media:media:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\1dfa0b1e3c398a064509332d4bda9658\transformed\media-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\4fab1efe8b3a2bfe808573bb992ed1dc\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\4fab1efe8b3a2bfe808573bb992ed1dc\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\e73e16e5f7d88b0eab257be324f26678\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\e73e16e5f7d88b0eab257be324f26678\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\54cfc7cd0001fd982cb7f1809b4c385d\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\54cfc7cd0001fd982cb7f1809b4c385d\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.core:core-ktx:1.9.0] C:\Users\Layal khreis\.gradle\caches\transforms-3\cf19593fff6deb4526160d6f3c8b3dce\transformed\core-ktx-1.9.0\AndroidManifest.xml:5:5-44

@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
-import com.example.askmenow.activities.CustomInfoWindowAdapter;
+import com.example.askmenow.activities.CustomInfoWindow;
 import com.example.askmenow.databinding.ActivityMainBinding;
 import com.example.askmenow.databinding.FragmentMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;

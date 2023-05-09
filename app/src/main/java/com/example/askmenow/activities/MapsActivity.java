@@ -498,7 +498,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             public void onInfoWindowClick(Marker marker) {
                                 Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
+                                Intent intent = new Intent(MapsActivity.this, CustomInfoWindow.class);
                                 intent.putExtra("MARKERNAME", marker.getTitle());
                                 intent.putExtra("MARKERADDR", marker.getSnippet());
                                 MapsActivity.this.startActivity(intent);

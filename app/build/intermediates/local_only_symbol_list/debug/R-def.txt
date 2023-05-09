@@ -71,11 +71,14 @@ id age
 id ageField
 id answer_name
 id answer_text
+id answers_list
 id auto
 id buttonSignIn
 id buttonSignUp
 id changepassword
 id chatRecyclerView
+id comment_text
+id comment_timestamp
 id container
 id conversationsRecyclerView
 id decline_friend
@@ -141,6 +144,7 @@ id qa_list
 id questions_list
 id questions_title
 id remember_user
+id respond_button
 id response_text
 id search_result_list
 id search_user
@@ -150,7 +154,6 @@ id send_dm
 id show_interest
 id signout
 id snippet
-id test
 id textAddImage
 id textAvailability
 id textCreateNewAccount
@@ -197,6 +200,7 @@ layout item_container_user
 layout list
 layout list_container
 layout marker_info_window
+layout marker_item
 layout pic
 layout pic_container
 layout popup
