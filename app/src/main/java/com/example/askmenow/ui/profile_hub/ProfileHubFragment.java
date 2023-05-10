@@ -80,13 +80,13 @@ public class ProfileHubFragment extends Fragment {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 // update remember
-                ImageButton remember = getActivity().findViewById(R.id.remember_user);
+                ImageButton remember = getActivity().findViewById(R.id.like_user);
                 currentPos = position;
                 if (rememberList != null && rememberList.contains(users.get(position).id)) {
-                    remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                    remember.setImageResource(R.drawable.dislike); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> forgetListener(remember, users.get(position)));
                 } else {
-                    remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                    remember.setImageResource(R.drawable.like); // image attribution Vecteezy.com
                     remember.setOnClickListener(v -> rememberListener(remember, users.get(position)));
                 }
             }
@@ -150,14 +150,14 @@ public class ProfileHubFragment extends Fragment {
 
     private void rememberListener(ImageButton remember, User user) {
         RememberListOperations.rememberUser(user.id);
-        remember.setImageResource(R.drawable.remembered);
+        remember.setImageResource(R.drawable.dislike);
         remember.setOnClickListener(v -> forgetListener(remember, user));
         rememberList.add(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
-        remember.setImageResource(R.drawable.remember);
+        remember.setImageResource(R.drawable.like);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         rememberList.remove(user.id);
     }

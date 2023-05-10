@@ -64,8 +64,6 @@ drawable ic_send
 drawable interest_button
 drawable like
 drawable photo
-drawable remember
-drawable remembered
 drawable ret
 drawable search
 drawable selected_dot
@@ -90,6 +88,7 @@ id container
 id conversationsRecyclerView
 id decline_friend
 id delete
+id dislike_user
 id drop
 id forgot
 id friend_request
@@ -106,6 +105,7 @@ id interest_popup
 id interests
 id layoutImage
 id layoutSend
+id like_user
 id list_container
 id load
 id load_image
@@ -149,7 +149,6 @@ id qa_input
 id qa_list
 id questions_list
 id questions_title
-id remember_user
 id respond_question_button
 id response_text
 id search_result_list

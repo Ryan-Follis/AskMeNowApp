@@ -3,6 +3,7 @@ package com.example.askmenow.ui.profile_hub;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +106,7 @@ public class SearchResultFragment extends Fragment {
 
         // set up buttons
         ImageButton retProfileHub = root.findViewById(R.id.profile_hub);
-        ImageButton remember = root.findViewById(R.id.remember_user);
+        ImageButton remember = root.findViewById(R.id.like_user);
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         retProfileHub.setOnClickListener((View v)->getActivity().onBackPressed());
         sendDM.setOnClickListener((View v)-> {
@@ -138,7 +139,7 @@ public class SearchResultFragment extends Fragment {
                             button.setLayoutParams(new FlexboxLayout.LayoutParams(
                                     FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT));
                             button.setText(interest);
-                            button.setTextColor(R.color.black);
+                            button.setTextColor(Color.parseColor("#000000"));
                             button.setBackgroundResource(R.drawable.interest_button);
                             button.setOnClickListener(v -> {
 
@@ -153,10 +154,10 @@ public class SearchResultFragment extends Fragment {
                 RememberListOperations.remembered(user.id, params1 -> {
                     Boolean result = (Boolean) params1[0];
                     if (result) {
-                        remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
+                        remember.setImageResource(R.drawable.dislike); // image attribution Vecteezy.com
                         remember.setOnClickListener(v -> forgetListener(remember, user));
                     } else {
-                        remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
+                        remember.setImageResource(R.drawable.like); // image attribution Vecteezy.com
                         remember.setOnClickListener(v -> rememberListener(remember, user));
                     }
                 });
@@ -200,14 +201,14 @@ public class SearchResultFragment extends Fragment {
 
     private void rememberListener(ImageButton remember, User user) {
         RememberListOperations.rememberUser(user.id);
-        remember.setImageResource(R.drawable.remembered);
+        remember.setImageResource(R.drawable.dislike);
         remember.setOnClickListener(v -> forgetListener(remember, user));
         ProfileHubFragment.rememberUser(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
-        remember.setImageResource(R.drawable.remember);
+        remember.setImageResource(R.drawable.like);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         ProfileHubFragment.forgetUser(user.id);
     }
