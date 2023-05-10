@@ -1,6 +1,5 @@
 package com.example.askmenow.utilities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,15 +18,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-
-
-
-public class LocationChecker  extends AppCompatActivity {
-    private PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
+public class LocationChecker  extends Fragment {
+    private PreferenceManager preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
+    //@Override
+    protected void onCreateView(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        preferenceManager = new PreferenceManager(getApplicationContext());
+        preferenceManager = new PreferenceManager(getActivity().getApplicationContext());
     }
     public List<User> getUsers(){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -57,9 +53,9 @@ public class LocationChecker  extends AppCompatActivity {
                 });
         return users;
     }
-    public List<User> usersInArea(List<User> users, int range){
+    public static List<User> usersInArea(User current, List<User> users, int range){
         //get activity get content and intent
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        //Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
 
 
         //FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -67,8 +63,8 @@ public class LocationChecker  extends AppCompatActivity {
         List<User> usersInRange = new ArrayList<User>(); //Array to hold users in range
 
         //Get original users location
-        double userLat = Double.parseDouble(intent.getStringExtra(Constants.KEY_LATITUDE)); //Get user lat
-        double userLon = Double.parseDouble(intent.getStringExtra(Constants.KEY_LONGITUDE)); //Get user long
+        double userLat = current.latitude; //Get user lat
+        double userLon = current.longitude; //Get user long
 
         //loop through all users and see if their location is within radius
         double newUserLat;
@@ -77,6 +73,9 @@ public class LocationChecker  extends AppCompatActivity {
         for(int i =0; i < users.size(); i++){
             newUserLat = users.get(i).latitude;
             newUserLon = users.get(i).longitude;
+            //if(newUserLat || newUserLon!=null){
+
+            //}
             double lat = degToRad(newUserLat-userLat);
             double lon = degToRad(newUserLon-userLon);
             double lat1 = degToRad(userLat);
@@ -98,6 +97,7 @@ public class LocationChecker  extends AppCompatActivity {
     }
     Calendar c = Calendar.getInstance();
     int day = c.get(Calendar.DAY_OF_WEEK) - 1;
+    /*
     public void setUsersReputationForDay(int day){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
@@ -139,6 +139,6 @@ public class LocationChecker  extends AppCompatActivity {
         }
         return usersInRange;
     }
-
+    */
 
 }
