@@ -43,6 +43,7 @@ drawable comment
 drawable dislike
 drawable dot_container
 drawable friends
+drawable heart
 drawable ic_add
 drawable ic_ask_question
 drawable ic_back
@@ -63,6 +64,8 @@ drawable ic_send
 drawable interest_button
 drawable like
 drawable photo
+drawable remember
+drawable remembered
 drawable ret
 drawable search
 drawable selected_dot
@@ -103,7 +106,6 @@ id interest_popup
 id interests
 id layoutImage
 id layoutSend
-id like_user
 id list_container
 id load
 id load_image
@@ -147,7 +149,8 @@ id qa_input
 id qa_list
 id questions_list
 id questions_title
-id respond_button
+id remember_user
+id respond_question_button
 id response_text
 id search_result_list
 id search_user

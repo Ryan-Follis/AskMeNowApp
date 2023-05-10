@@ -105,7 +105,7 @@ public class SearchResultFragment extends Fragment {
 
         // set up buttons
         ImageButton retProfileHub = root.findViewById(R.id.profile_hub);
-        ImageButton remember = root.findViewById(R.id.like_user);
+        ImageButton remember = root.findViewById(R.id.remember_user);
         ImageButton sendDM = root.findViewById(R.id.send_dm);
         retProfileHub.setOnClickListener((View v)->getActivity().onBackPressed());
         sendDM.setOnClickListener((View v)-> {
@@ -153,10 +153,10 @@ public class SearchResultFragment extends Fragment {
                 RememberListOperations.remembered(user.id, params1 -> {
                     Boolean result = (Boolean) params1[0];
                     if (result) {
-                        remember.setImageResource(R.drawable.dislike); // image attribution Vecteezy.com
+                        remember.setImageResource(R.drawable.remembered); // image attribution Vecteezy.com
                         remember.setOnClickListener(v -> forgetListener(remember, user));
                     } else {
-                        remember.setImageResource(R.drawable.like); // image attribution Vecteezy.com
+                        remember.setImageResource(R.drawable.remember); // image attribution Vecteezy.com
                         remember.setOnClickListener(v -> rememberListener(remember, user));
                     }
                 });
@@ -200,14 +200,14 @@ public class SearchResultFragment extends Fragment {
 
     private void rememberListener(ImageButton remember, User user) {
         RememberListOperations.rememberUser(user.id);
-        remember.setImageResource(R.drawable.dislike);
+        remember.setImageResource(R.drawable.remembered);
         remember.setOnClickListener(v -> forgetListener(remember, user));
         ProfileHubFragment.rememberUser(user.id);
     }
 
     private void forgetListener(ImageButton remember, User user) {
         RememberListOperations.forgetUser(user.id);
-        remember.setImageResource(R.drawable.like);
+        remember.setImageResource(R.drawable.remember);
         remember.setOnClickListener(v -> rememberListener(remember, user));
         ProfileHubFragment.forgetUser(user.id);
     }

@@ -39,6 +39,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
+
     <EditText
         android:id="@+id/response_text"
         android:layout_width="match_parent"

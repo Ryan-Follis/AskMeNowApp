@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
-import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,7 +56,6 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private ActivityMapsBinding binding;
-    private PreferenceManager preferenceManager;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -115,7 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         // Call the method to prompt the user for their preferences
         showLocationTypeDialog();
-        preferenceManager = new PreferenceManager(getApplicationContext());
 
         /* BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -214,6 +211,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+
     }
 
     /**
@@ -233,7 +232,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
-                            // updateLocation(lastKnownLocation);
                             if (lastKnownLocation != null) {
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
@@ -487,12 +485,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             @Override
                             public void onInfoWindowClick(Marker marker) {
                                 Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
-                                while(!onInfoWindowClose(marker)) {
-                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindow.class);
-                                    intent.putExtra("MARKERNAME", name);
-                                    intent.putExtra("MARKERADDR", address);
-                                    MapsActivity.this.startActivity(intent);
-                                }
+                                Intent intent = new Intent(MapsActivity.this, CustomInfoWindow.class);
+                                intent.putExtra("MARKERNAME", marker.getTitle());
+                                intent.putExtra("MARKERADDR", marker.getSnippet());
+                                MapsActivity.this.startActivity(intent);
                             }
                             public boolean onInfoWindowClose(Marker marker) {
                                 Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window close!", Toast.LENGTH_SHORT).show();

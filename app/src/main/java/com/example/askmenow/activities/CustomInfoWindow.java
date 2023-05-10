@@ -1,5 +1,6 @@
 package com.example.askmenow.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -59,7 +60,6 @@ public class CustomInfoWindow extends AppCompatActivity {
                     adapter.addComment(text);
                     editText.setText("");
                 }
-
 
                 Map<String, Object> comment = new HashMap<>();
                 comment.put("text", text);

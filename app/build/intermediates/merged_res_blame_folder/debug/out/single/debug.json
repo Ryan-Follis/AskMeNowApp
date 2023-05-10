@@ -156,6 +156,10 @@
         "source": "com.example.askmenow.app-main-57:/layout/interest_popup.xml"
     },
     {
+        "merged": "com.example.askmenow.app-merged_res-55:/drawable_remember.jpg.flat",
+        "source": "com.example.askmenow.app-main-57:/drawable/remember.jpg"
+    },
+    {
         "merged": "com.example.askmenow.app-merged_res-55:/drawable_search.png.flat",
         "source": "com.example.askmenow.app-main-57:/drawable/search.png"
     },
@@ -194,6 +198,10 @@
     {
         "merged": "com.example.askmenow.app-merged_res-55:/layout_fragment_search_result.xml.flat",
         "source": "com.example.askmenow.app-main-57:/layout/fragment_search_result.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-merged_res-55:/drawable_remembered.jpg.flat",
+        "source": "com.example.askmenow.app-main-57:/drawable/remembered.jpg"
     },
     {
         "merged": "com.example.askmenow.app-merged_res-55:/drawable_ic_launcher.xml.flat",
@@ -302,6 +310,10 @@
     {
         "merged": "com.example.askmenow.app-merged_res-55:/drawable_ic_baseline_message_24.xml.flat",
         "source": "com.example.askmenow.app-main-57:/drawable/ic_baseline_message_24.xml"
+    },
+    {
+        "merged": "com.example.askmenow.app-merged_res-55:/drawable_heart.png.flat",
+        "source": "com.example.askmenow.app-main-57:/drawable/heart.png"
     },
     {
         "merged": "com.example.askmenow.app-merged_res-55:/layout_activity_sign_up.xml.flat",

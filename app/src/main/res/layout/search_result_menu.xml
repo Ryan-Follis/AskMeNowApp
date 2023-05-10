@@ -33,18 +33,18 @@
     <!--            app:srcCompat="@drawable/friends" />-->
 
     <!--image attribution:
-    <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Freepik - Flaticon</a>
+    vecteezy.com
     -->
     <ImageButton
-        android:id="@+id/like_user"
+        android:id="@+id/remember_user"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_toStartOf="@id/send_dm"
         android:background="@color/white"
-        android:contentDescription="like user"
+        android:contentDescription="remember user"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/like" />
+        app:srcCompat="@drawable/remembered" />
 
     <!--image attribution:
     <a href="https://www.flaticon.com/free-icons/comment" title="comment icons">Comment icons created by Freepik - Flaticon</a>
