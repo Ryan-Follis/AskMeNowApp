@@ -1,5 +1,6 @@
 package com.example.askmenow.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class CustomInfoWindow extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EditText editText;
-    private Button buttonAsk;
+    private Button buttonAsk, buttonAnswer;
     private FirebaseFirestore database;
 
 
@@ -42,6 +43,7 @@ public class CustomInfoWindow extends AppCompatActivity {
         recyclerView = findViewById(R.id.questions_list);
         editText = findViewById(R.id.response_text);
         buttonAsk = findViewById(R.id.send_button);
+        //buttonAnswer = findViewById(R.id.respond_question_button);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         CommentAdapter adapter = new CommentAdapter();
@@ -59,7 +61,6 @@ public class CustomInfoWindow extends AppCompatActivity {
                     adapter.addComment(text);
                     editText.setText("");
                 }
-
 
                 Map<String, Object> comment = new HashMap<>();
                 comment.put("text", text);

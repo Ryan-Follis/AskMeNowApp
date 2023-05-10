@@ -144,7 +144,7 @@ id qa_list
 id questions_list
 id questions_title
 id remember_user
-id respond_button
+id respond_question_button
 id response_text
 id search_result_list
 id search_user

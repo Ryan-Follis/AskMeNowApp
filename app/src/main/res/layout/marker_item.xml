@@ -34,7 +34,7 @@
         android:textSize="10sp" />
 
     <Button
-        android:id="@+id/respond_button"
+        android:id="@+id/respond_question_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Respond"
