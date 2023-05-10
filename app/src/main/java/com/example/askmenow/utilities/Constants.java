@@ -46,7 +46,7 @@ public class Constants {
 
     public static final long ASKING_QUESTION = 1;
     public static final long ANSWERING_QUESTION = 2;
-    public static final long IMAGE_MAX_SIZE = 3145728; // in byte. this is 3mb.
+    public static final long IMAGE_MAX_SIZE = 1024 * 1024 * 10; // in byte. this is 10mb.
 
     public static final String KEY_ANSWER_ID = "id";
     public static final String KEY_ANSWER_CONTENT = "answer";

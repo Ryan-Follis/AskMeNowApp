@@ -6,6 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.personal_profile.PersonalProfileFragment">
+    <Button
+        android:id="@+id/addpic"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/baseline_arrow_circle_up_24">
+    </Button>
     <HorizontalScrollView
         android:id="@+id/pictures"
         android:layout_alignParentLeft="true"

@@ -1,16 +1,20 @@
 package com.example.askmenow.ui.personal_profile;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,29 +24,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import com.example.askmenow.R;
 import com.example.askmenow.activities.MainActivity;
 import com.example.askmenow.activities.SignInActivity;
 import com.example.askmenow.databinding.FragmentPersonalProfileBinding;
 import com.example.askmenow.firebase.DataAccess;
-import com.example.askmenow.listeners.DataAccessListener;
-import com.example.askmenow.models.User;
 import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 public class PersonalProfileFragment extends Fragment {
     private FragmentPersonalProfileBinding binding;
@@ -52,6 +58,13 @@ public class PersonalProfileFragment extends Fragment {
     String[] dropdownMenu = {"Everyone", "Friends Only", "Only Me"};
     AutoCompleteTextView auto;
     ArrayAdapter<String> adapter;
+    private final DataAccess da = new DataAccess();
+    static int GET_FROM_GALLERY = 1;
+    ImageView img;
+    int[] images = new int[10];
+    List<String> bitmaps = new LinkedList<String>();
+    Bitmap b;
+    DocumentReference doc;
     private AlertDialog.Builder dBuilder;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -110,6 +123,15 @@ public class PersonalProfileFragment extends Fragment {
                 deleteProfile();
             }
         });
+
+        Button addPic = root.findViewById(R.id.addpic);
+        addPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPics(root);
+            }
+        });
+
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         EditText nameIn = root.findViewById(R.id.usernameField);
         EditText ageIn = root.findViewById(R.id.ageField);
@@ -309,4 +331,153 @@ public class PersonalProfileFragment extends Fragment {
         return matcher.matches();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            try {
+                img.setImageBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage));
+                b = ((BitmapDrawable)img.getDrawable()).getBitmap();
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference ref = storage.getReference();
+                StorageReference ref2 = ref.child("user_pics/"+DataAccess.getSelf().id+"/"+getFileName(selectedImage));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] dataa = baos.toByteArray();
+                ref2.putBytes(dataa).addOnFailureListener(taskSnapshot ->{
+                    Toast.makeText(getActivity(), "Picture too large. Max picture size: 10MB", Toast.LENGTH_SHORT).show();
+                }).addOnSuccessListener(taskSnapshot -> {
+                    ref2.getDownloadUrl().addOnCompleteListener(task -> {
+                        if (DataAccess.checkResult(task)) {
+                            String url = task.getResult().toString();
+                            bitmaps.add(url);
+                            da.addToArray(Constants.KEY_COLLECTION_USERS, DataAccess.getSelf().id, Constants.KEY_PICS, url, params -> {});
+                            // doc.update(Constants.KEY_PICS,bitmaps);
+                        }
+                    });
+                });
+            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public void getPics(View root){
+        int i;
+        for(i = 0;i<10 ;i++){
+            if(images[i]==0){
+                images[i] = 1;
+                break;
+            } else if (i==9) {
+                i = 10;
+            }
+        }
+        if(i==0){
+            img = root.findViewById(R.id.pic1);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==1){
+            img = root.findViewById(R.id.pic2);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==2){
+            img = root.findViewById(R.id.pic3);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==3){
+            img = root.findViewById(R.id.pic4);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==4){
+            img = root.findViewById(R.id.pic5);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==5){
+            img = root.findViewById(R.id.pic6);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==6){
+            img = root.findViewById(R.id.pic7);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==7){
+            img = root.findViewById(R.id.pic8);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==8){
+            img = root.findViewById(R.id.pic9);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+        else if(i ==9){
+            img = root.findViewById(R.id.pic10);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), GET_FROM_GALLERY);
+            onActivityResult(GET_FROM_GALLERY,1,intent);
+        }
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                assert cursor != null;
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
 }
