@@ -4,10 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,14 +16,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.askmenow.BuildConfig;
 import com.example.askmenow.R;
-import com.example.askmenow.databinding.ActivityMainBinding;
-import com.example.askmenow.utilities.Constants;
 import com.example.askmenow.utilities.PreferenceManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -35,7 +28,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -50,24 +42,17 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -503,7 +488,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             public void onInfoWindowClick(Marker marker) {
                                 Toast.makeText(MapsActivity.this, marker.getTitle() +"'s window clicked!", Toast.LENGTH_SHORT).show();
                                 while(!onInfoWindowClose(marker)) {
-                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindowAdapter.class);
+                                    Intent intent = new Intent(MapsActivity.this, CustomInfoWindow.class);
                                     intent.putExtra("MARKERNAME", name);
                                     intent.putExtra("MARKERADDR", address);
                                     MapsActivity.this.startActivity(intent);

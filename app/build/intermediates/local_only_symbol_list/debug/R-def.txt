@@ -73,6 +73,7 @@ id age
 id ageField
 id answer_name
 id answer_text
+id answers_list
 id askQuestion
 id ask_question
 id auto
@@ -80,6 +81,8 @@ id buttonSignIn
 id buttonSignUp
 id changepassword
 id chatRecyclerView
+id comment_text
+id comment_timestamp
 id container
 id conversationsRecyclerView
 id decline_friend
@@ -142,9 +145,10 @@ id profile_hub
 id progressBar
 id qa_input
 id qa_list
-id question_text
 id questions_list
 id questions_title
+id respond_button
+id response_text
 id search_result_list
 id search_user
 id send_answer
@@ -203,6 +207,7 @@ layout item_container_user
 layout list
 layout list_container
 layout marker_info_window
+layout marker_item
 layout pic
 layout pic_container
 layout popup

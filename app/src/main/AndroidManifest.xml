@@ -67,7 +67,7 @@
             android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".activities.CustomInfoWindowAdapter"
+            android:name=".activities.CustomInfoWindow"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>
